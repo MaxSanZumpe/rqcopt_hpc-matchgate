@@ -1,0 +1,407 @@
+[
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -DMPI -DSTATEVECTOR_PARALLELIZATION -DTRANSLATIONAL_INVARIANCE -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mpi/2019.12.320-gcc-wx7cjlg/compilers_and_libraries_2020.4.320/linux/mpi/intel64/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/hubbard2d.exe.dir/src/matchgate.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/matchgate.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/matchgate.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -DMPI -DSTATEVECTOR_PARALLELIZATION -DTRANSLATIONAL_INVARIANCE -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mpi/2019.12.320-gcc-wx7cjlg/compilers_and_libraries_2020.4.320/linux/mpi/intel64/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/hubbard2d.exe.dir/src/util.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/util.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/util.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -DMPI -DSTATEVECTOR_PARALLELIZATION -DTRANSLATIONAL_INVARIANCE -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mpi/2019.12.320-gcc-wx7cjlg/compilers_and_libraries_2020.4.320/linux/mpi/intel64/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/hubbard2d.exe.dir/src/gate.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/gate.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/gate.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -DMPI -DSTATEVECTOR_PARALLELIZATION -DTRANSLATIONAL_INVARIANCE -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mpi/2019.12.320-gcc-wx7cjlg/compilers_and_libraries_2020.4.320/linux/mpi/intel64/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/hubbard2d.exe.dir/src/statevector.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/statevector.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/statevector.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -DMPI -DSTATEVECTOR_PARALLELIZATION -DTRANSLATIONAL_INVARIANCE -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mpi/2019.12.320-gcc-wx7cjlg/compilers_and_libraries_2020.4.320/linux/mpi/intel64/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/hubbard2d.exe.dir/src/quantum_circuit.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/quantum_circuit.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/quantum_circuit.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -DMPI -DSTATEVECTOR_PARALLELIZATION -DTRANSLATIONAL_INVARIANCE -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mpi/2019.12.320-gcc-wx7cjlg/compilers_and_libraries_2020.4.320/linux/mpi/intel64/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/hubbard2d.exe.dir/src/matchgate_brickwall.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/matchgate_brickwall.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/matchgate_brickwall.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -DMPI -DSTATEVECTOR_PARALLELIZATION -DTRANSLATIONAL_INVARIANCE -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mpi/2019.12.320-gcc-wx7cjlg/compilers_and_libraries_2020.4.320/linux/mpi/intel64/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/hubbard2d.exe.dir/src/matchgate_target.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/matchgate_target.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/matchgate_target.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -DMPI -DSTATEVECTOR_PARALLELIZATION -DTRANSLATIONAL_INVARIANCE -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mpi/2019.12.320-gcc-wx7cjlg/compilers_and_libraries_2020.4.320/linux/mpi/intel64/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/hubbard2d.exe.dir/src/mg_brickwall_opt.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/mg_brickwall_opt.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/mg_brickwall_opt.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -DMPI -DSTATEVECTOR_PARALLELIZATION -DTRANSLATIONAL_INVARIANCE -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mpi/2019.12.320-gcc-wx7cjlg/compilers_and_libraries_2020.4.320/linux/mpi/intel64/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/hubbard2d.exe.dir/src/trust_region.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/trust_region.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/trust_region.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -DMPI -DSTATEVECTOR_PARALLELIZATION -DTRANSLATIONAL_INVARIANCE -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mpi/2019.12.320-gcc-wx7cjlg/compilers_and_libraries_2020.4.320/linux/mpi/intel64/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/hubbard2d.exe.dir/examples/hubbard2d/hubbard2d.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/hubbard2d/hubbard2d.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/hubbard2d/hubbard2d.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -DMPI -DSTATEVECTOR_PARALLELIZATION -DTRANSLATIONAL_INVARIANCE -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mpi/2019.12.320-gcc-wx7cjlg/compilers_and_libraries_2020.4.320/linux/mpi/intel64/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/hubbard2d.exe.dir/examples/timing/timing.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing/timing.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing/timing.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/run_tests.exe.dir/src/matchgate.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/matchgate.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/matchgate.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/run_tests.exe.dir/src/util.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/util.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/util.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/run_tests.exe.dir/src/gate.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/gate.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/gate.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/run_tests.exe.dir/src/statevector.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/statevector.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/statevector.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/run_tests.exe.dir/src/quantum_circuit.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/quantum_circuit.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/quantum_circuit.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/run_tests.exe.dir/src/matchgate_brickwall.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/matchgate_brickwall.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/matchgate_brickwall.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/run_tests.exe.dir/src/matchgate_target.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/matchgate_target.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/matchgate_target.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/run_tests.exe.dir/src/mg_brickwall_opt.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/mg_brickwall_opt.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/mg_brickwall_opt.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/run_tests.exe.dir/src/trust_region.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/trust_region.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/trust_region.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/run_tests.exe.dir/test/test_matchgate.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/test/test_matchgate.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/test/test_matchgate.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/run_tests.exe.dir/test/test_gate.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/test/test_gate.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/test/test_gate.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/run_tests.exe.dir/test/numerical_gradient.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/test/numerical_gradient.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/test/numerical_gradient.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/run_tests.exe.dir/test/test_matchgate_brickwall.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/test/test_matchgate_brickwall.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/test/test_matchgate_brickwall.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/run_tests.exe.dir/test/test_matchgate_target.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/test/test_matchgate_target.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/test/test_matchgate_target.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/run_tests.exe.dir/test/run_custom_test.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/test/run_custom_test.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/test/run_custom_test.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/benchmark_serial.exe.dir/src/matchgate.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/matchgate.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/matchgate.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/benchmark_serial.exe.dir/src/util.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/util.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/util.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/benchmark_serial.exe.dir/src/gate.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/gate.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/gate.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/benchmark_serial.exe.dir/src/statevector.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/statevector.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/statevector.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/benchmark_serial.exe.dir/src/quantum_circuit.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/quantum_circuit.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/quantum_circuit.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/benchmark_serial.exe.dir/src/matchgate_brickwall.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/matchgate_brickwall.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/matchgate_brickwall.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/benchmark_serial.exe.dir/src/matchgate_target.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/matchgate_target.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/matchgate_target.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/benchmark_serial.exe.dir/src/mg_brickwall_opt.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/mg_brickwall_opt.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/mg_brickwall_opt.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/benchmark_serial.exe.dir/src/trust_region.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/trust_region.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/trust_region.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/benchmark_serial.exe.dir/benchmark/benchmark_serial.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/benchmark/benchmark_serial.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/benchmark/benchmark_serial.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/benchmark_serial.exe.dir/examples/timing/timing.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing/timing.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing/timing.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -DMPI -DSTATEVECTOR_PARALLELIZATION -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mpi/2019.12.320-gcc-wx7cjlg/compilers_and_libraries_2020.4.320/linux/mpi/intel64/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/benchmark_mpi.exe.dir/src/matchgate.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/matchgate.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/matchgate.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -DMPI -DSTATEVECTOR_PARALLELIZATION -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mpi/2019.12.320-gcc-wx7cjlg/compilers_and_libraries_2020.4.320/linux/mpi/intel64/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/benchmark_mpi.exe.dir/src/util.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/util.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/util.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -DMPI -DSTATEVECTOR_PARALLELIZATION -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mpi/2019.12.320-gcc-wx7cjlg/compilers_and_libraries_2020.4.320/linux/mpi/intel64/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/benchmark_mpi.exe.dir/src/gate.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/gate.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/gate.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -DMPI -DSTATEVECTOR_PARALLELIZATION -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mpi/2019.12.320-gcc-wx7cjlg/compilers_and_libraries_2020.4.320/linux/mpi/intel64/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/benchmark_mpi.exe.dir/src/statevector.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/statevector.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/statevector.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -DMPI -DSTATEVECTOR_PARALLELIZATION -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mpi/2019.12.320-gcc-wx7cjlg/compilers_and_libraries_2020.4.320/linux/mpi/intel64/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/benchmark_mpi.exe.dir/src/quantum_circuit.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/quantum_circuit.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/quantum_circuit.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -DMPI -DSTATEVECTOR_PARALLELIZATION -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mpi/2019.12.320-gcc-wx7cjlg/compilers_and_libraries_2020.4.320/linux/mpi/intel64/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/benchmark_mpi.exe.dir/src/matchgate_brickwall.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/matchgate_brickwall.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/matchgate_brickwall.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -DMPI -DSTATEVECTOR_PARALLELIZATION -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mpi/2019.12.320-gcc-wx7cjlg/compilers_and_libraries_2020.4.320/linux/mpi/intel64/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/benchmark_mpi.exe.dir/src/matchgate_target.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/matchgate_target.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/matchgate_target.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -DMPI -DSTATEVECTOR_PARALLELIZATION -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mpi/2019.12.320-gcc-wx7cjlg/compilers_and_libraries_2020.4.320/linux/mpi/intel64/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/benchmark_mpi.exe.dir/src/mg_brickwall_opt.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/mg_brickwall_opt.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/mg_brickwall_opt.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -DMPI -DSTATEVECTOR_PARALLELIZATION -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mpi/2019.12.320-gcc-wx7cjlg/compilers_and_libraries_2020.4.320/linux/mpi/intel64/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/benchmark_mpi.exe.dir/src/trust_region.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/trust_region.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/trust_region.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -DMPI -DSTATEVECTOR_PARALLELIZATION -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mpi/2019.12.320-gcc-wx7cjlg/compilers_and_libraries_2020.4.320/linux/mpi/intel64/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/benchmark_mpi.exe.dir/benchmark/benchmark_mpi.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/benchmark/benchmark_mpi.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/benchmark/benchmark_mpi.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -DMPI -DSTATEVECTOR_PARALLELIZATION -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mpi/2019.12.320-gcc-wx7cjlg/compilers_and_libraries_2020.4.320/linux/mpi/intel64/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/benchmark_mpi.exe.dir/examples/timing/timing.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing/timing.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing/timing.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/spinhubbard.exe.dir/src/matchgate.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/matchgate.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/matchgate.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/spinhubbard.exe.dir/src/util.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/util.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/util.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/spinhubbard.exe.dir/src/gate.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/gate.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/gate.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/spinhubbard.exe.dir/src/statevector.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/statevector.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/statevector.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/spinhubbard.exe.dir/src/quantum_circuit.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/quantum_circuit.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/quantum_circuit.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/spinhubbard.exe.dir/src/matchgate_brickwall.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/matchgate_brickwall.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/matchgate_brickwall.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/spinhubbard.exe.dir/src/matchgate_target.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/matchgate_target.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/matchgate_target.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/spinhubbard.exe.dir/src/mg_brickwall_opt.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/mg_brickwall_opt.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/mg_brickwall_opt.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/spinhubbard.exe.dir/src/trust_region.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/trust_region.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/trust_region.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/spinhubbard.exe.dir/examples/spinhubbard/spinhubbard_opt.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/spinhubbard/spinhubbard_opt.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/spinhubbard/spinhubbard_opt.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/spinhubbard.exe.dir/examples/timing/timing.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing/timing.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing/timing.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -DSTATEVECTOR_PARALLELIZATION -DTRANSLATIONAL_INVARIANCE -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/benchmark_multithreading.exe.dir/src/matchgate.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/matchgate.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/matchgate.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -DSTATEVECTOR_PARALLELIZATION -DTRANSLATIONAL_INVARIANCE -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/benchmark_multithreading.exe.dir/src/util.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/util.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/util.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -DSTATEVECTOR_PARALLELIZATION -DTRANSLATIONAL_INVARIANCE -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/benchmark_multithreading.exe.dir/src/gate.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/gate.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/gate.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -DSTATEVECTOR_PARALLELIZATION -DTRANSLATIONAL_INVARIANCE -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/benchmark_multithreading.exe.dir/src/statevector.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/statevector.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/statevector.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -DSTATEVECTOR_PARALLELIZATION -DTRANSLATIONAL_INVARIANCE -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/benchmark_multithreading.exe.dir/src/quantum_circuit.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/quantum_circuit.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/quantum_circuit.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -DSTATEVECTOR_PARALLELIZATION -DTRANSLATIONAL_INVARIANCE -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/benchmark_multithreading.exe.dir/src/matchgate_brickwall.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/matchgate_brickwall.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/matchgate_brickwall.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -DSTATEVECTOR_PARALLELIZATION -DTRANSLATIONAL_INVARIANCE -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/benchmark_multithreading.exe.dir/src/matchgate_target.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/matchgate_target.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/matchgate_target.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -DSTATEVECTOR_PARALLELIZATION -DTRANSLATIONAL_INVARIANCE -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/benchmark_multithreading.exe.dir/src/mg_brickwall_opt.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/mg_brickwall_opt.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/mg_brickwall_opt.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -DSTATEVECTOR_PARALLELIZATION -DTRANSLATIONAL_INVARIANCE -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/benchmark_multithreading.exe.dir/src/trust_region.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/trust_region.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/trust_region.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -DSTATEVECTOR_PARALLELIZATION -DTRANSLATIONAL_INVARIANCE -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/benchmark_multithreading.exe.dir/benchmark/benchmark_threads.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/benchmark/benchmark_threads.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/benchmark/benchmark_threads.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -DSTATEVECTOR_PARALLELIZATION -DTRANSLATIONAL_INVARIANCE -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/benchmark_multithreading.exe.dir/examples/timing/timing.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing/timing.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing/timing.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/hubbard1d.exe.dir/src/matchgate.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/matchgate.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/matchgate.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/hubbard1d.exe.dir/src/util.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/util.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/util.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/hubbard1d.exe.dir/src/gate.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/gate.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/gate.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/hubbard1d.exe.dir/src/statevector.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/statevector.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/statevector.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/hubbard1d.exe.dir/src/quantum_circuit.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/quantum_circuit.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/quantum_circuit.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/hubbard1d.exe.dir/src/matchgate_brickwall.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/matchgate_brickwall.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/matchgate_brickwall.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/hubbard1d.exe.dir/src/matchgate_target.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/matchgate_target.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/matchgate_target.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/hubbard1d.exe.dir/src/mg_brickwall_opt.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/mg_brickwall_opt.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/mg_brickwall_opt.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/hubbard1d.exe.dir/src/trust_region.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/trust_region.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src/trust_region.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/hubbard1d.exe.dir/examples/hubbard1d/hubbard1d_opt.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/hubbard1d/hubbard1d_opt.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/hubbard1d/hubbard1d_opt.c"
+},
+{
+  "directory": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build",
+  "command": "mpicc -DCOMPLEX_CIRCUIT -DH5_BUILT_AS_DYNAMIC_LIB -DLRZ_HPC -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -D_LARGEFILE_SOURCE -D_POSIX_C_SOURCE=200809L -I/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/src -I/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing -isystem /dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/haswell/hdf5/1.10.7-intel-zduqloi/include -O3 -fopenmp -g -o CMakeFiles/hubbard1d.exe.dir/examples/timing/timing.c.o -c /dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing/timing.c",
+  "file": "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/timing/timing.c"
+}
+]

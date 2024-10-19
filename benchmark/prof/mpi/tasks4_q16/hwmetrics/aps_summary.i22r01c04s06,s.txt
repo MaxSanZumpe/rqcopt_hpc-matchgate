@@ -1,0 +1,35 @@
+/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-oneapi-vtune/2021.7.1-gcc-ihh6yuf/vtune/2021.7.1/bin64/vtune -R summary -r /dss/dsshome1/01/ge47gej2/rqcopt_hpc/benchmark/prof/mpi/task4_q16/hwmetrics/results.i22r01c04s06,s.* -q -format csv -csv-delimiter semicolon
+Hierarchy Level;Metric Name;Metric Value
+0;Elapsed Time;431.333599
+1;IPC;1.026902
+1;Average CPU Frequency;2599789972.073654
+1;Total Thread Count;
+1;CPU Time;12036.700409
+0;Effective Physical Core Utilization;96.7% (27.079 out of 28)
+1;Effective Logical Core Utilization;49.8% (27.906 out of 56)
+0;Memory Bound;77.5
+1;Cache Bound;65.1
+1;DRAM Bound;N/A with HT on
+2;DRAM Bandwidth Bound;93.7
+1;NUMA: % of Remote Accesses;3.1
+1;Bandwidth Utilization;
+1;Bandwidth Domain;Platform Maximum;Observed Maximum;Average;% of Elapsed Time with High BW Utilization(%)
+1;DRAM, GB/sec;120.000000;173.078000;110.488604;93.4
+1;DRAM Single-Package, GB/sec;60.000000;114.836000;55.870816;93.7
+1;QPI Outgoing, GB/sec;68.000000;28.858100;2.751718;0.0
+0;PCIe Bandwidth Usage;
+1;Average PCIe Bandwidth by Device;
+1;PCI device;PCI Device Class
+0;Collection and Platform Info;
+1;Application Command Line;./benchmark_mpi.exe 
+1;Operating System;"4.12.14-197.40-default NAME="SLES" VERSION="15-SP1" VERSION_ID="15.1" PRETTY_NAME="SUSE Linux Enterprise Server 15 SP1" ID="sles" ID_LIKE="suse" ANSI_COLOR="0;32" CPE_NAME="cpe:/o:suse:sles:15:sp1""
+1;MPI Process Rank;3
+1;Computer Name;i22r01c04s06
+1;Result Size;3861012
+1;Collection start time;02:40:17 08/09/2024 UTC
+1;Collection stop time;02:47:28 08/09/2024 UTC
+1;Collector Type;Driverless Perf system-wide counting
+1;CPU;
+2;Name;Intel(R) Xeon(R) E5/E7 v3 Processor code named Haswell
+2;Frequency;2599996932
+2;Logical CPU Count;56

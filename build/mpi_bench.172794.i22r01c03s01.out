@@ -1,0 +1,5 @@
+vtune: Warning: Access to /proc/kallsyms file is limited. Consider changing /proc/sys/kernel/kptr_restrict to 0 to enable resolution of OS kernel and kernel module symbols.
+vtune: Warning: Access to /proc/kallsyms file is limited. Consider changing /proc/sys/kernel/kptr_restrict to 0 to enable resolution of OS kernel and kernel module symbols.
+vtune: Warning: Access to /proc/kallsyms file is limited. Consider changing /proc/sys/kernel/kptr_restrict to 0 to enable resolution of OS kernel and kernel module symbols.
+vtune: Warning: Access to /proc/kallsyms file is limited. Consider changing /proc/sys/kernel/kptr_restrict to 0 to enable resolution of OS kernel and kernel module symbols.
+Intel(R) oneAPI VTune(TM) Profiler 2021.7.1 collection completed successfully. Use the "aps --report /dss/dsshome1/01/ge47gej2/rqcopt_hpc/build/../benchmark/prof/mpi/task4_q16/" command to generate textual and HTML reports for the profiling session.
