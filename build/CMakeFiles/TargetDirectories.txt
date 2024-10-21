@@ -1,9 +1,0 @@
-/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build/CMakeFiles/rebuild_cache.dir
-/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build/CMakeFiles/edit_cache.dir
-/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build/CMakeFiles/hubbard2d.exe.dir
-/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build/CMakeFiles/run_tests.exe.dir
-/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build/CMakeFiles/benchmark_serial.exe.dir
-/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build/CMakeFiles/benchmark_mpi.exe.dir
-/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build/CMakeFiles/spinhubbard.exe.dir
-/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build/CMakeFiles/benchmark_multithreading.exe.dir
-/dss/dsshome1/01/ge47gej2/rqcopt_hpc/build/CMakeFiles/hubbard1d.exe.dir
