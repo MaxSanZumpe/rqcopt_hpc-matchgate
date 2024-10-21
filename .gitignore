@@ -39,6 +39,10 @@
 *.idb
 *.pdb
 
+#python cache
+.__pycache__/
+.pyc
+
 # Visual Studio folders
 .vs/
 .build/
