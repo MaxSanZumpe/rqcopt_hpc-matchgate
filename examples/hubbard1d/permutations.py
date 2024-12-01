@@ -94,8 +94,43 @@ def spinless_hubbard_strang_trotter_permutations(splitting_steps, qdim):
     perms_endpoints = [None, even_to_odd_perm]
     perms_step = [interaction_perm, None, even_to_odd_perm, None]
 
-    perms = perms_endpoints+ perms_step*(s-1) + [interaction_perm] + perms_endpoints
+    perms = perms_endpoints + perms_step*(s-1) + [interaction_perm] + perms_endpoints
 
     assert len(perms) == layers, f"got {len(perms)}"
 
     return perms, layers
+
+class permuations:
+    def __init__(self, indices, map):
+        
+        temp_list = []
+        for index in indices:
+            temp_list.append(map[index])
+
+        self.perm_list = temp_list
+
+    @classmethod 
+    def spl_hubbard1d(cls, indices, nqubits):
+        L = nqubits
+
+        even_to_even_perm = None
+        even_to_odd_perm  = np.roll(range(L), -1)
+        
+        map = [even_to_even_perm, even_to_odd_perm]
+
+        return cls(indices, map)
+    
+    @classmethod
+    def hubbard1d(cls, indices, nqubits):
+        assert(nqubits % 2 == 0)
+        L = nqubits
+
+        even_to_even_perm = None
+        even_to_odd_perm  = np.concatenate((np.roll(range(int(L/2) - 1), -1), np.roll(np.arange(int(L/2 - 1)) + 4, -1)))
+
+        interaction_perm = np.array([int(a/2) if a % 2 == 0 else int((a-1)/2 + 4) for a in range(L - 2)])
+        
+        map = [even_to_even_perm, even_to_odd_perm, interaction_perm]
+
+        return cls(indices, map)
+

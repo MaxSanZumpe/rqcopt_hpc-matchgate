@@ -35,6 +35,8 @@ def main():
         file_path = os.path.join(script_dir, "input_data" ,f"hubbard2d_trotter_order2_u{ulayers}_n{nlayers}_q{Lx}x{Ly}_init.hdf5")
 
 
+    print(perms)
+
     # save initial data to disk
     with h5py.File(file_path, "w") as file:
 

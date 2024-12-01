@@ -36,7 +36,7 @@ static int ufunc_matfree(const struct statevector* restrict psi, void* fdata, st
 int main()
 {
 	const int nqubits = 8;
-	const int nlayers = 4;
+	const int nlayers = 9;
 	int ulayers;
 
 	int num_threads;
@@ -48,7 +48,7 @@ int main()
 
 	// read initial data from disk
 	char filename[1024];
-	sprintf(filename, "../examples/hubbard1d/data/hubbard1d_opt_n%i_q%i_init.hdf5", nlayers, nqubits);
+	sprintf(filename, "../examples/spinhubbard/data/spinhubbard_n%i_q%i_init.hdf5", nlayers, nqubits);
 	hid_t file = H5Fopen(filename, H5F_ACC_RDONLY, H5P_DEFAULT);
 	if (file < 0) {
 		fprintf(stderr, "'H5Fopen' for '%s' failed, return value: %" PRId64 "\n", filename, file);
@@ -134,7 +134,7 @@ int main()
 	set_rtr_default_params(nlayers * 16, &params);
 
 	// number of iterations
-	const int niter = 1;
+	const int niter = 15;
 	
 	double* f_iter = aligned_alloc(MEM_DATA_ALIGN, (niter + 1) * sizeof(double));
 
@@ -179,7 +179,7 @@ int main()
 	#endif
 
 	// save results to disk
-	sprintf(filename, "../examples/hubbard1d/data/hubbard1d_opt_n%i_q%i_th%i_%i%i%i.hdf5", nlayers, nqubits, num_threads, translational_invariance, statevector_parallelization, gate_parallelization);
+	sprintf(filename, "../examples/spinhubbard/data/spinhubbard_n%i_q%i_th%i_%i%i%i.hdf5", nlayers, nqubits, num_threads, translational_invariance, statevector_parallelization, gate_parallelization);
 	file = H5Fcreate(filename, H5F_ACC_TRUNC, H5P_DEFAULT, H5P_DEFAULT);
 	if (file < 0) {
 		fprintf(stderr, "'H5Fcreate' for '%s' failed, return value: %" PRId64 "\n", filename, file);

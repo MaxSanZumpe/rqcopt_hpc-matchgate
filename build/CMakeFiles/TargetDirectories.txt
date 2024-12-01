@@ -1,0 +1,5 @@
+/home/max/rqcopt_hpc-matchgate/build/CMakeFiles/spl_hubbard1d.dir
+/home/max/rqcopt_hpc-matchgate/build/CMakeFiles/corr_splh1d.dir
+/home/max/rqcopt_hpc-matchgate/build/CMakeFiles/fid_splh1d.dir
+/home/max/rqcopt_hpc-matchgate/build/CMakeFiles/edit_cache.dir
+/home/max/rqcopt_hpc-matchgate/build/CMakeFiles/rebuild_cache.dir
