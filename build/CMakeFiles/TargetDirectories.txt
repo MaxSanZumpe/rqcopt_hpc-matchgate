@@ -1,5 +1,0 @@
-/home/max/rqcopt_hpc-matchgate/build/CMakeFiles/splh1d_errors.dir
-/home/max/rqcopt_hpc-matchgate/build/CMakeFiles/h1d_errors.dir
-/home/max/rqcopt_hpc-matchgate/build/CMakeFiles/run_tests.dir
-/home/max/rqcopt_hpc-matchgate/build/CMakeFiles/edit_cache.dir
-/home/max/rqcopt_hpc-matchgate/build/CMakeFiles/rebuild_cache.dir
