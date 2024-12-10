@@ -39,7 +39,7 @@ int main()
 
 	const int nqubits = 12;
 	const int nlayers = 4;
-	int ulayers;
+	const int ulayers = 161
 
 	int num_threads = get_num_threads();
 
@@ -53,7 +53,7 @@ int main()
 
 	// read initial data from disk
 	char filename[1024];
-	sprintf(filename, "../benchmark/input_data/spinless_hubbard_n%i_q%i_matchgate_init.hdf5", nlayers, nqubits);
+	sprintf(filename, "../benchmark_hpc/bench_in/spinless_hubbard_n%i_q%i_matchgate_init.hdf5", nlayers, nqubits);
 	hid_t file = H5Fopen(filename, H5F_ACC_RDONLY, H5P_DEFAULT);
 	if (file < 0) {
 		fprintf(stderr, "'H5Fopen' for '%s' failed, return value: %" PRId64 "\n", filename, file);

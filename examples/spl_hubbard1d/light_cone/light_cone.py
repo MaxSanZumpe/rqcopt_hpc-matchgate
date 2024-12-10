@@ -1,7 +1,12 @@
 import os
+import sys
 import numpy as np
 import scipy.sparse as sp
 import matplotlib.pyplot as plt
+
+# Add the parent directory to the Python path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 import sparse_targets as st
 
 
@@ -53,13 +58,13 @@ print(corr.shape)
 
 # visualize dynamical correlation functions
 script_dir = os.path.dirname(__file__)
-vel = 3.5
+vel = 2.5
 plt.imshow(np.roll(corr, shift=(L-1)//2, axis=0).real.T,
             interpolation="nearest", aspect="auto",
             origin="lower", extent=(-L//2+0.5, L//2+0.5, 0, Δt*nsteps))
 plt.xlabel("j")
 plt.ylabel("t")
-plt.title(fr"spl_hubb $\langle \psi | n_{{{j}\uparrow}}(t) n_{{0\uparrow}}(0) | \psi \rangle$ for J={J}, U={g}; velocity: {vel}")
+plt.title(fr"Spinless Hubbard (1D) $\langle \psi | n_j(t) n_0(0) | \psi \rangle$ for J={J}, U={g}; velocity: {vel}")
 plt.colorbar()
 plt.plot([ 0.5,  1+L//2], [0, L//2*1/vel], "w")
 plt.plot([-0.5, -L//2], [0, L//2*1/vel], "w")

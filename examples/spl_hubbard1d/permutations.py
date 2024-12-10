@@ -119,7 +119,3 @@ class permuations:
         map = [even_to_even_perm, even_to_odd_perm]
 
         return cls(indices, map)
-
-
-perms , l =spin_hubbart_double_strang_permutations_ccode(2, 8)
-print(perms)

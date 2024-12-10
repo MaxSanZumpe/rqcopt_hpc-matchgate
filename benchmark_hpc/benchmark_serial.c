@@ -43,7 +43,7 @@ int main()
 
 	// read initial data from disk
 	char filename[1024];
-	sprintf(filename, "/dss/dsshome1/01/ge47gej2/rqcopt_hpc/examples/benchmark/input_data/spinless_hubbard_n%i_q%i_matchgate_init.hdf5", nlayers, nqubits);
+	sprintf(filename, "../rqcopt_hpc/examples/benchmark/input_data/spinless_hubbard_n%i_q%i_matchgate_init.hdf5", nlayers, nqubits);
 	hid_t file = H5Fopen(filename, H5F_ACC_RDONLY, H5P_DEFAULT);
 	if (file < 0) {
 		fprintf(stderr, "'H5Fopen' for '%s' failed, return value: %" PRId64 "\n", filename, file);

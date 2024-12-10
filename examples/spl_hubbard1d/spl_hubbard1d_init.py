@@ -39,6 +39,9 @@ t = 0.01
 s = 5
 us = 40
 
+dt = t/s
+udt = t/us
+
 order = 2
 
 splitting = oc.SplittingMethod.suzuki(2, order/2)
@@ -49,8 +52,8 @@ uindex, coeffs_ulist = oc.merge_layers(us*splitting.indices, us*splitting.coeffs
 nlayers = len(coeffs_vlist)
 ulayers = len(coeffs_ulist)
 
-vlist  = [expm(-1j*c*t*hloc) for c in coeffs_vlist]
-ulist  = [expm(-1j*c*t*hloc) for c in coeffs_ulist]
+vlist  = [expm(-1j*c*dt*hloc) for c in coeffs_vlist]
+ulist  = [expm(-1j*c*udt*hloc) for c in coeffs_ulist]
 
 perms  = permutations.permuations.spl_hubbard1d(vindex, nqubits).perm_list
 uperms = permutations.permuations.spl_hubbard1d(uindex, nqubits).perm_list

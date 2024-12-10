@@ -34,35 +34,40 @@ def construct_hubbard1d_interac_term(g):
 
 
 
-L = 8
-nqubits = 2*L
+nqubits = 16
 J = 1
 
 g = 4.0
 t = 1
 
-us = 40
-order = 2
+# Change the splitting method here
+method = "blanes_moan"
+order = 4
+splitting = oc.SplittingMethod.blanes_moan()
 
-H = st.construct_sparse_hubbard1d_hamiltonian(L, J, g)
+# Splitting steps
+us = 21
+
+H = st.construct_sparse_spl_hubbard1d_hamiltonian(nqubits, J, g)
 
 psi0 = np.ones(2**nqubits)
 psi0 /= np.linalg.norm(psi0)
 
 Upsi = sp.linalg.expm_multiply(-1j*H*t, psi0)
 
-splitting = oc.SplittingMethod.suzuki(3, order/2)
 h_kin = construct_hubbard1d_kinetic_term(J)
 h_int = construct_hubbard1d_interac_term(g)
 
-terms = [h_kin, h_kin, h_int]
+h = h_kin + h_int
+
+terms = [h, h]
 
 uindex, coeffs_ulist = oc.merge_layers(us*splitting.indices, us*splitting.coeffs)
 ulayers = len(coeffs_ulist)
 
 
 file_dir  = os.path.dirname(__file__)
-file_path = os.path.join(file_dir, "error_input" ,f"hubbard1d_suzuki{order}_q{nqubits}_us{us}_u{ulayers}_t{t:.2f}s_g{g:.2f}_error_in.hdf5")
+file_path = os.path.join(file_dir, "error_in" ,f"spl_hubbard1d_{method}{order}_q{nqubits}_us{us}_u{ulayers}_t{t:.2f}s_g{g:.2f}_error_in.hdf5")
 
 with h5py.File(file_path, "w") as file:
     
@@ -79,7 +84,7 @@ with h5py.File(file_path, "w") as file:
         dt = t/s
         ulist  = [expm(-1j*c*dt*terms[i]) for c, i in zip(coeffs_ulist, uindex)]
 
-        uperms = p.permuations.hubbard1d(uindex, nqubits).perm_list
+        uperms = p.permuations.spl_hubbard1d(uindex, nqubits).perm_list
 
         assert(len(uperms) == layers)
         assert(len(list(uperms[1])) == nqubits)
