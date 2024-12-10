@@ -33,14 +33,17 @@ def construct_hubbard_interac_term(U):
     return U*np.kron(n, n)
 
 
-nqubits = 10
+nqubits = 16
 J = 1
 
 U = 4.0
-t = 0.20
+t = 0.01
 
-s = 2
-us = 20
+s = 1
+us = 40
+
+dt = t/s
+udt = t/us
 
 order = 2
 
@@ -56,8 +59,9 @@ uindex, coeffs_ulist = oc.merge_layers(us*splitting.indices, us*splitting.coeffs
 nlayers = len(coeffs_vlist)
 ulayers = len(coeffs_ulist)
 
-vlist  = [expm(-1j*c*t*terms[i]) for c, i in zip(coeffs_vlist, vindex)]
-ulist  = [expm(-1j*c*t*terms[i]) for c, i in zip(coeffs_ulist, uindex)]
+
+vlist  = [expm(-1j*c*dt*terms[i]) for c, i in zip(coeffs_vlist, vindex)]
+ulist  = [expm(-1j*c*udt*terms[i]) for c, i in zip(coeffs_ulist, uindex)]
 
 perms  = permutations.permuations.hubbard1d(vindex, nqubits).perm_list
 uperms = permutations.permuations.hubbard1d(uindex, nqubits).perm_list
@@ -66,6 +70,9 @@ print(perms)
 
 assert(len(perms)  == nlayers) 
 assert(len(uperms) == ulayers)
+
+assert(len(list(perms[1])) == nqubits)
+assert(len(list(uperms[1])) == nqubits)
 
 ublocks = []
 for X in ulist:

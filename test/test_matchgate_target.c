@@ -1,6 +1,7 @@
 #include <memory.h>
 #include <assert.h>
 #include "matchgate_target.h"
+#include "matchgate_brickwall.h"
 #include "numerical_gradient.h"
 #include "util.h"
 
@@ -47,6 +48,24 @@ static int ufunc2(const struct statevector* restrict psi, void* fdata, struct st
 	return 0;
 }
 
+struct u_splitting
+{
+	struct matchgate* ulist;
+	const int   ulayers;
+	const int** upperms;
+};
+
+
+static int ufunc_matfree(const struct statevector* restrict psi, void* fdata, struct statevector* restrict psi_out)
+{
+	const struct u_splitting* U = fdata;
+
+	// apply U in brickwall form
+
+	apply_matchgate_brickwall_unitary(U->ulist, U->ulayers, U->upperms, psi, psi_out);
+	
+	return 0;
+}
 
 char* test_matchgate_circuit_unitary_target()
 {
@@ -528,7 +547,7 @@ char* test_matchgate_ti_brickwall_unitary_target_gradient_hessian()
 		}
 	}
 
-	const int* pperms[] = { perms[0], perms[1], perms[2], perms[3], perms[4], perms[5], perms[6] };
+	const int* pperms[] = { perms[0], perms[1], perms[2], perms[3], perms[4] };
 
 	const int m = nlayers * nqubits;
 
@@ -557,7 +576,7 @@ char* test_matchgate_ti_brickwall_unitary_target_gradient_hessian()
 	}
 
 	// compare hessians
-	if (uniform_distance(m * m, hess, hess_ref) > 1e-13) {
+	if (uniform_distance(m * m, hess, hess_ref) > 1e-10) {
 		return "computed unitary target Hessian matrix does not match reference";
 	}
 

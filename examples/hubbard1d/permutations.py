@@ -33,9 +33,7 @@ def spin_hubbart_double_strang_permutations_ccode(s: int, qubit_dim: int):
     layers = 6*s + 1
 
     interaction_perm = [int(a/2) if a % 2 == 0 else (int(a/2) + half) for a in range(L)]
-    # even_to_odd_perm = [int(L/2) - 1] + [a for a in range(int(L/2) - 1)] +\
-    #                    [L - 1] + [a for a in range(int(L/2), L - 1)]
-    
+
     even_to_odd_perm = [a - 1 for a in range(2, int(L/2))    ] + [half - 1, 0] +\
                        [a - 1 for a in range(int(L/2) + 2, L)] + [L - 1, half]
 
@@ -126,9 +124,9 @@ class permuations:
         L = nqubits
 
         even_to_even_perm = None
-        even_to_odd_perm  = np.concatenate((np.roll(range(int(L/2) - 1), -1), np.roll(np.arange(int(L/2 - 1)) + 4, -1)))
+        even_to_odd_perm  = np.concatenate((np.roll(range(int(L/2)), -1), np.roll(range(int(L/2), L), -1)))
 
-        interaction_perm = np.array([int(a/2) if a % 2 == 0 else int((a-1)/2 + 4) for a in range(L - 2)])
+        interaction_perm = np.array([int(a/2) if a % 2 == 0 else int((a-1)/2 + int(L/2)) for a in range(L)])
         
         map = [even_to_even_perm, even_to_odd_perm, interaction_perm]
 

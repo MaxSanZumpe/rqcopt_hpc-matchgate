@@ -37,7 +37,16 @@ int main()
 {
 	const int nqubits = 8;
 	const int nlayers = 9;
-	int ulayers;
+	
+	const int ulayers = 81;
+
+	char splitting[] = "suzuki";
+	int order = 2;
+
+	float g = 4.0;
+    float delta = 0.2;
+
+	const int niter = 15;
 
 	int num_threads;
 	#if  defined(STATEVECTOR_PARALLELIZATION) || defined(GATE_PARALLELIZATION)
@@ -55,35 +64,14 @@ int main()
 		return -1;
 	}
 
-	int nlayers_ref;
-	if (read_hdf5_dataset(file, "nlayers", H5T_NATIVE_INT, &nlayers_ref) < 0) {
-		fprintf(stderr, "reading 'nlayers' from disk failed\n");
-		return -1;
-	}
-
-	int nqubits_ref;
-	if (read_hdf5_dataset(file, "nqubits", H5T_NATIVE_INT, &nqubits_ref) < 0) {
-		fprintf(stderr, "reading 'nqubits_ref' from disk failed\n");
-		return -1;
-	}
-
-	assert(nqubits == nqubits_ref);
-	assert(nlayers == nlayers_ref);
-
-	if (read_hdf5_dataset(file, "ulayers", H5T_NATIVE_INT, &ulayers) < 0) {
-		fprintf(stderr, "reading 'ulayers' from disk failed\n");
-		return -1;
-	}
-
-	struct matchgate* u_split = aligned_alloc(MEM_DATA_ALIGN, ulayers * sizeof(struct matchgate));
-	if (read_hdf5_dataset(file, "Ulist", H5T_NATIVE_DOUBLE, (numeric*)u_split) < 0) {
+	struct matchgate* ulist = aligned_alloc(MEM_DATA_ALIGN, ulayers * sizeof(struct matchgate));
+	if (read_hdf5_dataset(file, "ulist", H5T_NATIVE_DOUBLE, (numeric*)ulist) < 0) {
 		fprintf(stderr, "reading initial two-qubit quantum gates from disk failed\n");
 		return -1;
 	}
 
 	int uperms[ulayers][nqubits];
-	for (int i = 0; i < ulayers; i++)
-	{
+	for (int i = 0; i < ulayers; i++) {
 		char varname[32];
 		sprintf(varname, "uperm%i", i);
 		if (read_hdf5_dataset(file, varname, H5T_NATIVE_INT, uperms[i]) < 0) {
@@ -91,29 +79,28 @@ int main()
 			return -1;
 		}
 	}
-	const int* upperms[ulayers];
 
+	const int* upperms[ulayers];
 	for (int i = 0; i < ulayers; i++){
 		upperms[i] = uperms[i];
 	}
 	
 	struct u_splitting udata = {
-		.ulist   = u_split,
+		.ulist   = ulist,
 		.ulayers = ulayers,
 		.upperms = upperms,
 	};
 
 	// initial to-be optimized quantum gates
 	struct matchgate* vlist_start = aligned_alloc(MEM_DATA_ALIGN, nlayers * sizeof(struct matchgate));
-	if (read_hdf5_dataset(file, "Vlist_start", H5T_NATIVE_DOUBLE, (numeric*)vlist_start) < 0) {
+	if (read_hdf5_dataset(file, "vlist", H5T_NATIVE_DOUBLE, (numeric*)vlist_start) < 0) {
 		fprintf(stderr, "reading initial two-qubit quantum gates from disk failed\n");
 		return -1;
 	}
 
 	// permutations
 	int perms[nlayers][nqubits];
-	for (int i = 0; i < nlayers; i++)
-	{
+	for (int i = 0; i < nlayers; i++) {
 		char varname[32];
 		sprintf(varname, "perm%i", i);
 		if (read_hdf5_dataset(file, varname, H5T_NATIVE_INT, perms[i]) < 0) {
@@ -121,9 +108,9 @@ int main()
 			return -1;
 		}
 	}
-	const int* pperms[nlayers];
 
-	for (int i = 0; i < nlayers; i++){
+	const int* pperms[nlayers];
+	for (int i = 0; i < nlayers; i++) {
 		pperms[i] = perms[i];
 	}
 	H5Fclose(file);
@@ -133,8 +120,7 @@ int main()
 	struct rtr_params params;
 	set_rtr_default_params(nlayers * 16, &params);
 
-	// number of iterations
-	const int niter = 15;
+	// target function
 	
 	double* f_iter = aligned_alloc(MEM_DATA_ALIGN, (niter + 1) * sizeof(double));
 
@@ -149,12 +135,6 @@ int main()
 	// get the tick resolution
 	const double ticks_per_sec = (double)get_tick_resolution();
 	const double wtime = (double) total_ticks / ticks_per_sec;
-	printf("\nwall time: %g", total_ticks / ticks_per_sec);
-
-	for (int i = 0; i < niter + 1; i++)
-	{
-		printf("\nf_iter[%i] = %.12f", i, f_iter[i]);
-	}
 
 	const intqs m = (intqs)1 << nqubits;
 	double norm_start = sqrt(2*f_iter[0    ] + 2*m);
@@ -165,6 +145,9 @@ int main()
 	int translational_invariance = 0;
 	int statevector_parallelization = 0;
 	int gate_parallelization = 0;
+
+	int hpc = 0;
+	int mpi = 0;
 
 	#ifdef TRANSLATIONAL_INVARIANCE
 	translational_invariance = 1;
@@ -177,6 +160,15 @@ int main()
 	#ifdef GATE_PARALLELIZATION
 	gate_parallelization = 1;
 	#endif
+
+	#ifdef LRZ_HPC
+	hpc = 1;
+	#endif
+
+	#ifdef MPI
+	mpi = 1;
+	#endif
+
 
 	// save results to disk
 	sprintf(filename, "../examples/spinhubbard/data/spinhubbard_n%i_q%i_th%i_%i%i%i.hdf5", nlayers, nqubits, num_threads, translational_invariance, statevector_parallelization, gate_parallelization);
@@ -197,6 +189,7 @@ int main()
 		fprintf(stderr, "writing 'f_iter' to disk failed\n");
 		return -1;
 	}
+
 	// store parameters
 	if (write_hdf5_scalar_attribute(file, "nqubits", H5T_STD_I32LE, H5T_NATIVE_INT, &nqubits)) {
 		fprintf(stderr, "writing 'nqubits' to disk failed\n");
@@ -231,6 +224,16 @@ int main()
 	}
 
 	if (write_hdf5_scalar_attribute(file, "NUM_THREADS", H5T_STD_I32LE, H5T_NATIVE_INT, &num_threads)) {
+		fprintf(stderr, "writing 'NUM_THREADS_STATEVECTOR_PARALLELIZATION' to disk failed\n");
+		return -1;
+	}
+
+	if (write_hdf5_scalar_attribute(file, "LRZ_HPC", H5T_STD_I32LE, H5T_NATIVE_INT, &hpc)) {
+		fprintf(stderr, "writing 'NUM_THREADS_STATEVECTOR_PARALLELIZATION' to disk failed\n");
+		return -1;
+	}
+
+	if (write_hdf5_scalar_attribute(file, "MPI", H5T_STD_I32LE, H5T_NATIVE_INT, &mpi)) {
 		fprintf(stderr, "writing 'NUM_THREADS_STATEVECTOR_PARALLELIZATION' to disk failed\n");
 		return -1;
 	}

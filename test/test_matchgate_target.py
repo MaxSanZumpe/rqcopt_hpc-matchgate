@@ -4,7 +4,7 @@ import h5py
 from io_util import interleave_complex
 import rqcopt_matfree as oc
 import os
-import target_matrices
+import sparse_targets
 import permutations as ps
 
 
@@ -240,6 +240,7 @@ def matchgate_ti_brickwall_unitary_target_gradient_hessian_data():
     # system size
     L = 8
 
+    s = 3
     nlayers = 7
 
     script_dir = os.path.dirname(__file__)
@@ -248,11 +249,11 @@ def matchgate_ti_brickwall_unitary_target_gradient_hessian_data():
     with h5py.File(file_path, "w") as file:
 
         J = 1
-        U = 0.75
-        t = 0.25
+        g = 4
+        t = 1
 
         # Should be translationally invariant unitary matrix
-        expiH = target_matrices.spinless_hubbard_unitary(L, J, U, t, "periodic")
+        expiH = sparse_targets.spl_hubbard1d_unitary(8, J, g, t)
         file["expiH"] = interleave_complex(expiH, "cplx")
 
         # general random 2x2 matrices (do not need to be unitary for this test)
@@ -263,8 +264,9 @@ def matchgate_ti_brickwall_unitary_target_gradient_hessian_data():
             file[f"V/corner{i}"] = interleave_complex(V_blocks[2*i + 1], "cplx")
             Vlist.append(oc.matchgate_matrix(V_blocks[2*i    ], V_blocks[2*i + 1]))
         
-        # random permutations
-        perms = ps.brickwall_permutations(nlayers, L)
+        splitting = oc.SplittingMethod.suzuki(2, 1)
+        vindex, coeffs_vlist = oc.merge_layers(s*splitting.indices, s*splitting.coeffs)
+        perms  = ps.permuations.spl_hubbard1d(vindex, L).perm_list
 
         for i in range(nlayers):
             file[f"perm{i}"] = np.arange(L) if perms[i] is None else perms[i]

@@ -15,7 +15,7 @@ message(STATUS "HDF5 include directories: ${HDF5_INCLUDE_DIRS}")
 # Print the HDF5 libraries
 message(STATUS "HDF5 libraries: ${HDF5_C_LIBRARIES}")
  
-include_directories(/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include)
+# include_directories(/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include)
 
 set(CMAKE_C_COMPILER mpicc)
 
@@ -48,10 +48,10 @@ set(TEST_SOURCES
     "test/run_custom_test.c"
 )
 
-add_executable(            spl_hubbard1d ${SOURCES} "examples/spl_hubbard1d/spl_hubbard1d_opt.c" "examples/timing/timing.c")
-target_include_directories(spl_hubbard1d PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src" "examples/timing")
-target_link_libraries(     spl_hubbard1d PRIVATE ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})
-target_compile_definitions(spl_hubbard1d PRIVATE TRANSLATIONAL_INVARIANCE STATEVECTOR_PARALLELIZATION)
+# add_executable(            spl_hubbard1d ${SOURCES} "examples/spl_hubbard1d/spl_hubbard1d_opt.c" "examples/timing/timing.c")
+# target_include_directories(spl_hubbard1d PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src" "examples/timing")
+# target_link_libraries(     spl_hubbard1d PRIVATE ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})
+# target_compile_definitions(spl_hubbard1d PRIVATE TRANSLATIONAL_INVARIANCE STATEVECTOR_PARALLELIZATION)
 
 
 # add_executable(spinhubbard.exe ${SOURCES} "examples/spinhubbard/spinhubbard_opt.c" "examples/timing/timing.c")
@@ -86,16 +86,34 @@ target_compile_definitions(spl_hubbard1d PRIVATE TRANSLATIONAL_INVARIANCE STATEV
 # target_link_libraries(test_2d_invar.exe ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})
 # target_compile_definitions(test_2d_invar.exe PRIVATE TRANSLATIONAL_INVARIANCE)
 
+ 
+# add_executable(            corr_splh1d ${SOURCES} "examples/spl_hubbard1d/correlations.c" "examples/timing/timing.c")
+# target_include_directories(corr_splh1d PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src" "examples/timing")
+# target_link_libraries(     corr_splh1d PRIVATE ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})
+ 
+# add_executable(            fid_splh1d ${SOURCES} "examples/spl_hubbard1d/fidelity.c" "examples/timing/timing.c")
+# target_include_directories(fid_splh1d PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src" "examples/timing")
+# target_link_libraries(     fid_splh1d PRIVATE ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})
 
-add_executable(            corr_splh1d ${SOURCES} "examples/spl_hubbard1d/correlations.c" "examples/timing/timing.c")
-target_include_directories(corr_splh1d PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src" "examples/timing")
-target_link_libraries(     corr_splh1d PRIVATE ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})
+# add_executable(            bench_grad ${SOURCES} "examples/hubbard1d/benchmark_gradient.c" "examples/timing/timing.c")
+# target_include_directories(bench_grad PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src" "examples/timing")
+# target_link_libraries(     bench_grad PRIVATE ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})
+# 
+# add_executable(            bench_hess_partial ${SOURCES} "examples/hubbard1d/benchmark_hess.c" "examples/timing/timing.c")
+# target_include_directories(bench_hess_partial PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src" "examples/timing")
+# target_link_libraries(     bench_hess_partial PRIVATE ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})
 
-add_executable(            fid_splh1d ${SOURCES} "examples/spl_hubbard1d/fidelity.c" "examples/timing/timing.c")
-target_include_directories(fid_splh1d PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src" "examples/timing")
-target_link_libraries(     fid_splh1d PRIVATE ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})
 
-# add_executable(run_tests.exe ${SOURCES} ${TEST_SOURCES})
-# target_include_directories(run_tests.exe PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src")
-# target_link_libraries(run_tests.exe PRIVATE ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})
+#add_executable(            bench_hess_partial ${SOURCES} "examples/hubbard1d/benchmark_hess.c" "examples/timing/timing.c")
+#target_include_directories(bench_hess_partial PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src" "examples/timing")
+#target_link_libraries(     bench_hess_partial PRIVATE ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})
+
+
+add_executable(            h1d_errors ${SOURCES} "examples/hubbard1d/test_splitting/splitting_error.c" "examples/timing/timing.c")
+target_include_directories(h1d_errors PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src" "examples/timing")
+target_link_libraries(     h1d_errors PRIVATE ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})
+
+add_executable(run_tests ${SOURCES} ${TEST_SOURCES})
+target_include_directories(run_tests PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src")
+target_link_libraries(run_tests PRIVATE ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})
 

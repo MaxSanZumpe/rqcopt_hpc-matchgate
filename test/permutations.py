@@ -33,9 +33,7 @@ def spin_hubbart_double_strang_permutations_ccode(s: int, qubit_dim: int):
     layers = 6*s + 1
 
     interaction_perm = [int(a/2) if a % 2 == 0 else (int(a/2) + half) for a in range(L)]
-    # even_to_odd_perm = [int(L/2) - 1] + [a for a in range(int(L/2) - 1)] +\
-    #                    [L - 1] + [a for a in range(int(L/2), L - 1)]
-    
+
     even_to_odd_perm = [a - 1 for a in range(2, int(L/2))    ] + [half - 1, 0] +\
                        [a - 1 for a in range(int(L/2) + 2, L)] + [L - 1, half]
 
@@ -80,4 +78,57 @@ def spin_hubbart_strang_trotter_permutations(splitting_steps: int, qubit_dim):
     assert len(perms) == layers, f"got {len(perms)}"
 
     return perms, layers
+
+
+def spinless_hubbard_strang_trotter_permutations(splitting_steps, qdim):
+    L = qdim
+    s = splitting_steps
+    layers = 4*s + 1
+
+    interaction_perm = None
+    even_to_odd_perm = [int(L/2) - 1] + [a for a in range(int(L/2) - 1)] + \
+                       [L - 1] + [a for a in range(int(L/2), L - 1)]
+
+    perms_endpoints = [None, even_to_odd_perm]
+    perms_step = [interaction_perm, None, even_to_odd_perm, None]
+
+    perms = perms_endpoints + perms_step*(s-1) + [interaction_perm] + perms_endpoints
+
+    assert len(perms) == layers, f"got {len(perms)}"
+
+    return perms, layers
+
+class permuations:
+    def __init__(self, indices, map):
+        
+        temp_list = []
+        for index in indices:
+            temp_list.append(map[index])
+
+        self.perm_list = temp_list
+
+    @classmethod 
+    def spl_hubbard1d(cls, indices, nqubits):
+        L = nqubits
+
+        even_to_even_perm = None
+        even_to_odd_perm  = np.roll(range(L), -1)
+        
+        map = [even_to_even_perm, even_to_odd_perm]
+
+        return cls(indices, map)
+    
+    @classmethod
+    def hubbard1d(cls, indices, nqubits):
+        assert(nqubits % 2 == 0)
+        L = nqubits
+
+        even_to_even_perm = None
+        even_to_odd_perm  = np.concatenate((np.roll(range(int(L/2)), -1), np.roll(range(int(L/2), L), -1)))
+
+        interaction_perm = np.array([int(a/2) if a % 2 == 0 else int((a-1)/2 + int(L/2)) for a in range(L)])
+        
+        map = [even_to_even_perm, even_to_odd_perm, interaction_perm]
+
+        return cls(indices, map)
 
