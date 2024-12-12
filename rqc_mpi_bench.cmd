@@ -5,14 +5,16 @@
 #SBATCH --mail-user=max.sanchez-zumpe@tum.de
 #SBATCH --mail-type=ALL
 #SBATCH --get-user-env
-#SBATCH --clusters=cm2
-#SBATCH --partition=cm2_std
-#SBATCH --nodes=4
+#SBATCH --clusters=cm4
+#SBATCH --partition=cm4_std
+#SBATCH --qos=cm4_std
+#SBATCH --nodes=2
 #SBATCH --ntasks-per-node=1
+#SBATCH --cpus-per-task=112
 #SBATCH --export=NONE
-#SBATCH --time=01:00:00
+#SBATCH --time=08:00:00
 
 module load slurm_setup
-module load intel-oneapi-vtune
-export OMP_NUM_THREADS=28
-mpiexec -n $SLURM_NTASKS aps -result-dir=../benchmark/prof/mpi/task4_q16/ ./benchmark_mpi.exe
+module load intel-mpi
+export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
+mpiexec -n $SLURM_NTASKS ./benchmark_mpi

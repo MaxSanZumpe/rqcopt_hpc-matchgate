@@ -47,5 +47,5 @@
 .vs/
 
 #build folder
-.build/
+/build/
 

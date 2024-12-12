@@ -15,15 +15,12 @@ message(STATUS "HDF5 include directories: ${HDF5_INCLUDE_DIRS}")
 # Print the HDF5 libraries
 message(STATUS "HDF5 libraries: ${HDF5_C_LIBRARIES}")
  
-# include_directories(/dss/dsshome1/lrz/sys/spack/release/22.2.1/opt/x86_64/intel-mkl/2020.4.304-gcc-cmdxw76/mkl/include)
-
-set(CMAKE_C_COMPILER mpicc)
 
 # Compiler flags
 set(CMAKE_C_FLAGS "-O3 -fopenmp")
 
 # Definitions
-add_compile_definitions(COMPLEX_CIRCUIT)
+add_compile_definitions(COMPLEX_CIRCUIT LRZ_HPC)
 
 # Define source files
 set(SOURCES 
@@ -59,15 +56,15 @@ set(TEST_SOURCES
 # target_link_libraries(spinhubbard.exe PRIVATE ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})
 
 
-# add_executable(benchmark_multithreading.exe ${SOURCES} "benchmark/benchmark_threads.c" "examples/timing/timing.c")
-# target_include_directories(benchmark_multithreading.exe PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src" "examples/timing")
-# target_link_libraries(benchmark_multithreading.exe ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})
-# target_compile_definitions(benchmark_multithreading.exe PRIVATE TRANSLATIONAL_INVARIANCE STATEVECTOR_PARALLELIZATION)
+add_executable(            benchmark_threads ${SOURCES} "benchmark_hpc/benchmark_threads.c" "examples/timing/timing.c")
+target_include_directories(benchmark_threads PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src" "examples/timing")
+target_link_libraries(     benchmark_threads ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})
+target_compile_definitions(benchmark_threads PRIVATE STATEVECTOR_PARALLELIZATION TRANSLATIONAL_INVARIANCE)
 
-# add_executable(benchmark_mpi.exe ${SOURCES} "benchmark/benchmark_mpi.c" "examples/timing/timing.c")
-# target_include_directories(benchmark_mpi.exe PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} ${MPI_INCLUDE_PATH} "src" "examples/timing")
-# target_link_libraries(benchmark_mpi.exe ${BLAS_LIBRARIES} ${HDF5_LIBRARIES} ${MPI_C_LIBRARIES})
-# target_compile_definitions(benchmark_mpi.exe PRIVATE MPI STATEVECTOR_PARALLELIZATION)
+add_executable(		   benchmark_mpi ${SOURCES} "benchmark_hpc/benchmark_mpi.c" "examples/timing/timing.c")
+target_include_directories(benchmark_mpi PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} ${MPI_INCLUDE_PATH} "src" "examples/timing")
+target_link_libraries(     benchmark_mpi ${BLAS_LIBRARIES} ${HDF5_LIBRARIES} ${MPI_C_LIBRARIES})
+target_compile_definitions(benchmark_mpi PRIVATE MPI STATEVECTOR_PARALLELIZATION TRANSLATIONAL_INVARIANCE)
 
 
 # add_executable(benchmark_serial.exe ${SOURCES} "benchmark/benchmark_serial.c" "examples/timing/timing.c")

@@ -35,17 +35,18 @@ static int ufunc_matfree(const struct statevector* restrict psi, void* fdata, st
 
 int main()
 {
-	#ifdef STATEVECTOR_PARALLELIZATION
+	#ifdef STATEVECTOR_PARALLELIZATION 
 
-	const int nqubits = 12;
-	const int nlayers = 4;
-	const int ulayers = 161
+	const int nqubits = 16;
+	const int nlayers = 5;
+	const int ulayers = 253;
 
 	int num_threads = get_num_threads();
+	printf("max_threads = %i\n", num_threads);
 
-	int start_num_threads = 28;
-	int stop_num_threads  = 28;
-	int num_threads_step  = 2;
+	int start_num_threads = 112;
+	int stop_num_threads  = 112;
+	int num_threads_step  = 10;
 
 	if (start_num_threads < num_threads){
 		num_threads = start_num_threads;
@@ -53,35 +54,16 @@ int main()
 
 	// read initial data from disk
 	char filename[1024];
-	sprintf(filename, "../benchmark_hpc/bench_in/spinless_hubbard_n%i_q%i_matchgate_init.hdf5", nlayers, nqubits);
+	sprintf(filename, "../benchmark_hpc/bench_in/n%i_q%i_u%i_bench_in.hdf5", nlayers, nqubits, ulayers);
 	hid_t file = H5Fopen(filename, H5F_ACC_RDONLY, H5P_DEFAULT);
 	if (file < 0) {
 		fprintf(stderr, "'H5Fopen' for '%s' failed, return value: %" PRId64 "\n", filename, file);
 		return -1;
 	}
 
-	int nlayers_ref;
-	if (read_hdf5_dataset(file, "nlayers", H5T_NATIVE_INT, &nlayers_ref) < 0) {
-		fprintf(stderr, "reading 'nlayers' from disk failed\n");
-		return -1;
-	}
-
-	int nqubits_ref;
-	if (read_hdf5_dataset(file, "nqubits", H5T_NATIVE_INT, &nqubits_ref) < 0) {
-		fprintf(stderr, "reading 'nqubits_ref' from disk failed\n");
-		return -1;
-	}
-
-	assert(nqubits == nqubits_ref);
-	assert(nlayers == nlayers_ref);
-
-	if (read_hdf5_dataset(file, "ulayers", H5T_NATIVE_INT, &ulayers) < 0) {
-		fprintf(stderr, "reading 'ulayers' from disk failed\n");
-		return -1;
-	}
 
 	struct matchgate* u_split = aligned_alloc(MEM_DATA_ALIGN, ulayers * sizeof(struct matchgate));
-	if (read_hdf5_dataset(file, "Ulist", H5T_NATIVE_DOUBLE, (numeric*)u_split) < 0) {
+	if (read_hdf5_dataset(file, "ulist", H5T_NATIVE_DOUBLE, (numeric*)u_split) < 0) {
 		fprintf(stderr, "reading initial two-qubit quantum gates from disk failed\n");
 		return -1;
 	}
@@ -110,7 +92,7 @@ int main()
 
 	// initial to-be optimized quantum gates
 	struct matchgate* vlist_start = aligned_alloc(MEM_DATA_ALIGN, nlayers * sizeof(struct matchgate));
-	if (read_hdf5_dataset(file, "Vlist_start", H5T_NATIVE_DOUBLE, (numeric*)vlist_start) < 0) {
+	if (read_hdf5_dataset(file, "vlist", H5T_NATIVE_DOUBLE, (numeric*)vlist_start) < 0) {
 		fprintf(stderr, "reading initial two-qubit quantum gates from disk failed\n");
 		return -1;
 	}
@@ -160,27 +142,22 @@ int main()
 		int translational_invariance = 0;
 		int statevector_parallelization = 0;
 		int gate_parallelization = 0;
-		int critical_sections = 1;
 
-		#ifdef TRANSLATIONAL_INVARIANCE
+		#ifdef TRANSLATIONAL_INVARIANCE 
 		translational_invariance = 1;
 		#endif
 
-		#ifdef STATEVECTOR_PARALLELIZATION
+		#ifdef STATEVECTOR_PARALLELIZATION 
 		statevector_parallelization = 1;
 		#endif
 
-		#ifdef GATE_PARALLELIZATION
+		#ifdef GATE_PARALLELIZATION 
 		gate_parallelization = 1;
 		#endif
 
-		#ifdef REMOVE_CRITICAL
-		critical_sections = 0;
-		#endif
-
 		// save results to disk
-		sprintf(filename, "../benchmark/output_data/mp_bench_spinless_hubbard_n%i_q%i_th%i_%i%i%i%i.hdf5", nlayers, nqubits, num_threads, translational_invariance,
-		statevector_parallelization, gate_parallelization, critical_sections);
+		sprintf(filename, "../benchmark_hpc/bench_out/n%i_q%i_u%i_th%i_%i%i%i_threads_bench_matchgate.hdf5", nlayers, nqubits, ulayers, num_threads, translational_invariance,
+		statevector_parallelization, gate_parallelization);
 
 		file = H5Fcreate(filename, H5F_ACC_TRUNC, H5P_DEFAULT, H5P_DEFAULT);
 		if (file < 0) {
@@ -234,11 +211,6 @@ int main()
 
 		if (write_hdf5_scalar_attribute(file, "GATE_PARALLELIZATION", H5T_STD_I32LE, H5T_NATIVE_INT, &gate_parallelization )) {
 			fprintf(stderr, "writing 'STATEVECTOR_PARALLELIZATION' to disk failed\n");
-			return -1;
-		}
-
-		if (write_hdf5_scalar_attribute(file, "CRITICAL_SECTIONS", H5T_STD_I32LE, H5T_NATIVE_INT, &critical_sections)) {
-			fprintf(stderr, "writing 'TRANSLATIONAL_INVARIANCE' to disk failed\n");
 			return -1;
 		}
 

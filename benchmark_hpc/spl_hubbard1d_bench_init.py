@@ -30,13 +30,13 @@ def construct_spl_hubbard_local_term(J, U):
     return -J*hop + U*int
 
 
-nqubits = 12
+nqubits = 16
 J = 1
 
 U = 4.0
 t = 1
 
-s = 2
+s = 6
 us = 21
 
 dt = t/s
