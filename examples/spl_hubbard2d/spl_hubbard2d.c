@@ -67,9 +67,14 @@ int main()
 
 	const int nqubits = 16;
 	const int nlayers = 13;
-	const int ulayers = 91;
-
+	const int ulayers = 241;
 	const int order = 2;
+
+    char model[] = "suzuki";
+
+    float g = 4.00;
+    float t = 0.25;
+
 
 	int num_threads;
 	#if  defined(STATEVECTOR_PARALLELIZATION) || defined(GATE_PARALLELIZATION)
@@ -100,7 +105,9 @@ int main()
 	if(rank == 0)
 	{ 	
 		char filename[1024];
-		sprintf(filename, "../examples/hubbard2d/input_data/hubbard2d_trotter_order%i_u%i_n%i_q4x4_init.hdf5", order, ulayers, nlayers);
+        sprintf(filename, "../examples/spl_hubbard2d/opt_in/spl_hubbard2d_%s%i_n%i_q%i_u%i_t%.2fs_g%.2f_init.hdf5", model , order, nlayers, nqubits, ulayers, t, g);
+
+
 		hid_t file = H5Fopen(filename, H5F_ACC_RDONLY, H5P_DEFAULT);
 		if (file < 0) {
 			fprintf(stderr, "'H5Fopen' for '%s' failed, return value: %" PRId64 "\n", filename, file);
@@ -129,7 +136,7 @@ int main()
 		assert(nlayers == nlayers_ref);
 		assert(ulayers == ulayers_ref);
 
-		if (read_hdf5_dataset(file, "Ulist", H5T_NATIVE_DOUBLE, (numeric*)u_split) < 0) {
+		if (read_hdf5_dataset(file, "ulist", H5T_NATIVE_DOUBLE, (numeric*)u_split) < 0) {
 			fprintf(stderr, "reading target unitary two qubit splitting gates failed.\n");
 			return -1;
 		}
@@ -146,7 +153,7 @@ int main()
 
 		// initial to-be optimized quantum gates
 		vlist_start = aligned_alloc(MEM_DATA_ALIGN, nlayers * sizeof(struct matchgate));
-		if (read_hdf5_dataset(file, "Vlist_start", H5T_NATIVE_DOUBLE, (numeric*)vlist_start) < 0) {
+		if (read_hdf5_dataset(file, "vlist", H5T_NATIVE_DOUBLE, (numeric*)vlist_start) < 0) {
 			fprintf(stderr, "reading initial two-qubit quantum gates from disk failed\n");
 			return -1;
 		}
@@ -217,7 +224,8 @@ int main()
 		#endif
 
 		char filename[1024];
-		sprintf(filename, "../examples/hubbard2d/output_data/hubbard2d_trotter_order%i_u%i_n%i_q4x4_t%i.hdf5", order, ulayers, nlayers, translational_invariance);
+        sprintf(filename, "../examples/spl_hubbard2d/opt_out/spl_hubbard2d_%s%i_n%i_q%i_u%i_t%.2fs_g%.2f_opt_iter%i.hdf5", model, order, nlayers, nqubits, ulayers, t, g, niter);
+
 
 		hid_t file = H5Fcreate(filename, H5F_ACC_TRUNC, H5P_DEFAULT, H5P_DEFAULT);
 		if (file < 0) {
