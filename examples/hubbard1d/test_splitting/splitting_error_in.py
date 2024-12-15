@@ -42,8 +42,7 @@ g = 4.0
 t = 1
 
 method = "suzuki"
-
-us = 13
+us = 15
 order = 4
 
 H = st.construct_sparse_hubbard1d_hamiltonian(L, J, g)
@@ -59,6 +58,8 @@ h_kin = construct_hubbard1d_kinetic_term(J)
 h_int = construct_hubbard1d_interac_term(g)
 
 terms = [h_kin, h_kin, h_int]
+
+print(len(splitting.indices))
 
 uindex, coeffs_ulist = oc.merge_layers(us*splitting.indices, us*splitting.coeffs)
 ulayers = len(coeffs_ulist)

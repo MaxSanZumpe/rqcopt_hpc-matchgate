@@ -20,7 +20,7 @@ message(STATUS "HDF5 libraries: ${HDF5_C_LIBRARIES}")
 set(CMAKE_C_FLAGS "-O3 -fopenmp")
 
 # Definitions
-add_compile_definitions(COMPLEX_CIRCUIT LRZ_HPC)
+add_compile_definitions(COMPLEX_CIRCUIT)
 
 # Define source files
 set(SOURCES 
@@ -107,6 +107,11 @@ target_compile_definitions(spl_hubbard2d PRIVATE MPI TRANSLATIONAL_INVARIANCE ST
 #target_link_libraries(     bench_hess_partial PRIVATE ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})
 
 
+add_executable(            hubb1d_errors ${SOURCES} "examples/hubbard1d/test_splitting/splitting_error.c" "examples/timing/timing.c")
+target_include_directories(hubb1d_errors PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src" "examples/timing")
+target_link_libraries(     hubb1d_errors PRIVATE ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})
+
+
 add_executable(            splh1d_errors ${SOURCES} "examples/spl_hubbard1d/test_splitting/splitting_error.c" "examples/timing/timing.c")
 target_include_directories(splh1d_errors PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src" "examples/timing")
 target_link_libraries(     splh1d_errors PRIVATE ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})
@@ -116,10 +121,6 @@ add_executable(            splh2d_errors ${SOURCES} "examples/spl_hubbard2d/test
 target_include_directories(splh2d_errors PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src" "examples/timing")
 target_link_libraries(     splh2d_errors PRIVATE ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})
 
-
-add_executable(            h1d_errors ${SOURCES} "examples/hubbard1d/test_splitting/splitting_error.c" "examples/timing/timing.c")
-target_include_directories(h1d_errors PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src" "examples/timing")
-target_link_libraries(     h1d_errors PRIVATE ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})
 
 add_executable(run_tests ${SOURCES} ${TEST_SOURCES})
 target_include_directories(run_tests PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src")

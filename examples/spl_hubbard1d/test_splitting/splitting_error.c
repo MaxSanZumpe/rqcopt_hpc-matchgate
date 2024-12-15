@@ -9,15 +9,15 @@
 
 int main()
 {   
-    const int nqubits = 16;
+    const int nqubits = 14;
 
-    char model[] = "blanes_moan";
+    char model[] = "suzuki";
 
-    const int us = 21;
-    const int ulayers = 253;
-	const int order = 4;
+    const int us = 150;
+    const int ulayers = 301;
+	const int order = 2;
 
-    const int r = 12;
+    const int r = 2;
 
     float g = 4.00;
     float t = 1;
@@ -89,14 +89,18 @@ int main()
 
         apply_matchgate_brickwall_unitary(ulist, layers, upperms, &psi0, &Upsi);
 
-        for (int a = 0; a < n; a++) {
-            diff.data[a] = Upsi_ref.data[a] - Upsi.data[a];
-        }
+        double norm_error = uniform_distance(n, Upsi_ref.data, Upsi.data);
 
-        double norm_error = 0;
-        for (int a = 0; a < n; a++) {
-            norm_error += creal(conj(diff.data[a])*diff.data[a]);
-        }
+        // for (int a = 0; a < n; a++) {
+        //    diff.data[a] = Upsi_ref.data[a] - Upsi.data[a];
+        // }
+
+        // double norm_error = 0;
+        // for (int a = 0; a < n; a++) {
+        //    norm_error += conj(diff.data[a])*diff.data[a];
+        // }
+
+        // norm_error = sqrt(norm_error);
 
         printf("layers: %i | %lf\n", layers, norm_error);
         errors[s - 1] = norm_error;

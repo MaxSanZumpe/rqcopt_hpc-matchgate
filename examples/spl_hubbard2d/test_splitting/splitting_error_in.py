@@ -36,15 +36,15 @@ nqubits = 16
 J = 1
 
 g = 4.0
-t = 0.75
+t = 0.25
 
 # Change the splitting method here
 method = "suzuki"
-order = 2
+order = 4
 splitting = oc.SplittingMethod.suzuki(4, order/2)
 
 # Splitting steps
-us = 42
+us = 10
 
 H = st.construct_sparse_spl_hubbard2d_hamiltonian(Lx, Ly, J, g)
 
@@ -56,6 +56,8 @@ Upsi = sp.linalg.expm_multiply(-1j*H*t, psi0)
 h = construct_spl_hubbard_local_term(J, g)
 
 terms = [h, h, h, h]
+
+print(f"Splitting layers relation: {len(splitting.indices) - 1}s + 1")
 
 uindex, coeffs_ulist = oc.merge_layers(us*splitting.indices, us*splitting.coeffs)
 ulayers = len(coeffs_ulist)
@@ -79,11 +81,6 @@ with h5py.File(file_path, "w") as file:
         ulist  = [expm(-1j*c*dt*terms[i]) for c, i in zip(coeffs_ulist, uindex)]
 
         uperms = p.permuations.spl_hubbard2d(uindex, Lx, Ly).perm_list
-
-        print(uperms[1])
-        print(uperms[2])
-        print(uperms[3])
-        print(uperms[4])
 
         assert(len(uperms) == layers)
         assert(len(list(uperms[1])) == nqubits)

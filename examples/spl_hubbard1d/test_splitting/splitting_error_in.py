@@ -34,19 +34,19 @@ def construct_hubbard1d_interac_term(g):
 
 
 
-nqubits = 16
+nqubits = 14
 J = 1
 
 g = 4.0
 t = 1
 
 # Change the splitting method here
-method = "blanes_moan"
-order = 4
-splitting = oc.SplittingMethod.blanes_moan()
+method = "suzuki"
+order = 6
+splitting = oc.SplittingMethod.suzuki(2, order/2)
 
 # Splitting steps
-us = 21
+us = 6
 
 H = st.construct_sparse_spl_hubbard1d_hamiltonian(nqubits, J, g)
 
@@ -65,6 +65,7 @@ terms = [h, h]
 uindex, coeffs_ulist = oc.merge_layers(us*splitting.indices, us*splitting.coeffs)
 ulayers = len(coeffs_ulist)
 
+print(f"Splitting layers relation: {len(splitting.indices) - 1}s + 1")
 
 file_dir  = os.path.dirname(__file__)
 file_path = os.path.join(file_dir, "error_in" ,f"spl_hubbard1d_{method}{order}_q{nqubits}_us{us}_u{ulayers}_t{t:.2f}s_g{g:.2f}_error_in.hdf5")

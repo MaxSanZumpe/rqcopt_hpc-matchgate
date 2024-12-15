@@ -1,15 +1,18 @@
 import os
+import sys
 import numpy as np
 import scipy.sparse as sp
 import matplotlib.pyplot as plt
-import examples.hubbard1d.sparse_targets as st
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+import sparse_targets as st
 
 
 def sparse_local_single_op(U, j, L):
     assert U.shape == (2, 2)
     return sp.kron(sp.eye(2**j), sp.kron(U, sp.eye(2**(L-j-1))))
 
-L = 7
+L = 5
 J = 1
 g = 4
 
