@@ -32,15 +32,15 @@ def main():
     g = 4
     t = 0.25
 
-    s = 6  #number of splitting steps
-    us = 40
+    s = 3  #number of splitting steps
+    us = 50
 
     dt = t/s
     udt = t/us
 
     model = "suzuki"
     order = 2
-    splitting = oc.SplittingMethod.suzuki(2, order/2)
+    splitting = oc.SplittingMethod.suzuki(4, order/2)
     usplitting = oc.SplittingMethod.suzuki(4, order/2)
 
     h = construct_spl_hubbard_local_term(J, g)
