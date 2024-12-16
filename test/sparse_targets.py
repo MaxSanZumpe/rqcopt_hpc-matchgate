@@ -64,10 +64,68 @@ def construct_sparse_spl_hubbard1d_interac_term(L):
 
     return interac
 
+def construct_sparse_2d_2qubit_operator(i1, j1, i2, j2, Lx, Ly, a: sp.csr_matrix, b: sp.csr_matrix):
+    L = int(Lx*Ly)
+    p1 = int(j1 + Ly*i1)
+    p2 = int(j2 + Ly*i2)
+
+    if (p1 > p2):
+        aux = p2
+        p2 = p1
+        p1 = aux
+
+        aux = b
+        b = a
+        a = aux
+
+    return sp.kron(sp.kron(sp.kron(sp.eye(2**p1), a), sp.eye(2**(p2 - p1 - 1))), sp.kron(b, sp.eye(2**(L - p2 - 1))))
+
+def construct_sparse_spl_hubbard2d_local_kinetic_term(i1, j1, i2, j2, Lx, Ly):
+    a = sp.csr_matrix(np.array([[0, 1], [0, 0]]))
+
+    return construct_sparse_2d_2qubit_operator(i1, j1, i2, j2, Lx, Ly, a, a.T) + construct_sparse_2d_2qubit_operator(i1, j1, i2, j2, Lx, Ly, a.T, a)
+
+
+def construct_sparse_spl_hubbard2d_local_interac_term(i1, j1, i2, j2, Lx, Ly):
+    n = sp.csr_matrix(np.array([[0, 0], [0, 1]]))
+
+    return construct_sparse_2d_2qubit_operator(i1, j1, i2, j2, Lx, Ly, n, n)
+
+def construct_sparse_spl_hubbard2d_kinetic_term(Lx, Ly):
+    L = Lx*Ly
+    kinetic = 0*sp.eye(2**L)
+    
+    for i in range(Ly):
+        for j in range(Ly):
+            kinetic += construct_sparse_spl_hubbard2d_local_kinetic_term(i , j, i         , (j + 1)%Ly, Lx, Ly)
+            kinetic += construct_sparse_spl_hubbard2d_local_kinetic_term(i , j, (i + 1)%Lx, j         , Lx, Ly)
+
+    return kinetic
+
+def construct_sparse_spl_hubbard2d_interac_term(Lx, Ly):
+    L = Lx*Ly
+    inter = 0*sp.eye(2**L)
+
+    for i in range(Ly):
+        for j in range(Ly):
+            inter += construct_sparse_spl_hubbard2d_local_interac_term(i , j, i         , (j + 1)%Ly, Lx, Ly)
+            inter += construct_sparse_spl_hubbard2d_local_interac_term(i , j, (i + 1)%Lx, j         , Lx, Ly)
+
+    return inter
+
+
+
 def construct_sparse_spl_hubbard1d_hamiltonian(L, J, g):
 
     h1 = construct_sparse_spl_hubbard1d_kinetic_term(L)
     h2 = construct_sparse_spl_hubbard1d_interac_term(L)
+
+    return -J*h1 + g*h2
+
+def construct_sparse_spl_hubbard2d_hamiltonian(Lx, Ly, J, g):
+    
+    h1 = construct_sparse_spl_hubbard2d_kinetic_term(Lx, Ly)
+    h2 = construct_sparse_spl_hubbard2d_interac_term(Lx, Ly)
 
     return -J*h1 + g*h2
 
@@ -81,10 +139,18 @@ def spl_hubbard1d_unitary(L, J, g, t):
     h = construct_sparse_spl_hubbard1d_hamiltonian(L, J, g).toarray()
 
     return expm(-1j*t*h)
+
     
+def qubit_permutation(U: np.ndarray, qubit_dim: int, perm: list):
+        L = qubit_dim
+        gate = U.reshape((2,) * 2*L)
+        perm_gate = np.transpose(gate, perm + [a + L for a in perm])
+        perm_gate = perm_gate.reshape(2**L, 2**L)
 
-if __name__ == "__main__":
+        return perm_gate
 
+
+def test_hubbard1d_and_spl_hubbard1d():
     def hubbard_hopping_term(L):
         a = np.array([[0, 1], [0, 0]])
         hop = np.kron(a.T, a) + np.kron(a, a.T)
@@ -163,12 +229,59 @@ if __name__ == "__main__":
 
 
     if (not np.allclose(H1, h_ref1, 1e-10)):
-        print("Hubbard1d failed.")
+        print("Hubbard1d hamiltonian failed.")
         
         
     if (not np.allclose(H2, h_ref2, 1e-10)):
         print(H2 - h_ref2)
-        print("Spinless hubbard1d failed.")
+        print("Spinless hubbard1d hamiltonian failed.")
+
+    t = 1
+    U1 = spl_hubbard1d_unitary(q, J, g, t)
+
+    for shift in range(q):
+        perm = list(np.roll(np.arange(q), shift))
+        u_perm = qubit_permutation(U1, q, perm)
+
+        if (not np.allclose(U1, u_perm)):
+            print("Spinless hubbard1d unitary failed invariance")
+
+    
+    
+    U2 = hubbard1d_unitary(L, J, g, t)
+
+    for shift in range(L):
+        perm = list(np.roll(np.arange(L), shift)) + list(np.roll(np.arange(L), shift) + 4)
+        u_perm = qubit_permutation(U2, q, perm)
+        if (not np.allclose(U2, u_perm)):
+            print("Spinless hubbard1d unitary failed invariance")
 
 
+def test_spl_hubbard2d():
+    a = np.array([[0, 1], [0, 0]])
+    n = sp.csr_matrix(np.array([[0, 0], [0, 1]]))
+    k = sp.kron(a.T, a) + sp.kron(a, a.T)
+
+    k_ref = sp.kron(sp.kron(sp.eye(2**(13)), k), sp.eye(2**1)) 
+    k_test = construct_sparse_spl_hubbard2d_local_kinetic_term(3,1, 3, 2, 4, 4)
+
+    print(k_ref - k_test)
+
+    i1, j1 = (0, 0)
+    i2, j2 = (0, 1)
+    
+    p1 = int(j1 + 4*i1)
+    p2 = int(j2 + 4*i2)
+
+
+    i_ref = sp.kron(sp.kron(sp.kron(sp.eye(2**0), n), sp.kron(sp.eye(2**(0)), n)), sp.eye(2**(14)))
+    i_test = construct_sparse_spl_hubbard2d_local_interac_term(i1,j1, i2,j2, 4, 4)
+
+    print(i_ref - i_test)
+
+    h = construct_sparse_spl_hubbard2d_hamiltonian(4, 4, 1, 4)
+
+if __name__ == "__main__":
+    test_hubbard1d_and_spl_hubbard1d()
+    test_spl_hubbard2d()
 

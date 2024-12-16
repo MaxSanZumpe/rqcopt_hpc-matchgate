@@ -30,14 +30,14 @@ def construct_spl_hubbard_local_term(J, U):
     return -J*hop + U*int
 
 
-nqubits = 10
+nqubits = 14
 J = 1
 
 U = 4.0
-t = 0.01
+t = 1
 
 s = 5
-us = 40
+us = 6
 
 dt = t/s
 udt = t/us
@@ -45,9 +45,11 @@ udt = t/us
 order = 2
 
 splitting = oc.SplittingMethod.suzuki(2, order/2)
+usplitting = oc.SplittingMethod.suzuki(2, 3)
+
 hloc = construct_spl_hubbard_local_term(J, U)
 vindex, coeffs_vlist = oc.merge_layers(s*splitting.indices, s*splitting.coeffs)
-uindex, coeffs_ulist = oc.merge_layers(us*splitting.indices, us*splitting.coeffs)
+uindex, coeffs_ulist = oc.merge_layers(us*usplitting.indices, us*usplitting.coeffs)
 
 nlayers = len(coeffs_vlist)
 ulayers = len(coeffs_ulist)
@@ -57,8 +59,6 @@ ulist  = [expm(-1j*c*udt*hloc) for c in coeffs_ulist]
 
 perms  = permutations.permuations.spl_hubbard1d(vindex, nqubits).perm_list
 uperms = permutations.permuations.spl_hubbard1d(uindex, nqubits).perm_list
-
-print(perms)
 
 assert(len(perms)  == nlayers) 
 assert(len(uperms) == ulayers)
@@ -80,7 +80,7 @@ for V in vlist:
 vblocks = np.array(vblocks)
 
 file_dir  = os.path.dirname(__file__)
-file_path = os.path.join(file_dir, "input" ,f"spl_hubbard1d_suzuki{order}_n{nlayers}_q{nqubits}_u{ulayers}_t{t:.2f}s_g{U:.2f}_init.hdf5")
+file_path = os.path.join(file_dir, "opt_in" ,f"spl_hubbard1d_suzuki{order}_n{nlayers}_q{nqubits}_u{ulayers}_t{t:.2f}s_g{U:.2f}_init.hdf5")
 
 # save initial data to disk
 with h5py.File(file_path, "w") as file:
@@ -90,7 +90,7 @@ with h5py.File(file_path, "w") as file:
     psi = np.ones(2**nqubits)
     psi /= np.linalg.norm(psi)
     file["psi"] = io.interleave_complex(psi, "cplx")
-    print(psi)
+
     file[f"ulist"] = io.interleave_complex(np.stack(ublocks), "cplx")
 
     for i in range(ulayers):

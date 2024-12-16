@@ -41,12 +41,12 @@ g = 4.0
 t = 1
 
 # Change the splitting method here
-method = "suzuki"
-order = 6
-splitting = oc.SplittingMethod.suzuki(2, order/2)
+method = "blanes"
+order = 4
+splitting = oc.SplittingMethod.blanes_moan()
 
 # Splitting steps
-us = 6
+us = 50
 
 H = st.construct_sparse_spl_hubbard1d_hamiltonian(nqubits, J, g)
 

@@ -45,15 +45,22 @@ set(TEST_SOURCES
     "test/run_custom_test.c"
 )
 
-# add_executable(            spl_hubbard1d ${SOURCES} "examples/spl_hubbard1d/spl_hubbard1d_opt.c" "examples/timing/timing.c")
-# target_include_directories(spl_hubbard1d PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src" "examples/timing")
-# target_link_libraries(     spl_hubbard1d PRIVATE ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})
-# target_compile_definitions(spl_hubbard1d PRIVATE TRANSLATIONAL_INVARIANCE STATEVECTOR_PARALLELIZATION)
+add_executable(            spl_hubbard1d ${SOURCES} "examples/spl_hubbard1d/spl_hubbard1d_opt.c" "examples/timing/timing.c")
+target_include_directories(spl_hubbard1d PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src" "examples/timing")
+target_link_libraries(     spl_hubbard1d PRIVATE ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})
+target_compile_definitions(spl_hubbard1d PRIVATE TRANSLATIONAL_INVARIANCE STATEVECTOR_PARALLELIZATION)
 
 
-# add_executable(spinhubbard.exe ${SOURCES} "examples/spinhubbard/spinhubbard_opt.c" "examples/timing/timing.c")
-# target_include_directories(spinhubbard.exe PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src" "examples/timing")
-# target_link_libraries(spinhubbard.exe PRIVATE ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})
+add_executable(            hubbard1d ${SOURCES} "examples/hubbard1d/hubbard1d_opt.c" "examples/timing/timing.c")
+target_include_directories(hubbard1d PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src" "examples/timing")
+target_link_libraries(     hubbard1d PRIVATE ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})
+
+
+add_executable(            spl_hubbard2d ${SOURCES} "examples/spl_hubbard2d/spl_hubbard2d.c" "examples/timing/timing.c")
+target_include_directories(spl_hubbard2d PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} ${MPI_INCLUDE_PATH} "src" "examples/timing")
+target_link_libraries(     spl_hubbard2d ${BLAS_LIBRARIES} ${HDF5_LIBRARIES} ${MPI_C_LIBRARIES})
+target_compile_definitions(spl_hubbard2d PRIVATE MPI TRANSLATIONAL_INVARIANCE STATEVECTOR_PARALLELIZATION)
+
 
 
 add_executable(            benchmark_threads ${SOURCES} "benchmark_hpc/benchmark_threads.c" "examples/timing/timing.c")
@@ -73,18 +80,8 @@ target_compile_definitions(benchmark_mpi PRIVATE MPI STATEVECTOR_PARALLELIZATION
 # target_link_libraries(benchmark_serial.exe ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})
 # # target_compile_definitions(benchmark_serial.exe PRIVATE TRANSLATIONAL_INVARIANCE)
 
-add_executable(            spl_hubbard2d ${SOURCES} "examples/spl_hubbard2d/spl_hubbard2d.c" "examples/timing/timing.c")
-target_include_directories(spl_hubbard2d PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} ${MPI_INCLUDE_PATH} "src" "examples/timing")
-target_link_libraries(     spl_hubbard2d ${BLAS_LIBRARIES} ${HDF5_LIBRARIES} ${MPI_C_LIBRARIES})
-target_compile_definitions(spl_hubbard2d PRIVATE MPI TRANSLATIONAL_INVARIANCE STATEVECTOR_PARALLELIZATION)
 
 
-# add_executable(test_2d_invar.exe ${SOURCES} "examples/hubbard2d/test_invariance.c" "examples/timing/timing.c")
-# target_include_directories(test_2d_invar.exe PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src" "examples/timing")
-# target_link_libraries(test_2d_invar.exe ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})
-# target_compile_definitions(test_2d_invar.exe PRIVATE TRANSLATIONAL_INVARIANCE)
-
- 
 # add_executable(            corr_splh1d ${SOURCES} "examples/spl_hubbard1d/correlations.c" "examples/timing/timing.c")
 # target_include_directories(corr_splh1d PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src" "examples/timing")
 # target_link_libraries(     corr_splh1d PRIVATE ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})
@@ -105,6 +102,12 @@ target_compile_definitions(spl_hubbard2d PRIVATE MPI TRANSLATIONAL_INVARIANCE ST
 #add_executable(            bench_hess_partial ${SOURCES} "examples/hubbard1d/benchmark_hess.c" "examples/timing/timing.c")
 #target_include_directories(bench_hess_partial PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src" "examples/timing")
 #target_link_libraries(     bench_hess_partial PRIVATE ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})
+
+
+
+add_executable(            hubb1d_lightcone ${SOURCES} "examples/hubbard1d/lightcone/lightcone.c" "examples/timing/timing.c")
+target_include_directories(hubb1d_lightcone PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src" "examples/timing")
+target_link_libraries(     hubb1d_lightcone PRIVATE ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})
 
 
 add_executable(            hubb1d_errors ${SOURCES} "examples/hubbard1d/test_splitting/splitting_error.c" "examples/timing/timing.c")

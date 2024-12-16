@@ -33,7 +33,7 @@ def main():
     t = 0.25
 
     s = 3  #number of splitting steps
-    us = 50
+    us = 10
 
     dt = t/s
     udt = t/us
@@ -41,7 +41,7 @@ def main():
     model = "suzuki"
     order = 2
     splitting = oc.SplittingMethod.suzuki(4, order/2)
-    usplitting = oc.SplittingMethod.suzuki(4, order/2)
+    usplitting = oc.SplittingMethod.suzuki(4, order)
 
     h = construct_spl_hubbard_local_term(J, g)
     terms = [h, h, h, h]
@@ -59,9 +59,6 @@ def main():
 
     perms  = permutations.permuations.spl_hubbard2d(vindex, Lx, Ly).perm_list
     uperms = permutations.permuations.spl_hubbard2d(uindex, Lx, Ly).perm_list   
-
-    perms  = permutations.permuations.spl_hubbard2d(vindex, Lx, Ly).perm_list
-    uperms = permutations.permuations.spl_hubbard2d(uindex, Lx, Ly).perm_list  
 
 
     assert(len(perms)  == nlayers) 

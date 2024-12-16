@@ -9,18 +9,18 @@
 
 int main()
 {   
-    const int nqubits = 16;
+    const int nqubits = 12;
 
     char model[] = "auzinger";
 
-    const int us = 11;
-    const int ulayers = 309;
+    const int us = 21;
+    const int ulayers = 589;
 	const int order = 6;
 
     const int r = 28;
 
     float g = 4.00;
-    float t = 1;
+    float t = 0.75;
 
     const intqs n = (intqs)1 << nqubits;
     struct statevector psi0, Upsi, Upsi_ref, diff;
@@ -89,14 +89,7 @@ int main()
 
         apply_matchgate_brickwall_unitary(ulist, layers, upperms, &psi0, &Upsi);
 
-        for (int a = 0; a < n; a++) {
-            diff.data[a] = Upsi_ref.data[a] - Upsi.data[a];
-        }
-
-        double norm_error = 0;
-        for (int a = 0; a < n; a++) {
-            norm_error += creal(conj(diff.data[a])*diff.data[a]);
-        }
+        double norm_error = uniform_distance(n, Upsi_ref.data, Upsi.data);
 
         printf("layers: %i | %lf\n", layers, norm_error);
         errors[s - 1] = norm_error;

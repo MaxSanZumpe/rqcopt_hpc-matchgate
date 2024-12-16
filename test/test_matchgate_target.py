@@ -253,6 +253,7 @@ def matchgate_ti_brickwall_unitary_target_gradient_hessian_data():
         t = 1
 
         # Should be translationally invariant unitary matrix
+        #expiH = sparse_targets.construct_sparse_hubbard1d_hamiltonian(4, J, g)
         expiH = sparse_targets.spl_hubbard1d_unitary(8, J, g, t)
         file["expiH"] = interleave_complex(expiH, "cplx")
 
@@ -271,10 +272,127 @@ def matchgate_ti_brickwall_unitary_target_gradient_hessian_data():
         for i in range(nlayers):
             file[f"perm{i}"] = np.arange(L) if perms[i] is None else perms[i]
 
-        file.close()
 
+def matchgate_ti_brickwall_unitary_target_gradient_hessian_data2():
+
+    rng = np.random.default_rng(49)
+
+    # system size
+    L = 4
+    q = 2*L
+
+    s = 1
+    nlayers = 5
+
+    script_dir = os.path.dirname(__file__)
+    file_path = os.path.join(script_dir, 'data', 'test_matchgate_ti_brickwall_unitary_target_gradient_hessian2_cplx.hdf5')
+
+    with h5py.File(file_path, "w") as file:
+
+        J = 1
+        g = 4
+        t = 1
+
+        # Should be translationally invariant unitary matrix
+        expiH = sparse_targets.hubbard1d_unitary(L, J, g, t)
+        #expiH = sparse_targets.spl_hubbard1d_unitary(8, J, g, t)
+        file["expiH"] = interleave_complex(expiH, "cplx")
+
+        # general random 2x2 matrices (do not need to be unitary for this test)
+        V_blocks = [0.5 * oc.crandn((2, 2), rng) for _ in range(2 * nlayers)]
+
+        file[f"vlist"] = interleave_complex(np.stack(V_blocks), "cplx")
+
+        
+        splitting = oc.SplittingMethod.suzuki(3, 1)
+        vindex, coeffs_vlist = oc.merge_layers(s*splitting.indices, s*splitting.coeffs)
+        perms  = ps.permuations.hubbard1d(vindex, q).perm_list
+
+        for i in range(nlayers):
+            file[f"perm{i}"] = np.arange(q) if perms[i] is None else perms[i]
+
+
+def matchgate_ti_brickwall_unitary_target_gradient_hessian_data3():
+    from scipy.linalg import expm
+
+    def extract_matchgate(V):
+        V = np.roll(V, (-1, -1), (0, 1))  
+        G1 = V[0:2, 0:2]
+        G2 = np.roll(V[2:, 2:], (-1, -1), (0, 1))
+
+        return G1, G2
+
+    def construct_spl_hubbard_local_term(J, U):
+        n = np.array([[0, 0], [0, 1]])
+        a = np.array([[0, 1], [0, 0]])
+        hop = np.kron(a.T, a) + np.kron(a, a.T)
+        int = np.kron(n, n)
+
+        return -J*hop + U*int
+
+    # system size
+    L = 4
+    q = 2*L
+
+    nlayers = 7
+    ulayers = 201
+
+    s = 3
+    us = 100
 
     
+    J = 1
+    g = 4
+    t = 1
+
+    dt = t/s
+    udt = t/us
+
+    splitting = oc.SplittingMethod.suzuki(2, 1)
+    
+    vindex, coeffs_vlist = oc.merge_layers(s*splitting.indices, s*splitting.coeffs)
+    uindex, coeffs_ulist = oc.merge_layers(us*splitting.indices, us*splitting.coeffs)
+    
+    perms  = ps.permuations.spl_hubbard1d(vindex, q).perm_list
+    uperms = ps.permuations.spl_hubbard1d(uindex, q).perm_list
+
+    script_dir = os.path.dirname(__file__)
+    file_path = os.path.join(script_dir, 'data', 'test_matchgate_ti_brickwall_unitary_target_gradient_hessian3_cplx.hdf5')
+
+    with h5py.File(file_path, "w") as file:
+
+        h = construct_spl_hubbard_local_term(J, g)
+        terms = [h, h]
+
+        vlist  = [expm(-1j*c* dt*terms[i]) for c, i in zip(coeffs_vlist, vindex)]
+        ulist  = [expm(-1j*c*udt*terms[i]) for c, i in zip(coeffs_ulist, uindex)]
+
+        ublocks = []
+        for X in ulist:
+            X1, X2 = extract_matchgate(X)
+            ublocks.append(X1)
+            ublocks.append(X2)
+
+        ublocks = np.array(ublocks)
+
+        vblocks = []
+        for V in vlist:
+            V1, V2 = extract_matchgate(V)
+            vblocks.append(V1)
+            vblocks.append(V2)
+
+        ublocks = np.array(vblocks)
+        
+        file[f"vlist"] = interleave_complex(np.stack(vblocks), "cplx")
+        file[f"ulist"] = interleave_complex(np.stack(ublocks), "cplx")   
+
+        for i in range(nlayers):
+            file[f"perm{i}"] = np.arange(q) if perms[i] is None else perms[i]
+
+        
+        for i in range(ulayers):
+            file[f"uperm{i}"] = np.arange(q) if uperms[i] is None else uperms[i]
+
 
 
 def main():
@@ -283,6 +401,10 @@ def main():
     # matchgate_brickwall_unitary_target_gradient_hessian_data()
     # matchgate_brickwall_unitary_target_gradient_vector_hessian_matrix_data()
     matchgate_ti_brickwall_unitary_target_gradient_hessian_data()
+    matchgate_ti_brickwall_unitary_target_gradient_hessian_data2()
+    matchgate_ti_brickwall_unitary_target_gradient_hessian_data3()
+
+
 
 if __name__ == "__main__":
     main()

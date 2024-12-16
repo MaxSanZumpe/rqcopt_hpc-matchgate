@@ -34,15 +34,15 @@ def construct_hubbard1d_interac_term(g):
 
 
 
-L = 8
+L = 6
 nqubits = 2*L
 J = 1
 
 g = 4.0
-t = 1
+t = 0.75
 
-method = "suzuki"
-us = 15
+method = "yoshida"
+us = 50
 order = 4
 
 H = st.construct_sparse_hubbard1d_hamiltonian(L, J, g)
@@ -53,7 +53,7 @@ psi0 /= np.linalg.norm(psi0)
 Upsi = sp.linalg.expm_multiply(-1j*H*t, psi0)
 
 # Change the splitting method here
-splitting = oc.SplittingMethod.suzuki(3, order/2)
+splitting = oc.SplittingMethod.yoshida4(3)
 h_kin = construct_hubbard1d_kinetic_term(J)
 h_int = construct_hubbard1d_interac_term(g)
 

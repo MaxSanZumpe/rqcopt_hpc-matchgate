@@ -37,6 +37,8 @@ char* test_matchgate_brickwall_unitary_target();
 char* test_matchgate_brickwall_unitary_target_gradient_hessian();
 char* test_matchgate_brickwall_unitary_target_gradient_vector_hessian_matrix();
 char* test_matchgate_ti_brickwall_unitary_target_gradient_hessian();
+char* test_matchgate_ti_brickwall_unitary_target_gradient_hessian2();
+char* test_matchgate_ti_brickwall_unitary_target_gradient_hessian3();
 char* test_parallel_matchgate_brickwall_unitary_target_gradient_hessian();
 
 
@@ -67,6 +69,8 @@ int main(){
 		TEST_FUNCTION_ENTRY(test_matchgate_brickwall_unitary_target_gradient_hessian),
 		TEST_FUNCTION_ENTRY(test_matchgate_brickwall_unitary_target_gradient_vector_hessian_matrix),
 		TEST_FUNCTION_ENTRY(test_matchgate_ti_brickwall_unitary_target_gradient_hessian),
+		//TEST_FUNCTION_ENTRY(test_matchgate_ti_brickwall_unitary_target_gradient_hessian2),
+		TEST_FUNCTION_ENTRY(test_matchgate_ti_brickwall_unitary_target_gradient_hessian3),
 		TEST_FUNCTION_ENTRY(test_parallel_matchgate_brickwall_unitary_target_gradient_hessian),
     };
     int num_tests = sizeof(tests) / sizeof(struct test);

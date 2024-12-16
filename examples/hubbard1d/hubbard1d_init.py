@@ -33,28 +33,29 @@ def construct_hubbard_interac_term(U):
     return U*np.kron(n, n)
 
 
-nqubits = 16
+nqubits = 12
 J = 1
 
 U = 4.0
-t = 0.01
+t = 0.02
 
 s = 1
-us = 40
+us = 11
 
 dt = t/s
 udt = t/us
 
 order = 2
-
 splitting = oc.SplittingMethod.suzuki(3, order/2)
+usplitting = oc.SplittingMethod.auzinger15_6()
+
 h_kin = construct_hubbard_kinetic_term(J)
 h_int = construct_hubbard_interac_term(U)
 
 terms = [h_kin, h_kin, h_int]
 
 vindex, coeffs_vlist = oc.merge_layers(s*splitting.indices, s*splitting.coeffs)
-uindex, coeffs_ulist = oc.merge_layers(us*splitting.indices, us*splitting.coeffs)
+uindex, coeffs_ulist = oc.merge_layers(us*usplitting.indices, us*usplitting.coeffs)
 
 nlayers = len(coeffs_vlist)
 ulayers = len(coeffs_ulist)
@@ -91,14 +92,12 @@ for V in vlist:
 vblocks = np.array(vblocks)
 
 file_dir  = os.path.dirname(__file__)
-file_path = os.path.join(file_dir, "input" ,f"hubbard1d_suzuki{order}_n{nlayers}_q{nqubits}_u{ulayers}_t{t:.2f}s_g{U:.2f}_init.hdf5")
+file_path = os.path.join(file_dir, "opt_in", f"hubbard1d_suzuki{order}_n{nlayers}_q{nqubits}_u{ulayers}_t{t:.2f}s_g{U:.2f}_init.hdf5")
 
 # save initial data to disk
 with h5py.File(file_path, "w") as file:
 
-    
-    rng = np.random.default_rng(182)
-    psi = crandn(2**nqubits, rng)
+    psi = np.ones(2**nqubits)
     psi /= np.linalg.norm(psi)
     file["psi"] = io.interleave_complex(psi, "cplx")
 

@@ -20,6 +20,34 @@ def construct_sparse_hubbard1d_kinetic_term(L):
     return kinetic + periodic
 
 
+def kronZ(q):
+    Z = sp.csr_matrix(np.array([[1, 0], [0, -1]]))
+    kronZ = Z
+    
+    for _ in range(q - 1):
+        kronZ = sp.kron(kronZ, Z)
+    
+    assert(kronZ.shape == (2**q, 2**q))
+    return kronZ
+
+def construct_sparse_exact_hubbard1d_kinetic_term(L):
+    a = sp.csr_matrix(np.array([[0, 1], [0, 0]])) 
+    k = sp.kron(a.T, a) + sp.kron(a, a.T)
+
+
+    periodic = sp.kron(sp.kron(a, kronZ(L-2)), a.T) + sp.kron(sp.kron(a.T, kronZ(L-2)), a)
+    periodic = sp.kron(periodic, sp.eye(2**L)) + sp.kron(sp.eye(2**L), periodic)
+
+    kinetic = sp.kron(k, sp.eye(2**(L - 2))) + sp.kron(sp.eye(2**(L - 2)), k)
+
+    for i in range(1, L - 2):
+        kinetic += sp.kron(sp.kron(sp.eye(2**i), k), sp.eye(2**(L - i - 2)))
+
+    kinetic = sp.kron(kinetic, sp.eye(2**L)) + sp.kron(sp.eye(2**L), kinetic)
+
+    return kinetic + periodic
+
+
 def construct_sparse_hubbard1d_interac_term(L):
     n = sp.csr_matrix(np.array([[0, 0], [0, 1]]))
 
@@ -40,6 +68,14 @@ def construct_sparse_hubbard1d_hamiltonian(L, J, g):
     return -J*h1 + g*h2
 
 
+def construct_sparse_exact_hubbard1d_hamiltonian(L, J, g):
+
+    h1 = construct_sparse_exact_hubbard1d_kinetic_term(L)
+    h2 = construct_sparse_hubbard1d_interac_term(L)
+
+    return -J*h1 + g*h2
+
+
 def construct_sparse_spl_hubbard1d_kinetic_term(L):
     a = sp.csr_matrix(np.array([[0, 1], [0, 0]])) 
     k = sp.kron(a.T, a) + sp.kron(a, a.T)
@@ -52,6 +88,7 @@ def construct_sparse_spl_hubbard1d_kinetic_term(L):
         kinetic += sp.kron(sp.kron(sp.eye(2**i), k), sp.eye(2**(L - i - 2)))
 
     return kinetic + periodic
+
 
 def construct_sparse_spl_hubbard1d_interac_term(L):
     n = sp.csr_matrix(np.array([[0, 0], [0, 1]]))

@@ -36,15 +36,15 @@ static int ufunc_matfree(const struct statevector* restrict psi, void* fdata, st
 int main()
 {
 	const int nqubits = 8;
-	const int nlayers = 9;
+	const int nlayers = 21;
 	
-	const int ulayers = 81;
+	const int ulayers = 309;
 
 	char splitting[] = "suzuki";
 	int order = 2;
 
 	float g = 4.0;
-    float delta = 0.2;
+    float t = 0.5;
 
 	const int niter = 15;
 
@@ -57,7 +57,7 @@ int main()
 
 	// read initial data from disk
 	char filename[1024];
-	sprintf(filename, "../examples/spinhubbard/data/spinhubbard_n%i_q%i_init.hdf5", nlayers, nqubits);
+	sprintf(filename, "../examples/hubbard1d/opt_in/hubbard1d_suzuki2_n%i_q%i_u%i_t%.2fs_g%.2f_init.hdf5", nlayers, nqubits, ulayers, t, g);
 	hid_t file = H5Fopen(filename, H5F_ACC_RDONLY, H5P_DEFAULT);
 	if (file < 0) {
 		fprintf(stderr, "'H5Fopen' for '%s' failed, return value: %" PRId64 "\n", filename, file);
@@ -171,7 +171,7 @@ int main()
 
 
 	// save results to disk
-	sprintf(filename, "../examples/spinhubbard/data/spinhubbard_n%i_q%i_th%i_%i%i%i.hdf5", nlayers, nqubits, num_threads, translational_invariance, statevector_parallelization, gate_parallelization);
+	sprintf(filename, "../examples/hubbard1d/opt_out/hubbard1d_suzuki2_n%i_q%i_u%i_t%.2fs_g%.2f_iter%i_opt.hdf5", nlayers, nqubits, ulayers, t, g, niter);
 	file = H5Fcreate(filename, H5F_ACC_TRUNC, H5P_DEFAULT, H5P_DEFAULT);
 	if (file < 0) {
 		fprintf(stderr, "'H5Fcreate' for '%s' failed, return value: %" PRId64 "\n", filename, file);
@@ -243,7 +243,7 @@ int main()
 	aligned_free(vlist_opt);
 	aligned_free(f_iter);
 	aligned_free(vlist_start);
-	aligned_free(u_split);
+	aligned_free(ulist);
 
 	return 0;
 };

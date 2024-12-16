@@ -537,7 +537,7 @@ char* test_matchgate_ti_brickwall_unitary_target_gradient_hessian()
 		}
 	}
 
-	int perms[nlayers][8];
+	int perms[nlayers][nqubits];
 	for (int i = 0; i < nlayers; i++)
 	{
 		char varname[32];
@@ -547,7 +547,10 @@ char* test_matchgate_ti_brickwall_unitary_target_gradient_hessian()
 		}
 	}
 
-	const int* pperms[] = { perms[0], perms[1], perms[2], perms[3], perms[4] };
+	const int* pperms[nlayers];
+	for (int i = 0; i < nlayers; i++) {
+		pperms[i] = perms[i];
+	}
 
 	const int m = nlayers * nqubits;
 
@@ -576,7 +579,7 @@ char* test_matchgate_ti_brickwall_unitary_target_gradient_hessian()
 	}
 
 	// compare hessians
-	if (uniform_distance(m * m, hess, hess_ref) > 1e-10) {
+	if (uniform_distance(m * m, hess, hess_ref) > 1e-13) {
 		return "computed unitary target Hessian matrix does not match reference";
 	}
 
@@ -587,6 +590,187 @@ char* test_matchgate_ti_brickwall_unitary_target_gradient_hessian()
 
 	return 0;
 }
+
+
+char* test_matchgate_ti_brickwall_unitary_target_gradient_hessian2()
+{
+	const int nqubits = 8;
+	const int nlayers = 5;
+	const intqs n = (intqs)1 << nqubits;
+
+	hid_t file = H5Fopen("../test/data/test_matchgate_ti_brickwall_unitary_target_gradient_hessian2" CDATA_LABEL ".hdf5", H5F_ACC_RDONLY, H5P_DEFAULT);
+	if (file < 0) {
+		return "'H5Fopen' in test_brickwall_unitary_target_gradient_hessian failed";
+	}
+		
+	// translational invariant target unitary
+	numeric* expiH = aligned_alloc(MEM_DATA_ALIGN, n * n * sizeof(numeric));
+	if (expiH == NULL) {
+		fprintf(stderr, "memory allocation for target unitary failed\n");
+	}
+	if (read_hdf5_dataset(file, "expiH", H5T_NATIVE_DOUBLE, expiH) < 0) {
+		fprintf(stderr, "reading 'expiH' from disk failed\n");
+	}
+
+	struct matchgate vlist[nlayers];
+	if (read_hdf5_dataset(file, "vlist", H5T_NATIVE_DOUBLE, vlist) < 0) {
+			return "reading two-qubit quantum gate entries from disk failed";
+	}
+
+	int perms[nlayers][nqubits];
+	for (int i = 0; i < nlayers; i++)
+	{
+		char varname[32];
+		sprintf(varname, "perm%i", i);
+		if (read_hdf5_dataset(file, varname, H5T_NATIVE_INT, perms[i]) < 0) {
+			return "reading permutation data from disk failed";
+		}
+	}
+
+	const int* pperms[nlayers];
+	for (int i = 0; i < nlayers; i++) {
+		pperms[i] = perms[i];
+	}
+
+	const int m = nlayers * nqubits;
+
+	numeric f_ref;
+	struct matchgate dvlist_ref[nlayers];
+	numeric* hess_ref = aligned_alloc(MEM_DATA_ALIGN, m * m * sizeof(numeric));
+
+	if (matchgate_brickwall_unitary_target_gradient_hessian(ufunc2, expiH, vlist, nlayers, nqubits, pperms, &f_ref, dvlist_ref, hess_ref) < 0) {
+		return "'matchgate_brickwall_unitary_target_gradient_hessian' failed internally";
+	}
+
+	numeric f;
+	struct matchgate dvlist[nlayers];
+	numeric* hess = aligned_alloc(MEM_DATA_ALIGN, m * m * sizeof(numeric));
+	
+	
+	if (matchgate_ti_brickwall_unitary_target_gradient_hessian(ufunc2, expiH, vlist, nlayers, nqubits, pperms, &f, dvlist, hess) < 0) {
+		return "'matchgate_ti_brickwall_unitary_target_gradient_hessian' failed internally";
+	}
+
+	// compare gradients
+	for (int j = 0; j < nlayers; j++) {
+		if (uniform_distance(8, (numeric*)&dvlist[j], (numeric*)&dvlist_ref[j]) > 1e-8) {
+			return "target function gradient with respect to gates does not match finite difference approximation";
+		}
+	}
+
+	// compare hessians
+	if (uniform_distance(m * m, hess, hess_ref) > 1e-12) {
+		return "computed unitary target Hessian matrix does not match reference";
+	}
+
+	aligned_free(hess_ref);
+	aligned_free(hess);
+	
+	H5Fclose(file);
+
+	return 0;
+}
+
+
+char* test_matchgate_ti_brickwall_unitary_target_gradient_hessian3()
+{
+	const int nqubits = 8;
+	const int nlayers = 7;
+	const int ulayers = 201;
+	const intqs n = (intqs)1 << nqubits;
+
+	
+	hid_t file = H5Fopen("../test/data/test_matchgate_ti_brickwall_unitary_target_gradient_hessian3" CDATA_LABEL ".hdf5", H5F_ACC_RDONLY, H5P_DEFAULT);
+	if (file < 0) {
+		return "'H5Fopen' in test_brickwall_unitary_target_gradient_hessian failed";
+	}
+	
+	struct matchgate vlist[nlayers];
+	if (read_hdf5_dataset(file, "vlist", H5T_NATIVE_DOUBLE, vlist) < 0) {
+		return "reading two-qubit quantum gate entries from disk failed";
+	}
+
+	struct matchgate ulist[ulayers];
+	if (read_hdf5_dataset(file, "ulist", H5T_NATIVE_DOUBLE, ulist) < 0) {
+		return "reading two-qubit quantum gate entries from disk failed";
+	}
+
+	char varname[32];
+	int perms[nlayers][nqubits];
+	for (int i = 0; i < nlayers; i++) {
+		sprintf(varname, "perm%i", i);
+		if (read_hdf5_dataset(file, varname, H5T_NATIVE_INT, perms[i]) < 0) {
+			return "reading permutation data from disk failed";
+		}
+	}
+
+	int uperms[ulayers][nqubits];
+	for (int i = 0; i < ulayers; i++) {
+		sprintf(varname, "uperm%i", i);
+		if (read_hdf5_dataset(file, varname, H5T_NATIVE_INT, uperms[i]) < 0) {
+			return "reading permutation data from disk failed";
+		}
+	}
+
+	H5Fclose(file);
+
+	const int* upperms[ulayers];
+	for (int i = 0; i < ulayers; i++) {
+		upperms[i] = uperms[i];
+	}
+
+	const int* pperms[nlayers];
+	for (int i = 0; i < nlayers; i++) {
+		pperms[i] = perms[i];
+	}
+
+
+	struct u_splitting udata = {
+		.ulist   = ulist,
+		.ulayers = ulayers,
+		.upperms = upperms,
+	};
+
+
+	const int m = nlayers * 8;
+
+	
+	numeric f, f_ref;
+	struct matchgate dvlist[nlayers];
+	struct matchgate dvlist_ref[nlayers];
+
+	numeric* hess = aligned_alloc(MEM_DATA_ALIGN, m * m * sizeof(numeric));
+	numeric* hess_ref = aligned_alloc(MEM_DATA_ALIGN, m * m * sizeof(numeric));
+
+	
+	if (matchgate_brickwall_unitary_target_gradient_hessian(ufunc_matfree, &udata, vlist, nlayers, nqubits, pperms, &f_ref, dvlist_ref, hess_ref) < 0) {
+		return "'mat4x4_brickwall_unitary_target_gradient_hessian' failed internally";
+	}
+
+	if (matchgate_ti_brickwall_unitary_target_gradient_hessian(ufunc_matfree, &udata, vlist, nlayers, nqubits, pperms, &f, dvlist, hess) < 0) {
+		return "'mat4x4_ti_brickwall_unitary_target_gradient_hessian' failed internally";
+	}
+
+	// compare gradients
+	for (int j = 0; j < nlayers; j++) {
+		if (uniform_distance(8, (numeric*)&dvlist[j], (numeric*)&dvlist_ref[j]) > 1e-8) {
+			return "translational invariance (usplit): target function gradient with respect to gates does not match finite difference approximation";
+		}
+	}
+
+	// compare hessians
+	if (uniform_distance(m * m, hess, hess_ref) > 1e-12) {
+		return "tranlation invariance (usplit): computed unitary target Hessian matrix does not match reference";
+	}
+
+
+	aligned_free(hess_ref);
+	aligned_free(hess);
+
+
+	return 0;
+}
+
 
 
 char* test_parallel_matchgate_brickwall_unitary_target_gradient_hessian()

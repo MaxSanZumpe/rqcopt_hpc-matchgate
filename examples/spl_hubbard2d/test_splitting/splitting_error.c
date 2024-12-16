@@ -89,15 +89,9 @@ int main()
 
         apply_matchgate_brickwall_unitary(ulist, layers, upperms, &psi0, &Upsi);
 
-        //for (int a = 0; a < n; a++) {
-        //    diff.data[a] = Upsi_ref.data[a] - Upsi.data[a];
-        //}
 
         double norm_error = uniform_distance(n, Upsi_ref.data, Upsi.data);
-        //for (int a = 0; a < n; a++) {
-        //    norm_error += creal(conj(diff.data[a])*diff.data[a]);
-        //}
-
+        
         printf("layers: %i | %lf\n", layers, norm_error);
         errors[s - 1] = norm_error;
         layers_arr[s - 1] = layers;
