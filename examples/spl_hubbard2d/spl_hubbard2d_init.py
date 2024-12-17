@@ -32,8 +32,9 @@ def main():
     g = 4
     t = 0.25
 
-    s = 3  #number of splitting steps
+    s = 1  #number of splitting steps
     us = 50
+    
 
     dt = t/s
     udt = t/us
