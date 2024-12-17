@@ -66,7 +66,7 @@ int main()
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
 	const int nqubits = 16;
-	const int nlayers = 13;
+	const int nlayers = 5;
 	const int ulayers = 253;
 
 	int num_threads;

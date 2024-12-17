@@ -37,16 +37,16 @@ int main()
 {
 	#ifdef STATEVECTOR_PARALLELIZATION 
 
-	const int nqubits = 16;
-	const int nlayers = 5;
+	const int nqubits = 12;
+	const int nlayers = 9;
 	const int ulayers = 253;
 
 	int num_threads = get_num_threads();
 	printf("max_threads = %i\n", num_threads);
 
 	int start_num_threads = 112;
-	int stop_num_threads  = 112;
-	int num_threads_step  = 10;
+	int stop_num_threads  = 1;
+	int num_threads_step  = 3;
 
 	if (start_num_threads < num_threads){
 		num_threads = start_num_threads;

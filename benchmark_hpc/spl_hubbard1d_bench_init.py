@@ -30,14 +30,14 @@ def construct_spl_hubbard_local_term(J, U):
     return -J*hop + U*int
 
 
-nqubits = 16
+nqubits = 12
 J = 1
 
 U = 4.0
 t = 1
 
-s = 6
-us = 21
+s = 4
+us = 126
 
 dt = t/s
 udt = t/us
@@ -45,7 +45,7 @@ udt = t/us
 order = 2
 
 splitting = oc.SplittingMethod.suzuki(2, order/2)
-usplitting = oc.SplittingMethod.blanes_moan()
+usplitting = oc.SplittingMethod.suzuki(2, order/2)
 hloc = construct_spl_hubbard_local_term(J, U)
 vindex, coeffs_vlist = oc.merge_layers(s*splitting.indices, s*splitting.coeffs)
 uindex, coeffs_ulist = oc.merge_layers(us*usplitting.indices, us*usplitting.coeffs)
