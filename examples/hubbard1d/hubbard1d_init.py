@@ -42,7 +42,7 @@ full_matrix = False
 g = 4.0
 t = 0.75
 
-s = 7
+s = 2
 us = 11
 
 dt = t/s

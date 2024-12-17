@@ -6,6 +6,12 @@
 #include "timing.h"
 #include "matchgate_brickwall.h"
 
+#ifdef LRZ_HPC
+	#include <mkl_cblas.h>
+#else
+	#include <cblas.h>
+#endif
+
 int get_num_threads(void) {
     int num_threads = 0;
     #pragma omp parallel reduction(+:num_threads)
@@ -49,7 +55,7 @@ static int ufunc(const struct statevector* restrict psi, void* fdata, struct sta
 int main()
 {
 	const int nqubits = 12;
-	const int nlayers = 5;
+	const int nlayers = 21;
 	
 	const int ulayers = 309;
 
@@ -59,7 +65,7 @@ int main()
 	float g = 4.0;
     float t = 0.75;
 
-	const int niter = 20;
+	const int niter = 12;
 
 	int num_threads;
 	#if  defined(STATEVECTOR_PARALLELIZATION) || defined(GATE_PARALLELIZATION)
@@ -83,8 +89,11 @@ int main()
 		return -1;
 	}
 
+	numeric* expiH;
 	if (ulayers == 0) {
-		numeric* expiH = aligned_alloc(MEM_DATA_ALIGN, n * n * sizeof(numeric));
+    	const intqs n = (intqs)1 << nqubits;
+
+		expiH = aligned_alloc(MEM_DATA_ALIGN, n * n * sizeof(numeric));
 		if (expiH == NULL) {
 			fprintf(stderr, "memory allocation for target unitary failed\n");
 			return -1;
@@ -156,17 +165,17 @@ int main()
 	linear_func func;
 	if (ulayers == 0) {
 		func = ufunc;
-		udata = expIH;
+		udata = expiH;
 
 	} else {
 		func = ufunc_matfree;
-		udata = udata_split;
-	}
+		udata = &udata_split;
+	}	
 	
 	uint64_t start_tick = get_ticks();
 	
 	// perform optimization
-	optimize_matchgate_brickwall_circuit_hmat(func, &udata, vlist_start, nlayers, nqubits, pperms, &params, niter, f_iter, vlist_opt);
+	optimize_matchgate_brickwall_circuit_hmat(func, udata, vlist_start, nlayers, nqubits, pperms, &params, niter, f_iter, vlist_opt);
 
 	uint64_t total_ticks = get_ticks() - start_tick;
 	// get the tick resolution

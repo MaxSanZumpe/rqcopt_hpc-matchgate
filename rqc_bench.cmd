@@ -11,7 +11,7 @@
 #SBATCH --cpus-per-task=112
 # 224 is the maximum reasonable value for CoolMUC-4
 #SBATCH --export=NONE
-#SBATCH --time=02:00:00
+#SBATCH --time=03:00:00
 
 module load slurm_setup
 export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK 

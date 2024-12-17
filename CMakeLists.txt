@@ -88,9 +88,10 @@ target_compile_definitions(benchmark_mpi PRIVATE MPI STATEVECTOR_PARALLELIZATION
 # target_link_libraries(     corr_splh1d PRIVATE ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})
  
 
-# add_executable(            bench_grad ${SOURCES} "examples/hubbard1d/benchmark_gradient.c" "examples/timing/timing.c")
-# target_include_directories(bench_grad PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src" "examples/timing")
-# target_link_libraries(     bench_grad PRIVATE ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})
+add_executable(            bench_grad ${SOURCES} "examples/hubbard1d/benchmark_gradient.c" "examples/timing/timing.c")
+target_include_directories(bench_grad PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src" "examples/timing")
+target_link_libraries(     bench_grad PRIVATE ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})
+
 # 
 # add_executable(            bench_hess_partial ${SOURCES} "examples/hubbard1d/benchmark_hess.c" "examples/timing/timing.c")
 # target_include_directories(bench_hess_partial PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src" "examples/timing")

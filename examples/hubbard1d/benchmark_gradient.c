@@ -30,7 +30,7 @@ int main()
 {
     const int nqubits = 12;
 
-    const int nlayers = 5;
+    const int nlayers = 29;
     const int ulayers = 309;
 
     const int order = 2;
@@ -54,7 +54,7 @@ int main()
 	}
 
     char filename[1024];
-    sprintf(filename, "../examples/hubbard1d/input/hubbard1d_suzuki%i_n%i_q%i_u%i_t%.2fs_g%.2f_init.hdf5", order, nlayers, nqubits, ulayers, t, g);
+    sprintf(filename, "../examples/hubbard1d/opt_in/hubbard1d_suzuki%i_n%i_q%i_u%i_t%.2fs_g%.2f_init.hdf5", order, nlayers, nqubits, ulayers, t, g);
     hid_t file = H5Fopen(filename, H5F_ACC_RDONLY, H5P_DEFAULT);
     if (file < 0) {
         fprintf(stderr, "'H5Fopen' for '%s' failed, return value: %" PRId64 "\n", filename, file);
