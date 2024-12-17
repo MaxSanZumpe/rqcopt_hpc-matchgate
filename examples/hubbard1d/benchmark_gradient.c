@@ -28,13 +28,13 @@ static int ufunc_matfree(const struct statevector* restrict psi, void* fdata, st
 
 int main() 
 {
-    const int nqubits = 14;
+    const int nqubits = 12;
 
     const int nlayers = 5;
-    const int ulayers = 81;
+    const int ulayers = 309;
 
     const int order = 2;
-    const float t = 0.2;
+    const float t = 0.75;
     const float g = 4.0;
 
     numeric f;

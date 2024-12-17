@@ -54,6 +54,7 @@ target_compile_definitions(spl_hubbard1d PRIVATE TRANSLATIONAL_INVARIANCE STATEV
 add_executable(            hubbard1d ${SOURCES} "examples/hubbard1d/hubbard1d_opt.c" "examples/timing/timing.c")
 target_include_directories(hubbard1d PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src" "examples/timing")
 target_link_libraries(     hubbard1d PRIVATE ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})
+target_compile_definitions(hubbard1d PRIVATE STATEVECTOR_PARALLELIZATION)
 
 
 add_executable(            spl_hubbard2d ${SOURCES} "examples/spl_hubbard2d/spl_hubbard2d.c" "examples/timing/timing.c")
@@ -86,9 +87,6 @@ target_compile_definitions(benchmark_mpi PRIVATE MPI STATEVECTOR_PARALLELIZATION
 # target_include_directories(corr_splh1d PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src" "examples/timing")
 # target_link_libraries(     corr_splh1d PRIVATE ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})
  
-# add_executable(            fid_splh1d ${SOURCES} "examples/spl_hubbard1d/fidelity.c" "examples/timing/timing.c")
-# target_include_directories(fid_splh1d PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src" "examples/timing")
-# target_link_libraries(     fid_splh1d PRIVATE ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})
 
 # add_executable(            bench_grad ${SOURCES} "examples/hubbard1d/benchmark_gradient.c" "examples/timing/timing.c")
 # target_include_directories(bench_grad PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src" "examples/timing")

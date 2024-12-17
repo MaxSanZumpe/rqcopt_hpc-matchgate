@@ -32,11 +32,24 @@ static int ufunc_matfree(const struct statevector* restrict psi, void* fdata, st
 	return 0;
 }
 
+static int ufunc(const struct statevector* restrict psi, void* fdata, struct statevector* restrict psi_out)
+{
+	const intqs n = (intqs)1 << psi->nqubits;
+	const numeric* U = (numeric*)fdata;
+
+	// apply U
+	numeric alpha = 1;
+	numeric beta  = 0;
+	cblas_zgemv(CblasRowMajor, CblasNoTrans, n, n, &alpha, U, n, psi->data, 1, &beta, psi_out->data, 1);
+
+	return 0;
+}
+
 
 int main()
 {
-	const int nqubits = 8;
-	const int nlayers = 21;
+	const int nqubits = 12;
+	const int nlayers = 5;
 	
 	const int ulayers = 309;
 
@@ -44,9 +57,9 @@ int main()
 	int order = 2;
 
 	float g = 4.0;
-    float t = 0.5;
+    float t = 0.75;
 
-	const int niter = 15;
+	const int niter = 20;
 
 	int num_threads;
 	#if  defined(STATEVECTOR_PARALLELIZATION) || defined(GATE_PARALLELIZATION)
@@ -70,6 +83,18 @@ int main()
 		return -1;
 	}
 
+	if (ulayers == 0) {
+		numeric* expiH = aligned_alloc(MEM_DATA_ALIGN, n * n * sizeof(numeric));
+		if (expiH == NULL) {
+			fprintf(stderr, "memory allocation for target unitary failed\n");
+			return -1;
+		}
+		if (read_hdf5_dataset(file, "expiH", H5T_NATIVE_DOUBLE, expiH) < 0) {
+			fprintf(stderr, "reading 'expiH' from disk failed\n");
+			return -1;
+		}
+	} 
+
 	int uperms[ulayers][nqubits];
 	for (int i = 0; i < ulayers; i++) {
 		char varname[32];
@@ -85,7 +110,7 @@ int main()
 		upperms[i] = uperms[i];
 	}
 	
-	struct u_splitting udata = {
+	struct u_splitting udata_split = {
 		.ulist   = ulist,
 		.ulayers = ulayers,
 		.upperms = upperms,
@@ -125,11 +150,23 @@ int main()
 	double* f_iter = aligned_alloc(MEM_DATA_ALIGN, (niter + 1) * sizeof(double));
 
 	struct matchgate* vlist_opt = aligned_alloc(MEM_DATA_ALIGN, nlayers * sizeof(struct matchgate));
+
+	void* udata;
+
+	linear_func func;
+	if (ulayers == 0) {
+		func = ufunc;
+		udata = expIH;
+
+	} else {
+		func = ufunc_matfree;
+		udata = udata_split;
+	}
 	
 	uint64_t start_tick = get_ticks();
 	
 	// perform optimization
-	optimize_matchgate_brickwall_circuit_hmat(ufunc_matfree, &udata, vlist_start, nlayers, nqubits, pperms, &params, niter, f_iter, vlist_opt);
+	optimize_matchgate_brickwall_circuit_hmat(func, &udata, vlist_start, nlayers, nqubits, pperms, &params, niter, f_iter, vlist_opt);
 
 	uint64_t total_ticks = get_ticks() - start_tick;
 	// get the tick resolution

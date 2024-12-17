@@ -5,6 +5,7 @@ import io_util as io
 import rqcopt_matfree as oc
 from scipy.linalg import expm
 import permutations
+import sparse_targets as st
 
 def crandn(size, rng: np.random.Generator=None):
     """
@@ -32,14 +33,16 @@ def construct_hubbard_interac_term(U):
 
     return U*np.kron(n, n)
 
-
-nqubits = 12
+L = 6
+nqubits = 2*L
 J = 1
 
-U = 4.0
-t = 0.02
+full_matrix = False
 
-s = 1
+g = 4.0
+t = 0.75
+
+s = 7
 us = 11
 
 dt = t/s
@@ -50,7 +53,7 @@ splitting = oc.SplittingMethod.suzuki(3, order/2)
 usplitting = oc.SplittingMethod.auzinger15_6()
 
 h_kin = construct_hubbard_kinetic_term(J)
-h_int = construct_hubbard_interac_term(U)
+h_int = construct_hubbard_interac_term(g)
 
 terms = [h_kin, h_kin, h_int]
 
@@ -91,11 +94,20 @@ for V in vlist:
 
 vblocks = np.array(vblocks)
 
+if (full_matrix == True):
+    ulayers = 0
+
+
 file_dir  = os.path.dirname(__file__)
-file_path = os.path.join(file_dir, "opt_in", f"hubbard1d_suzuki{order}_n{nlayers}_q{nqubits}_u{ulayers}_t{t:.2f}s_g{U:.2f}_init.hdf5")
+file_path = os.path.join(file_dir, "opt_in", f"hubbard1d_suzuki{order}_n{nlayers}_q{nqubits}_u{ulayers}_t{t:.2f}s_g{g:.2f}_init.hdf5")
 
 # save initial data to disk
 with h5py.File(file_path, "w") as file:
+
+    if (nqubits <= 12 and ulayers == 0) :
+        expiH = st.hubbard1d_unitary(L, J, g, t)
+        file["expiH"] = io.interleave_complex(expiH, "cplx")
+    
 
     psi = np.ones(2**nqubits)
     psi /= np.linalg.norm(psi)
@@ -116,5 +128,5 @@ with h5py.File(file_path, "w") as file:
     file.attrs["nlayers"] = nlayers
     file.attrs["ulayers"] = ulayers
     file.attrs["J"] = float(J)
-    file.attrs["U"] = float(U)
+    file.attrs["g"] = float(g)
     file.attrs["t"] = float(t)
