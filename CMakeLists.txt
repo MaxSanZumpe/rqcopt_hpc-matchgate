@@ -20,7 +20,7 @@ message(STATUS "HDF5 libraries: ${HDF5_C_LIBRARIES}")
 set(CMAKE_C_FLAGS "-O3 -fopenmp")
 
 # Definitions
-add_compile_definitions(COMPLEX_CIRCUIT)
+add_compile_definitions(COMPLEX_CIRCUIT LRZ_HPC)
 
 # Define source files
 set(SOURCES 

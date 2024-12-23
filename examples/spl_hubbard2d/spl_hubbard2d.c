@@ -67,12 +67,12 @@ int main()
 
 	const int nqubits = 16;
 	const int nlayers = 7;
-	const int ulayers = 301;
+	const int ulayers = 901;
 	const int order = 2;
 
     char model[] = "suzuki";
 
-    float g = 4.00;
+    float g = 1.50;
     float t = 0.25;
 
 
