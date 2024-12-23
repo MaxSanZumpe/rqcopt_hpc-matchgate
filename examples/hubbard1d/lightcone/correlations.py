@@ -5,10 +5,10 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 
-L = 6
+L = 8
 q = 2*L
 g = 4.0
-ulayers = 29
+ulayers = 561
 
 script_dir = os.path.dirname(__file__)
 file_path = os.path.join(script_dir, f"hubbard1d_q{q}_g{g:.2f}_u{ulayers}_lightcone.hdf5")
@@ -36,21 +36,20 @@ print(data.shape)
 
 
 script_dir = os.path.dirname(__file__)
-vel = 1.25
-plt.imshow(np.roll(data, shift=(L-1)//2, axis=1), 
+plt.imshow(np.roll(data, shift=(L-1)//2, axis=1)[:,:7], 
            interpolation="nearest", aspect="auto", origin="lower",
-           extent=(-L//2+0.5, L//2 + 0.5, 0, delta*len(t_step)))
+           extent=(-L//2+0.5, L//2-0.5, 0, delta*len(t_step)))
+
+vel = 1.5
+T = (L//2) / vel
+plt.colorbar()
+plt.plot([+0.5,  0.5 + T*vel], [ 0, T], "w")
+plt.plot([-0.5, -0.5 - T*vel], [ 0, T], "w")
 
 plt.xlabel("j")
-plt.ylabel("t")
-
-plt.title(fr"$\langle \psi | n_{{j\uparrow}}(t) n_{{0\uparrow}}(0) | \psi \rangle$ for J={1}, U={g}; velocity: {vel}")
-
-T = 2.5
-plt.colorbar()
-plt.plot([ 0.5, 0.5 + T*vel], [ 0, T], "w")
-plt.plot([-0.5,-0.5 - T*vel], [ 0, T], "w")
-plt.savefig(os.path.join(script_dir, f"plots/hubb1d_g{g:.2f}_lightcone_py.png"))
+plt.ylabel("t (s)")
+plt.title(fr"$\langle \psi | n_{{j\uparrow}}(t) n_{{0\uparrow}}(0) | \psi \rangle$; velocity: {vel} $s^{{-1}}$")
+plt.savefig(os.path.join(script_dir, f"plots/hubb1d_q{q}_g{g:.2f}_u{ulayers}_lightcone_c.png"))
 
 
 

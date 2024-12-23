@@ -5,34 +5,37 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 n = 5
+q = 12
 
 script_dir = os.path.dirname(__file__)
-file_list = glob.glob(f"*n{n}*_grad*.hdf5", root_dir=script_dir)
+file_list = glob.glob(f"*q{q}*_grad*.hdf5", root_dir=script_dir)
 
 print(file_list)
 
 wtime = []
 
-qubits = []
+layers = []
 
 for file in file_list:
     with h5py.File(os.path.join(script_dir, file), "r") as f:
         
         wtime.append(f.attrs["Walltime"])
-        qubits.append(f.attrs["nqubits"])
+        layers.append(f.attrs["nlayers"])
 
 wtime = np.array(wtime)
-qubits = np.array(qubits)
-p = np.polyfit(qubits, np.log(wtime), 1)
+layers = np.array(layers)
 
-print(p[0])
+p = np.polyfit(layers, wtime, 1)
+
 
 fig, ax = plt.subplots()
-ax.semilogy(qubits, wtime, ".")
-ax.plot(qubits, np.exp((p[0]*qubits + p[1])))
-ax.set_title(f"layers = {n} | general gates")
+ax.scatter(layers, wtime, marker=".")
+ax.set_xlabel("Layers")
+ax.plot(layers, p[0]*layers + p[1])
+ax.set_ylabel("Runtime wall clock s")
+ax.set_title(f"Qubits: {q} Scaling: {p[0]}n")
 
-plt.savefig(os.path.join(script_dir, "bench_grad_match1"))
+plt.savefig(os.path.join(script_dir, "bench_grad_match2"))
 
 
 

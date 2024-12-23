@@ -33,9 +33,7 @@ def spin_hubbart_double_strang_permutations_ccode(s: int, qubit_dim: int):
     layers = 6*s + 1
 
     interaction_perm = [int(a/2) if a % 2 == 0 else (int(a/2) + half) for a in range(L)]
-    # even_to_odd_perm = [int(L/2) - 1] + [a for a in range(int(L/2) - 1)] +\
-    #                    [L - 1] + [a for a in range(int(L/2), L - 1)]
-    
+
     even_to_odd_perm = [a - 1 for a in range(2, int(L/2))    ] + [half - 1, 0] +\
                        [a - 1 for a in range(int(L/2) + 2, L)] + [L - 1, half]
 
@@ -121,6 +119,20 @@ class permuations:
         return cls(indices, map)
     
     @classmethod
+    def hubbard1d(cls, indices, nqubits):
+        assert(nqubits % 2 == 0)
+        L = nqubits
+
+        even_to_even_perm = None
+        even_to_odd_perm  = np.concatenate((np.roll(range(int(L/2)), -1), np.roll(range(int(L/2), L), -1)))
+
+        interaction_perm = np.array([int(a/2) if a % 2 == 0 else int((a-1)/2 + int(L/2)) for a in range(L)])
+        
+        map = [even_to_even_perm, even_to_odd_perm, interaction_perm]
+
+        return cls(indices, map)
+    
+    @classmethod
     def spl_hubbard2d(cls, indices, Lx, Ly):
         
         horz_even_to_even = None
@@ -132,4 +144,4 @@ class permuations:
         map = [horz_even_to_even, horz_even_to_odd, vert_even_to_even, vert_even_to_odd]
 
         return cls(indices, map)
-    
+

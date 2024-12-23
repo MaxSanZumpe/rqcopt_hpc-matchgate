@@ -131,4 +131,17 @@ class permuations:
         map = [even_to_even_perm, even_to_odd_perm, interaction_perm]
 
         return cls(indices, map)
+    
+    @classmethod
+    def spl_hubbard2d(cls, indices, Lx, Ly):
+        
+        horz_even_to_even = None
+        horz_even_to_odd  = np.array([np.roll(range(Ly), -1) + Ly*i for i in range(Lx)]).flatten()
+
+        vert_even_to_even = np.array([np.arange(0, Lx*Ly, Ly) + i for i in range(Ly)]).flatten()
+        vert_even_to_odd  = np.array([np.roll(np.arange(0, Lx*Ly, Ly), -1) + i for i in range(Ly)]).flatten()
+
+        map = [horz_even_to_even, horz_even_to_odd, vert_even_to_even, vert_even_to_odd]
+
+        return cls(indices, map)
 

@@ -54,7 +54,7 @@ int main()
 
 	// read initial data from disk
 	char filename[1024];
-	sprintf(filename, "../benchmark_hpc/bench_in/n%i_q%i_u%i_bench_in.hdf5", nlayers, nqubits, ulayers);
+	sprintf(filename, "../benchmark_hpc/bench_in/q%i/n%i_q%i_u%i_bench_in.hdf5", nqubits, nlayers, nqubits, ulayers);
 	hid_t file = H5Fopen(filename, H5F_ACC_RDONLY, H5P_DEFAULT);
 	if (file < 0) {
 		fprintf(stderr, "'H5Fopen' for '%s' failed, return value: %" PRId64 "\n", filename, file);
@@ -156,7 +156,7 @@ int main()
 		#endif
 
 		// save results to disk
-		sprintf(filename, "../benchmark_hpc/bench_out/n%i_q%i_u%i_th%i_%i%i%i_threads_bench_matchgate.hdf5", nlayers, nqubits, ulayers, num_threads, translational_invariance,
+		sprintf(filename, "../benchmark_hpc/bench_out/q%i/n%i_q%i_u%i_th%i_%i%i%i_threads_bench_matchgate.hdf5", nqubits, nlayers, nqubits, ulayers, num_threads, translational_invariance,
 		statevector_parallelization, gate_parallelization);
 
 		file = H5Fcreate(filename, H5F_ACC_TRUNC, H5P_DEFAULT, H5P_DEFAULT);

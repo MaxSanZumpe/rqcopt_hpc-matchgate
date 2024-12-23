@@ -54,16 +54,18 @@ static int ufunc(const struct statevector* restrict psi, void* fdata, struct sta
 
 int main()
 {
-	const int nqubits = 12;
-	const int nlayers = 21;
+	const int nqubits = 8;
+	const int nlayers = 17;
 	
-	const int ulayers = 309;
+	const int full_target = 1;
+	const int ulayers = 29;
+	
+	if (full_target == 1) { assert(ulayers == 29); }
 
-	char splitting[] = "suzuki";
-	int order = 2;
+	char splitting[] = "suzuki2";
 
-	float g = 4.0;
-    float t = 0.75;
+	float g = 1.5;
+    float t = 0.25;
 
 	const int niter = 12;
 
@@ -76,22 +78,13 @@ int main()
 
 	// read initial data from disk
 	char filename[1024];
-	sprintf(filename, "../examples/hubbard1d/opt_in/hubbard1d_suzuki2_n%i_q%i_u%i_t%.2fs_g%.2f_init.hdf5", nlayers, nqubits, ulayers, t, g);
-	hid_t file = H5Fopen(filename, H5F_ACC_RDONLY, H5P_DEFAULT);
-	if (file < 0) {
-		fprintf(stderr, "'H5Fopen' for '%s' failed, return value: %" PRId64 "\n", filename, file);
-		return -1;
-	}
-
-	struct matchgate* ulist = aligned_alloc(MEM_DATA_ALIGN, ulayers * sizeof(struct matchgate));
-	if (read_hdf5_dataset(file, "ulist", H5T_NATIVE_DOUBLE, (numeric*)ulist) < 0) {
-		fprintf(stderr, "reading initial two-qubit quantum gates from disk failed\n");
-		return -1;
-	}
-
+	
 	numeric* expiH;
-	if (ulayers == 0) {
-    	const intqs n = (intqs)1 << nqubits;
+	if (full_target == 1) {
+		sprintf(filename, "../examples/hubbard1d/opt_in/q%i/hubbard1d_q%i_unitary_t%.2fs_g%.2f_init.hdf5", nqubits, nqubits, t, g);
+		hid_t file = H5Fopen(filename, H5F_ACC_RDONLY, H5P_DEFAULT);
+
+		const intqs n = (intqs)1 << nqubits;
 
 		expiH = aligned_alloc(MEM_DATA_ALIGN, n * n * sizeof(numeric));
 		if (expiH == NULL) {
@@ -102,7 +95,24 @@ int main()
 			fprintf(stderr, "reading 'expiH' from disk failed\n");
 			return -1;
 		}
+	
+		H5Fclose(file);
+	}
+
+
+	sprintf(filename, "../examples/hubbard1d/opt_in/q%i/hubbard1d_%s_n%i_q%i_u%i_t%.2fs_g%.2f_init.hdf5", nqubits, splitting, nlayers, nqubits, ulayers, t, g);
+	hid_t file = H5Fopen(filename, H5F_ACC_RDONLY, H5P_DEFAULT);
+	if (file < 0) {
+		fprintf(stderr, "'H5Fopen' for '%s' failed, return value: %" PRId64 "\n", filename, file);
+		return -1;
+	}
+
+	struct matchgate* ulist = aligned_alloc(MEM_DATA_ALIGN, ulayers * sizeof(struct matchgate));
+	if (read_hdf5_dataset(file, "ulist", H5T_NATIVE_DOUBLE, (numeric*)ulist) < 0) {
+		fprintf(stderr, "reading initial two-qubit quantum gates from disk failed\n");
+		return -1;
 	} 
+
 
 	int uperms[ulayers][nqubits];
 	for (int i = 0; i < ulayers; i++) {
@@ -118,12 +128,13 @@ int main()
 	for (int i = 0; i < ulayers; i++){
 		upperms[i] = uperms[i];
 	}
-	
+
 	struct u_splitting udata_split = {
 		.ulist   = ulist,
 		.ulayers = ulayers,
 		.upperms = upperms,
 	};
+
 
 	// initial to-be optimized quantum gates
 	struct matchgate* vlist_start = aligned_alloc(MEM_DATA_ALIGN, nlayers * sizeof(struct matchgate));
@@ -163,7 +174,7 @@ int main()
 	void* udata;
 
 	linear_func func;
-	if (ulayers == 0) {
+	if (full_target == 1) {
 		func = ufunc;
 		udata = expiH;
 
@@ -217,7 +228,13 @@ int main()
 
 
 	// save results to disk
-	sprintf(filename, "../examples/hubbard1d/opt_out/hubbard1d_suzuki2_n%i_q%i_u%i_t%.2fs_g%.2f_iter%i_opt.hdf5", nlayers, nqubits, ulayers, t, g, niter);
+	int temp;
+	if (full_target == 1) {
+		temp = 0;
+	} else {
+		temp = ulayers;
+	}
+	sprintf(filename, "../examples/hubbard1d/opt_out/q%i/hubbard1d_%s_n%i_q%i_u%i_t%.2fs_g%.2f_iter%i_opt.hdf5", nqubits, splitting, nlayers, nqubits, temp, t, g, niter);
 	file = H5Fcreate(filename, H5F_ACC_TRUNC, H5P_DEFAULT, H5P_DEFAULT);
 	if (file < 0) {
 		fprintf(stderr, "'H5Fcreate' for '%s' failed, return value: %" PRId64 "\n", filename, file);
@@ -250,6 +267,11 @@ int main()
 	// store run-time diagnostics
 	if (write_hdf5_scalar_attribute(file, "Walltime", H5T_IEEE_F64LE, H5T_NATIVE_DOUBLE, &wtime)) {
 		fprintf(stderr, "writing 'Walltime' to disk failed\n");
+		return -1;
+	}
+
+	if (write_hdf5_scalar_attribute(file, "FULL_TARGET", H5T_STD_I32LE, H5T_NATIVE_INT, &full_target)) {
+		fprintf(stderr, "writing 'NUM_THREADS_STATEVECTOR_PARALLELIZATION' to disk failed\n");
 		return -1;
 	}
 

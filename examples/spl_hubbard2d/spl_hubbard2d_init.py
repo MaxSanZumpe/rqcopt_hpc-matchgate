@@ -4,7 +4,7 @@ import numpy as np
 import io_util as io
 import rqcopt_matfree as oc
 from scipy.linalg import expm
-import permutations
+import permutations as ps
 
 def extract_matchgate(V):
     V = np.roll(V, (-1, -1), (0, 1))  
@@ -29,20 +29,28 @@ def main():
 
     # parameters for hamiltonian
     J = 1
-    g = 4
+    g = 1.5
     t = 0.25
 
     s = 1  #number of splitting steps
-    us = 50
+    us = 4
     
 
     dt = t/s
     udt = t/us
 
-    model = "suzuki"
-    order = 2
-    splitting = oc.SplittingMethod.suzuki(4, order/2)
-    usplitting = oc.SplittingMethod.suzuki(4, order)
+    model = "suzuki2"
+    
+    match model:
+        case "suzuki2":
+            order = 2
+            splitting = oc.SplittingMethod.suzuki(4, order/2)
+
+        case "suzuki4":
+            order = 4
+            splitting = oc.SplittingMethod.suzuki(4, order/2)
+
+    usplitting = oc.SplittingMethod.suzuki(4, 3)
 
     h = construct_spl_hubbard_local_term(J, g)
     terms = [h, h, h, h]
@@ -58,8 +66,8 @@ def main():
     vlist  = [expm(-1j*c*dt*terms[i]) for c, i in zip(coeffs_vlist, vindex)]
     ulist  = [expm(-1j*c*udt*terms[i]) for c, i in zip(coeffs_ulist, uindex)]
 
-    perms  = permutations.permuations.spl_hubbard2d(vindex, Lx, Ly).perm_list
-    uperms = permutations.permuations.spl_hubbard2d(uindex, Lx, Ly).perm_list   
+    perms  = ps.permuations.spl_hubbard2d(vindex, Lx, Ly).perm_list
+    uperms = ps.permuations.spl_hubbard2d(uindex, Lx, Ly).perm_list   
 
 
     assert(len(perms)  == nlayers) 
@@ -81,9 +89,8 @@ def main():
 
     vblocks = np.array(vblocks)
 
-
     file_dir  = os.path.dirname(__file__)
-    file_path = os.path.join(file_dir, "opt_in" ,f"spl_hubbard2d_{model}{order}_n{nlayers}_q{nqubits}_u{ulayers}_t{t:.2f}s_g{g:.2f}_init.hdf5")
+    file_path = os.path.join(file_dir, "opt_in" ,f"spl_hubbard2d_{model}_n{nlayers}_q{nqubits}_u{ulayers}_t{t:.2f}s_g{g:.2f}_init.hdf5")
 
     # save initial data to disk
     with h5py.File(file_path, "w") as file:

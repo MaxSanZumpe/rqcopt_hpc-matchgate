@@ -35,16 +35,16 @@ Ly = 4
 nqubits = 16
 J = 1
 
-g = 4.0
+g = 1.5
 t = 0.25
 
 # Change the splitting method here
 method = "suzuki"
-order = 4
+order = 6
 splitting = oc.SplittingMethod.suzuki(4, order/2)
 
 # Splitting steps
-us = 10
+us = 4
 
 H = st.construct_sparse_spl_hubbard2d_hamiltonian(Lx, Ly, J, g)
 

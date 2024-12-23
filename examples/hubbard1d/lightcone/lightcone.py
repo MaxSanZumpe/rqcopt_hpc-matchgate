@@ -12,9 +12,9 @@ def sparse_local_single_op(U, j, L):
     assert U.shape == (2, 2)
     return sp.kron(sp.eye(2**j), sp.kron(U, sp.eye(2**(L-j-1))))
 
-L = 7
+L = 6
 J = 1
-g = 4
+g = 2
 
 q = 2*L
 

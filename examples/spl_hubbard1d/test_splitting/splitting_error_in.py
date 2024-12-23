@@ -11,7 +11,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import io_util as io
 import rqcopt_matfree as oc
 import permutations as p
-import sparse_targets as st
+# import sparse_targets as st
 
 
 def extract_matchgate(V):
@@ -41,19 +41,19 @@ g = 4.0
 t = 1
 
 # Change the splitting method here
-method = "blanes"
-order = 4
-splitting = oc.SplittingMethod.blanes_moan()
+method = "suzuki"
+order = 6
+splitting = oc.SplittingMethod.suzuki(2, 3)
 
 # Splitting steps
-us = 50
+us = 12
 
-H = st.construct_sparse_spl_hubbard1d_hamiltonian(nqubits, J, g)
+#H = st.construct_sparse_spl_hubbard1d_hamiltonian(nqubits, J, g)
 
 psi0 = np.ones(2**nqubits)
 psi0 /= np.linalg.norm(psi0)
 
-Upsi = sp.linalg.expm_multiply(-1j*H*t, psi0)
+#Upsi = sp.linalg.expm_multiply(-1j*H*t, psi0)
 
 h_kin = construct_hubbard1d_kinetic_term(J)
 h_int = construct_hubbard1d_interac_term(g)
@@ -73,7 +73,7 @@ file_path = os.path.join(file_dir, "error_in" ,f"spl_hubbard1d_{method}{order}_q
 with h5py.File(file_path, "w") as file:
     
     file["psi0"] = io.interleave_complex(psi0, "cplx")
-    file["Upsi"] = io.interleave_complex(Upsi, "cplx")
+    #file["Upsi"] = io.interleave_complex(Upsi, "cplx")
 
 
     for s in range(1, us + 1):

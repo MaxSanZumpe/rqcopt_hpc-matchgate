@@ -6,6 +6,11 @@
 #include "matchgate.h"
 #include "util.h"
 
+#ifdef LRZ_HPC
+	#include <mkl_cblas.h>
+#else
+	#include <cblas.h>
+#endif
 
 void apply_oneqgate(const struct mat2x2* gate, const int i, const struct statevector* psi, struct statevector* psi_out)
 {
@@ -27,6 +32,22 @@ void apply_oneqgate(const struct mat2x2* gate, const int i, const struct stateve
         }
     }
 }
+
+
+static int ufunc(const struct statevector* restrict psi, void* fdata, struct statevector* restrict psi_out)
+{
+	const intqs n = (intqs)1 << psi->nqubits;
+	const numeric* U = (numeric*)fdata;
+
+	// apply U
+	numeric alpha = 1;
+	numeric beta  = 0;
+	cblas_zgemv(CblasRowMajor, CblasNoTrans, n, n, &alpha, U, n, psi->data, 1, &beta, psi_out->data, 1);
+
+	return 0;
+}
+
+
 void print_state(struct statevector* vec) {
     const intqs n = (intqs)1 << vec->nqubits;
     for (intqs a = 0; a < n; a++) {
@@ -36,10 +57,10 @@ void print_state(struct statevector* vec) {
 
 int main()
 {   
-    const int nlayers = 5;
-    const int nqubits = 12;
+    const int nlayers = 9;
+    const int nqubits = 16;
 
-    const int ulayers = 309;
+    const int ulayers = 561;
 	const int order = 2;
 
     float g = 4.0;
@@ -70,21 +91,39 @@ int main()
 		return -1;
 	}
 
-    if (read_hdf5_dataset(file, "ulist", H5T_NATIVE_DOUBLE, ulist) < 0) {
-        fprintf(stderr, "reading initial two-qubit quantum gates from disk failed\n");
-        return -1;
-    }
-	
-	char varname[32];
+    numeric* expiH;
+    char varname[32];
+    const int* upperms[ulayers];
     int uperms[ulayers][nqubits];
-	for (int i = 0; i < ulayers; i++)
-	{
-		sprintf(varname, "uperm%i", i);
-		if (read_hdf5_dataset(file, varname, H5T_NATIVE_INT, uperms[i]) < 0) {
-			fprintf(stderr, "reading permutation data from disk failed\n");
-			return -1;
-		}
-	}
+    if (ulayers == 0) {
+        expiH = aligned_alloc(MEM_DATA_ALIGN, n * n * sizeof(numeric));
+	    if (expiH == NULL) {
+		    fprintf(stderr, "memory allocation for target unitary failed\n");
+		    return -1;
+	    }
+	    if (read_hdf5_dataset(file, "expiH", H5T_NATIVE_DOUBLE, expiH) < 0) {
+		    fprintf(stderr, "reading 'expiH' from disk failed\n");
+		    return -1;
+        }
+    } else {
+        if (read_hdf5_dataset(file, "ulist", H5T_NATIVE_DOUBLE, ulist) < 0) {
+            fprintf(stderr, "reading initial two-qubit quantum gates from disk failed\n");
+            return -1;
+        }
+	
+        for (int i = 0; i < ulayers; i++)
+        {
+            sprintf(varname, "uperm%i", i);
+            if (read_hdf5_dataset(file, varname, H5T_NATIVE_INT, uperms[i]) < 0) {
+                fprintf(stderr, "reading permutation data from disk failed\n");
+                return -1;
+            }
+        }
+
+        for (int l = 0; l < ulayers; l++) {
+	        upperms[l] = uperms[l];
+        }
+    }
 
     int nqubits_ref;
     if (read_hdf5_attribute(file, "nqubits", H5T_NATIVE_INT, &nqubits_ref) < 0) {
@@ -107,11 +146,6 @@ int main()
 
     assert (nqubits == nqubits_ref);
     assert (ulayers == ulayers_ref);
-    
-    const int* upperms[ulayers];
-    for (int l = 0; l < ulayers; l++) {
-	    upperms[l] = uperms[l];
-    }
 
     struct mat2x2 number_operator = { .data = { 0, 0, 0, 1 } };
 
@@ -137,8 +171,15 @@ int main()
                 Npsi.data[b] = Ipsi.data[b];
             }
         } else {
-            apply_matchgate_brickwall_unitary(ulist, ulayers, upperms, &Spsi, &Upsi);
-            apply_matchgate_brickwall_unitary(ulist, ulayers, upperms, &Ipsi, &Npsi);
+
+            if (ulayers == 0) {
+                ufunc(&Spsi, expiH, &Upsi);
+                ufunc(&Ipsi, expiH, &Npsi);
+            } else {
+                apply_matchgate_brickwall_unitary(ulist, ulayers, upperms, &Spsi, &Upsi);
+                apply_matchgate_brickwall_unitary(ulist, ulayers, upperms, &Ipsi, &Npsi);
+            }
+                
 
             for (intqs b = 0; b < n; b++) {
                 Spsi.data[b] = Upsi.data[b];

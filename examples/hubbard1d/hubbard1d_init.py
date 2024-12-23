@@ -33,23 +33,42 @@ def construct_hubbard_interac_term(U):
 
     return U*np.kron(n, n)
 
-L = 6
+L = 4
 nqubits = 2*L
 J = 1
 
 full_matrix = False
 
-g = 4.0
-t = 0.75
+if (full_matrix):
+    assert(nqubits <= 12)
 
-s = 2
-us = 11
+g = 1.5
+t = 0.25
+
+s = 8
+us = 1
+
+
+if (full_matrix):
+    assert(us == 1)
 
 dt = t/s
 udt = t/us
 
-order = 2
-splitting = oc.SplittingMethod.suzuki(3, order/2)
+model = "suzuki2"
+
+match model:
+    case "suzuki2":
+        order = 2
+        splitting = oc.SplittingMethod.suzuki(3, order/2)
+    case "yoshida4":
+        order = 4
+        splitting = oc.SplittingMethod.yoshida4(3)
+    case "suzuki4":
+        order = 4
+        splitting = oc.SplittingMethod.suzuki(3, order/2)
+
+
 usplitting = oc.SplittingMethod.auzinger15_6()
 
 h_kin = construct_hubbard_kinetic_term(J)
@@ -69,8 +88,6 @@ ulist  = [expm(-1j*c*udt*terms[i]) for c, i in zip(coeffs_ulist, uindex)]
 
 perms  = permutations.permuations.hubbard1d(vindex, nqubits).perm_list
 uperms = permutations.permuations.hubbard1d(uindex, nqubits).perm_list
-
-print(perms)
 
 assert(len(perms)  == nlayers) 
 assert(len(uperms) == ulayers)
@@ -94,20 +111,26 @@ for V in vlist:
 
 vblocks = np.array(vblocks)
 
+script_dir  = os.path.dirname(__file__)
+file_dir  = os.path.join(script_dir, f"opt_in/q{nqubits}")
+
+if not os.path.exists(file_dir):
+        os.makedirs(file_dir)
+
+if not os.path.exists(os.path.join(script_dir, f"opt_out/q{nqubits}")):
+        os.makedirs(os.path.join(script_dir, f"opt_out/q{nqubits}"))
+
 if (full_matrix == True):
-    ulayers = 0
+    file_path = os.path.join(file_dir, f"hubbard1d_q{nqubits}_unitary_t{t:.2f}s_g{g:.2f}_init.hdf5")
 
+    expiH = st.hubbard1d_unitary(L, J, g, t)
+    with h5py.File(file_path, "w") as file:
+        file["expiH"] = io.interleave_complex(expiH, "cplx")
 
-file_dir  = os.path.dirname(__file__)
-file_path = os.path.join(file_dir, "opt_in", f"hubbard1d_suzuki{order}_n{nlayers}_q{nqubits}_u{ulayers}_t{t:.2f}s_g{g:.2f}_init.hdf5")
+file_path = os.path.join(file_dir, f"hubbard1d_{model}_n{nlayers}_q{nqubits}_u{ulayers}_t{t:.2f}s_g{g:.2f}_init.hdf5")
 
 # save initial data to disk
 with h5py.File(file_path, "w") as file:
-
-    if (nqubits <= 12 and ulayers == 0) :
-        expiH = st.hubbard1d_unitary(L, J, g, t)
-        file["expiH"] = io.interleave_complex(expiH, "cplx")
-    
 
     psi = np.ones(2**nqubits)
     psi /= np.linalg.norm(psi)

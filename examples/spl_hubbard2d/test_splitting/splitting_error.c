@@ -11,15 +11,14 @@ int main()
 {   
     const int nqubits = 16;
 
-    char model[] = "mclachlan";
+    char model[] = "suzuki6";
 
-    const int us = 38;
-    const int ulayers = 305;
-	const int order = 4;
+    const int us = 4;
+    const int ulayers = 601;
 
-    const int r = 8;
+    const int r = 150;
 
-    float g = 4.00;
+    float g = 1.5;
     float t = 0.25;
 
     const intqs n = (intqs)1 << nqubits;
@@ -37,7 +36,7 @@ int main()
     for (int s = 1; s <= us; s++) {
         
         int layers = r*s + 1;
-        sprintf(filename, "../examples/spl_hubbard2d/test_splitting/error_in/spl_hubbard2d_%s%i_q%i_us%i_u%i_t%.2fs_g%.2f_error_in.hdf5", model ,order, nqubits, us, ulayers, t, g);
+        sprintf(filename, "../examples/spl_hubbard2d/test_splitting/error_in/spl_hubbard2d_%s_q%i_us%i_u%i_t%.2fs_g%.2f_error_in.hdf5", model, nqubits, us, ulayers, t, g);
         file = H5Fopen(filename, H5F_ACC_RDONLY, H5P_DEFAULT);
         if (file < 0) {
             fprintf(stderr, "'H5Fopen' for '%s' failed, return value: %" PRId64 "\n", filename, file);
@@ -99,7 +98,7 @@ int main()
 
     assert(layers_arr[us - 1] == ulayers);
 
-    sprintf(filename, "../examples/spl_hubbard2d/test_splitting/error_out/spl_hubbard2d_%s%i_q%i_us%i_u%i_t%.2fs_g%.2f_errors.hdf5", model, order, nqubits, us, ulayers, t, g);
+    sprintf(filename, "../examples/spl_hubbard2d/test_splitting/error_out/spl_hubbard2d_%s_q%i_us%i_u%i_t%.2fs_g%.2f_errors.hdf5", model, nqubits, us, ulayers, t, g);
 	file = H5Fcreate(filename, H5F_ACC_TRUNC, H5P_DEFAULT, H5P_DEFAULT);
 	if (file < 0) {
 		fprintf(stderr, "'H5Fcreate' for '%s' failed, return value: %" PRId64 "\n", filename, file);

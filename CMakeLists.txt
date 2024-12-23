@@ -20,7 +20,7 @@ message(STATUS "HDF5 libraries: ${HDF5_C_LIBRARIES}")
 set(CMAKE_C_FLAGS "-O3 -fopenmp")
 
 # Definitions
-add_compile_definitions(COMPLEX_CIRCUIT LRZ_HPC)
+add_compile_definitions(COMPLEX_CIRCUIT)
 
 # Define source files
 set(SOURCES 
@@ -45,11 +45,6 @@ set(TEST_SOURCES
     "test/run_custom_test.c"
 )
 
-add_executable(            spl_hubbard1d ${SOURCES} "examples/spl_hubbard1d/spl_hubbard1d_opt.c" "examples/timing/timing.c")
-target_include_directories(spl_hubbard1d PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src" "examples/timing")
-target_link_libraries(     spl_hubbard1d PRIVATE ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})
-target_compile_definitions(spl_hubbard1d PRIVATE TRANSLATIONAL_INVARIANCE STATEVECTOR_PARALLELIZATION)
-
 
 add_executable(            hubbard1d ${SOURCES} "examples/hubbard1d/hubbard1d_opt.c" "examples/timing/timing.c")
 target_include_directories(hubbard1d PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src" "examples/timing")
@@ -57,11 +52,22 @@ target_link_libraries(     hubbard1d PRIVATE ${BLAS_LIBRARIES} ${HDF5_LIBRARIES}
 target_compile_definitions(hubbard1d PRIVATE STATEVECTOR_PARALLELIZATION)
 
 
+add_executable(            spl_hubbard1d ${SOURCES} "examples/spl_hubbard1d/spl_hubbard1d_opt.c" "examples/timing/timing.c")
+target_include_directories(spl_hubbard1d PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src" "examples/timing")
+target_link_libraries(     spl_hubbard1d PRIVATE ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})
+target_compile_definitions(spl_hubbard1d PRIVATE TRANSLATIONAL_INVARIANCE STATEVECTOR_PARALLELIZATION)
+
+
+
 add_executable(            spl_hubbard2d ${SOURCES} "examples/spl_hubbard2d/spl_hubbard2d.c" "examples/timing/timing.c")
 target_include_directories(spl_hubbard2d PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} ${MPI_INCLUDE_PATH} "src" "examples/timing")
 target_link_libraries(     spl_hubbard2d ${BLAS_LIBRARIES} ${HDF5_LIBRARIES} ${MPI_C_LIBRARIES})
 target_compile_definitions(spl_hubbard2d PRIVATE MPI TRANSLATIONAL_INVARIANCE STATEVECTOR_PARALLELIZATION)
 
+
+add_executable(            benchmark_usplit ${SOURCES} "benchmark_hpc/benchmark_usplit.c" "examples/timing/timing.c")
+target_include_directories(benchmark_usplit PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src" "examples/timing")
+target_link_libraries(     benchmark_usplit PRIVATE ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})
 
 
 add_executable(            benchmark_threads ${SOURCES} "benchmark_hpc/benchmark_threads.c" "examples/timing/timing.c")
@@ -122,6 +128,9 @@ target_link_libraries(     splh1d_errors PRIVATE ${BLAS_LIBRARIES} ${HDF5_LIBRAR
 add_executable(            splh2d_errors ${SOURCES} "examples/spl_hubbard2d/test_splitting/splitting_error.c" "examples/timing/timing.c")
 target_include_directories(splh2d_errors PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src" "examples/timing")
 target_link_libraries(     splh2d_errors PRIVATE ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})
+
+
+
 
 
 add_executable(run_tests ${SOURCES} ${TEST_SOURCES})

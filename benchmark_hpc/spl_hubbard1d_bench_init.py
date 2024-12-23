@@ -33,11 +33,11 @@ def construct_spl_hubbard_local_term(J, U):
 nqubits = 12
 J = 1
 
-U = 4.0
+g = 1.5
 t = 1
 
-s = 4
-us = 126
+s = 1
+us = 12
 
 dt = t/s
 udt = t/us
@@ -45,8 +45,8 @@ udt = t/us
 order = 2
 
 splitting = oc.SplittingMethod.suzuki(2, order/2)
-usplitting = oc.SplittingMethod.suzuki(2, order/2)
-hloc = construct_spl_hubbard_local_term(J, U)
+usplitting = oc.SplittingMethod.suzuki(2, 3)
+hloc = construct_spl_hubbard_local_term(J, g)
 vindex, coeffs_vlist = oc.merge_layers(s*splitting.indices, s*splitting.coeffs)
 uindex, coeffs_ulist = oc.merge_layers(us*usplitting.indices, us*usplitting.coeffs)
 
@@ -80,13 +80,20 @@ for V in vlist:
 
 vblocks = np.array(vblocks)
 
-file_dir  = os.path.dirname(__file__)
-file_path = os.path.join(file_dir, "bench_in" ,f"n{nlayers}_q{nqubits}_u{ulayers}_bench_in.hdf5")
+script_dir = os.path.dirname(__file__)
+file_dir = os.path.join(script_dir, f"bench_in/q{nqubits}")
+
+if not os.path.exists(file_dir):
+        os.makedirs(file_dir)
+
+if not os.path.exists(os.path.join(script_dir, f"bench_out/q{nqubits}")):
+        os.makedirs(os.path.join(script_dir, f"bench_out/q{nqubits}"))
+
+file_path = os.path.join(file_dir,f"n{nlayers}_q{nqubits}_u{ulayers}_bench_in.hdf5")
 
 # save initial data to disk
 with h5py.File(file_path, "w") as file:
 
-    
     rng = np.random.default_rng(182)
     psi = np.ones(2**nqubits)
     psi /= np.linalg.norm(psi)
@@ -107,5 +114,5 @@ with h5py.File(file_path, "w") as file:
     file.attrs["nlayers"] = nlayers
     file.attrs["ulayers"] = ulayers
     file.attrs["J"] = float(J)
-    file.attrs["U"] = float(U)
+    file.attrs["g"] = float(g)
     file.attrs["t"] = float(t)
