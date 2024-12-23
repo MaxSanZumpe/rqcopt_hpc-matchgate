@@ -9,14 +9,11 @@ corr = np.loadtxt(file_path)
 
 corr = np.reshape(corr, (corr.shape[0], 4, 4))
 
-step = 5
 
 shiftx = 1
 shifty = 2
 
-print(np.roll(np.roll(corr[step], shift = shiftx, axis = 0 ), shift=shifty, axis = 1))
-
-for step in range(0, 100, 5):
+for step in range(0, 100, 2):
 
     fig, ax = plt.subplots()
     ax.imshow(np.roll(np.roll(corr[step], shift = shifty, axis = 0 ), shift=shiftx, axis = 1), interpolation="nearest", aspect="auto", extent=[-0.5, 4 - 0.5, 4 - 0.5, -0.5])

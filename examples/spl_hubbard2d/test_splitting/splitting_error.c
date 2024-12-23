@@ -13,8 +13,8 @@ int main()
 
     char model[] = "suzuki6";
 
-    const int us = 4;
-    const int ulayers = 601;
+    const int us = 6;
+    const int ulayers = 901;
 
     const int r = 150;
 
@@ -91,7 +91,7 @@ int main()
 
         double norm_error = uniform_distance(n, Upsi_ref.data, Upsi.data);
         
-        printf("layers: %i | %lf\n", layers, norm_error);
+        //printf("layers: %i | %lf\n", layers, norm_error);
         errors[s - 1] = norm_error;
         layers_arr[s - 1] = layers;
     }

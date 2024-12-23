@@ -14,7 +14,7 @@ layers_arr = []
 
 script_dir = os.path.dirname(__file__)
 
-file_path = os.path.join(script_dir, f"spl_hubbard2d_suzuki2_q{q}_us{100}_u{601}_t{t:.2f}s_g{g:.2f}_errors.hdf5")
+file_path = os.path.join(script_dir, f"spl_hubbard2d_suzuki2_q{q}_us{150}_u{901}_t{t:.2f}s_g{g:.2f}_errors.hdf5")
 with h5py.File(file_path, "r") as f:
     errors = np.array(f["errors"])
     layers = np.array(f["layers"])
@@ -22,7 +22,7 @@ with h5py.File(file_path, "r") as f:
 errors_arr.append(errors)
 layers_arr.append(layers)
 
-file_path = os.path.join(script_dir, f"spl_hubbard2d_suzuki4_q{q}_us{20}_u{601}_t{t:.2f}s_g{g:.2f}_errors.hdf5")
+file_path = os.path.join(script_dir, f"spl_hubbard2d_suzuki4_q{q}_us{30}_u{901}_t{t:.2f}s_g{g:.2f}_errors.hdf5")
 with h5py.File(file_path, "r") as f:
     errors = np.array(f["errors"])
     layers = np.array(f["layers"])
@@ -30,7 +30,7 @@ with h5py.File(file_path, "r") as f:
 errors_arr.append(errors)
 layers_arr.append(layers)
 
-file_path = os.path.join(script_dir, f"spl_hubbard2d_suzuki6_q{q}_us{4}_u{601}_t{t:.2f}s_g{g:.2f}_errors.hdf5")
+file_path = os.path.join(script_dir, f"spl_hubbard2d_suzuki6_q{q}_us{6}_u{901}_t{t:.2f}s_g{g:.2f}_errors.hdf5")
 with h5py.File(file_path, "r") as f:
     errors = np.array(f["errors"])
     layers = np.array(f["layers"])

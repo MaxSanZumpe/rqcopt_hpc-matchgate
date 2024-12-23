@@ -17,7 +17,7 @@ def sparse_local_single_op(U, j, L):
 
 L = 16
 J = 1
-g = 4
+g = 1.5
 
 H = st.construct_sparse_spl_hubbard2d_hamiltonian(4,4, J, g)
 

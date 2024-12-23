@@ -40,11 +40,11 @@ t = 0.25
 
 # Change the splitting method here
 method = "suzuki"
-order = 6
+order = 2
 splitting = oc.SplittingMethod.suzuki(4, order/2)
 
 # Splitting steps
-us = 4
+us = 150
 
 H = st.construct_sparse_spl_hubbard2d_hamiltonian(Lx, Ly, J, g)
 
