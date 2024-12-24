@@ -67,7 +67,7 @@ int main()
 
 	const int nqubits = 16;
 	const int nlayers = 7;
-	const int ulayers = 901;
+	const int ulayers = 151;
 	const int order = 2;
 
     char model[] = "suzuki";

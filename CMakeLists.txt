@@ -9,13 +9,6 @@ find_package(BLAS REQUIRED)
 find_package(OpenMP REQUIRED)
 find_package(HDF5 REQUIRED COMPONENTS C)
 
-# Print the HDF5 include directories
-message(STATUS "HDF5 include directories: ${HDF5_INCLUDE_DIRS}")
-
-# Print the HDF5 libraries
-message(STATUS "HDF5 libraries: ${HDF5_C_LIBRARIES}")
- 
-
 # Compiler flags
 set(CMAKE_C_FLAGS "-O3 -fopenmp")
 
@@ -76,23 +69,17 @@ target_link_libraries(     benchmark_threads ${BLAS_LIBRARIES} ${HDF5_LIBRARIES}
 target_compile_definitions(benchmark_threads PRIVATE STATEVECTOR_PARALLELIZATION TRANSLATIONAL_INVARIANCE)
 
 
-add_executable(		       benchmark_mpi ${SOURCES} "benchmark_hpc/benchmark_mpi.c" "examples/timing/timing.c")
+add_executable(		   benchmark_mpi ${SOURCES} "benchmark_hpc/benchmark_mpi.c" "examples/timing/timing.c")
 target_include_directories(benchmark_mpi PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} ${MPI_INCLUDE_PATH} "src" "examples/timing")
 target_link_libraries(     benchmark_mpi ${BLAS_LIBRARIES} ${HDF5_LIBRARIES} ${MPI_C_LIBRARIES})
 target_compile_definitions(benchmark_mpi PRIVATE MPI STATEVECTOR_PARALLELIZATION TRANSLATIONAL_INVARIANCE)
 
 
-# add_executable(benchmark_serial.exe ${SOURCES} "benchmark/benchmark_serial.c" "examples/timing/timing.c")
-# target_include_directories(benchmark_serial.exe PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src" "examples/timing")
-# target_link_libraries(benchmark_serial.exe ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})
-# # target_compile_definitions(benchmark_serial.exe PRIVATE TRANSLATIONAL_INVARIANCE)
+add_executable(            benchmark_serial ${SOURCES} "benchmark_hpc/benchmark_serial.c" "examples/timing/timing.c")
+target_include_directories(benchmark_serial PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src" "examples/timing")
+target_link_libraries(     benchmark_serial ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})	
+target_compile_definitions(benchmark_serial PRIVATE TRANSLATIONAL_INVARIANCE)
 
-
-
-# add_executable(            corr_splh1d ${SOURCES} "examples/spl_hubbard1d/correlations.c" "examples/timing/timing.c")
-# target_include_directories(corr_splh1d PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src" "examples/timing")
-# target_link_libraries(     corr_splh1d PRIVATE ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})
- 
 
 add_executable(            bench_grad ${SOURCES} "examples/hubbard1d/benchmark_gradient.c" "examples/timing/timing.c")
 target_include_directories(bench_grad PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src" "examples/timing")

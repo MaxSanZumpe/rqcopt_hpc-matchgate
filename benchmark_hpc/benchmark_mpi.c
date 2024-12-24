@@ -66,8 +66,8 @@ int main()
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
 	const int nqubits = 16;
-	const int nlayers = 5;
-	const int ulayers = 253;
+	const int nlayers = 3;
+	const int ulayers = 601;
 
 	int num_threads;
 	#if  defined(STATEVECTOR_PARALLELIZATION) || defined(GATE_PARALLELIZATION)

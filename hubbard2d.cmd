@@ -8,11 +8,11 @@
 #SBATCH --clusters=cm4
 #SBATCH --partition=cm4_std
 #SBATCH --qos=cm4_std
-#SBATCH --nodes=4
+#SBATCH --nodes=2
 #SBATCH --ntasks-per-node=2
 #SBATCH --cpus-per-task=56
 #SBATCH --export=NONE
-#SBATCH --time=24:00:00
+#SBATCH --time=12:00:00
 
 module load slurm_setup
 module load intel-mpi

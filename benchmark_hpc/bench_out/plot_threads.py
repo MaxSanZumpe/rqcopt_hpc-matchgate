@@ -6,15 +6,18 @@ import matplotlib.pyplot as plt
 
 
 nqubits = 12
-nlayers = 5
-ulayers = 253
+nlayers = 3
+ulayers = 601
 
 script_dir = os.path.dirname(__file__)
-data_dir   = os.path.join(script_dir, f"n{nlayers}_q{nqubits}_u{ulayers}_threads_bench_matchgate")
+data_dir   = os.path.join(script_dir, f"q{nqubits}")
+
 
 file_list1 = glob.glob(f"{data_dir}/n{nlayers}_q{nqubits}_u{ulayers}_th*_0*.hdf5")
 file_list2 = glob.glob(f"{data_dir}/n{nlayers}_q{nqubits}_u{ulayers}_th*_1*.hdf5")
 
+file_list1.append(glob.glob(f"{data_dir}/n{nlayers}_q{nqubits}_u{ulayers}_0*serial*.hdf5")[0])
+file_list2.append(glob.glob(f"{data_dir}/n{nlayers}_q{nqubits}_u{ulayers}_1*serial*.hdf5")[0])
 
 wtime1 = []
 threads1 = []
@@ -33,17 +36,22 @@ for file1, file2 in zip(file_list1, file_list2):
 
 
 xy1 = zip(threads1, wtime1)
+xy2 = zip(threads2, wtime2)
 
 xy1_sorted = sorted(xy1, key = lambda pair: pair[0])
+xy2_sorted = sorted(xy2, key = lambda pair: pair[0])
 
 threads1_sorted, wtime1_sorted = zip(*xy1_sorted) 
+threads2_sorted, wtime2_sorted = zip(*xy2_sorted) 
 
 wtime1 = np.array(wtime1_sorted)
-wtime2 = np.array(wtime2)
+wtime2 = np.array(wtime2_sorted)
 
 threads1 = np.array(threads1_sorted)
-threads2 = np.array(threads2)
+threads2 = np.array(threads2_sorted)
 
+for a, b in zip(threads1, wtime1):
+    print(f"threads = {a} -> wtime: {b}")
 
 fig, ax = plt.subplots()
 
@@ -51,12 +59,12 @@ ax.scatter(threads1, wtime1[0]/wtime1, marker=".", label = "$T_{parallel}/T_{ser
 ax.plot(threads1, threads1, label = "Ideal scaling", color = "green")
 
 ax.set_xlabel("Thread number")
-ax.set_ylabel("Speed up")
+ax.set_ylabel("Walltime speed-up")
 
 ax.set_title(f"Qubits = {nqubits}, Layers = {nlayers}")
 
 ax.legend()
-fig.savefig(f"{data_dir}/n{nlayers}_q{nqubits}_u{ulayers}_scaling.png")
+fig.savefig(f"{data_dir}/n{nlayers}_q{nqubits}_u{ulayers}_thread_scaling.png")
 
 
     

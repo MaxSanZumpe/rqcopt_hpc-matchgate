@@ -35,43 +35,23 @@ int main()
 
     #else
 
-	const int nqubits = 8;
-	const int nlayers = 4;
-	int ulayers;
+	const int nqubits = 12;
+	const int nlayers = 3;
+	const int ulayers = 601;
 
     int num_threads = 1;
 
 	// read initial data from disk
 	char filename[1024];
-	sprintf(filename, "../rqcopt_hpc/examples/benchmark/input_data/spinless_hubbard_n%i_q%i_matchgate_init.hdf5", nlayers, nqubits);
+	sprintf(filename, "../benchmark_hpc/bench_in/q%i/n%i_q%i_u%i_bench_in.hdf5", nqubits, nlayers, nqubits, ulayers);
 	hid_t file = H5Fopen(filename, H5F_ACC_RDONLY, H5P_DEFAULT);
 	if (file < 0) {
 		fprintf(stderr, "'H5Fopen' for '%s' failed, return value: %" PRId64 "\n", filename, file);
 		return -1;
 	}
 
-	int nlayers_ref;
-	if (read_hdf5_dataset(file, "nlayers", H5T_NATIVE_INT, &nlayers_ref) < 0) {
-		fprintf(stderr, "reading 'nlayers' from disk failed\n");
-		return -1;
-	}
-
-	int nqubits_ref;
-	if (read_hdf5_dataset(file, "nqubits", H5T_NATIVE_INT, &nqubits_ref) < 0) {
-		fprintf(stderr, "reading 'nqubits_ref' from disk failed\n");
-		return -1;
-	}
-
-	assert(nqubits == nqubits_ref);
-	assert(nlayers == nlayers_ref);
-
-	if (read_hdf5_dataset(file, "ulayers", H5T_NATIVE_INT, &ulayers) < 0) {
-		fprintf(stderr, "reading 'ulayers' from disk failed\n");
-		return -1;
-	}
-
 	struct matchgate* u_split = aligned_alloc(MEM_DATA_ALIGN, ulayers * sizeof(struct matchgate));
-	if (read_hdf5_dataset(file, "Ulist", H5T_NATIVE_DOUBLE, (numeric*)u_split) < 0) {
+	if (read_hdf5_dataset(file, "ulist", H5T_NATIVE_DOUBLE, (numeric*)u_split) < 0) {
 		fprintf(stderr, "reading initial two-qubit quantum gates from disk failed\n");
 		return -1;
 	}
@@ -100,7 +80,7 @@ int main()
 
 	// initial to-be optimized quantum gates
 	struct matchgate* vlist_start = aligned_alloc(MEM_DATA_ALIGN, nlayers * sizeof(struct matchgate));
-	if (read_hdf5_dataset(file, "Vlist_start", H5T_NATIVE_DOUBLE, (numeric*)vlist_start) < 0) {
+	if (read_hdf5_dataset(file, "vlist", H5T_NATIVE_DOUBLE, (numeric*)vlist_start) < 0) {
 		fprintf(stderr, "reading initial two-qubit quantum gates from disk failed\n");
 		return -1;
 	}
@@ -164,7 +144,7 @@ int main()
     #endif
 
     // save results to disk
-    sprintf(filename, "../examples/benchmark/output_data/spinless_hubbard_n%i_q%i_th%i_%i%i%i.hdf5", nlayers, nqubits, num_threads, translational_invariance, statevector_parallelization, gate_parallelization);
+    sprintf(filename, "../benchmark_hpc/bench_out/q%i/n%i_q%i_u%i_%i_serial_bench_matchgate.hdf5", nqubits, nlayers, nqubits, ulayers, translational_invariance);
     file = H5Fcreate(filename, H5F_ACC_TRUNC, H5P_DEFAULT, H5P_DEFAULT);
     if (file < 0) {
         fprintf(stderr, "'H5Fcreate' for '%s' failed, return value: %" PRId64 "\n", filename, file);
