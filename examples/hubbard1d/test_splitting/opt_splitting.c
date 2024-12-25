@@ -11,9 +11,9 @@ int main()
 {   
     const int nqubits = 12;
     const int nlayers = 33;
-    const int steps = 8;
+    const int steps = 1;
 
-    char model[] = "suzuki2";
+    char model[] = "suzuki4";
 
     const int ulayers = 1009;
 
