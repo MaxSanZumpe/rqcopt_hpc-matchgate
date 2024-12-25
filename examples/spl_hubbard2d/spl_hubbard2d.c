@@ -66,8 +66,8 @@ int main()
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
 	const int nqubits = 16;
-	const int nlayers = 7;
-	const int ulayers = 151;
+	const int nlayers = 13;
+	const int ulayers = 601;
 	const int order = 2;
 
     char model[] = "suzuki";

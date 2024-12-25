@@ -54,27 +54,27 @@ static int ufunc(const struct statevector* restrict psi, void* fdata, struct sta
 
 int main()
 {
-	const int nqubits = 8;
-	const int nlayers = 17;
+	const int nqubits = 12;
+	const int nlayers = 13;
 	
-	const int full_target = 1;
-	const int ulayers = 29;
+	const int full_target = 0;
+	const int ulayers = 1009;
 	
 	if (full_target == 1) { assert(ulayers == 29); }
 
 	char splitting[] = "suzuki2";
 
-	float g = 1.5;
-    float t = 0.25;
+	float g = 4.0;
+    float t = 1.0;
 
-	const int niter = 12;
+	const int niter = 25;
 
 	int num_threads;
 	#if  defined(STATEVECTOR_PARALLELIZATION) || defined(GATE_PARALLELIZATION)
 	num_threads = get_num_threads();
 	#else 
 	num_threads = 1;
-	#endif
+	   #endif
 
 	// read initial data from disk
 	char filename[1024];
