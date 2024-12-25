@@ -11,16 +11,16 @@ int main()
 {   
     const int nqubits = 12;
 
-    char model[] = "auzinger";
+    char model[] = "yoshida4";
 
-    const int us = 21;
-    const int ulayers = 589;
-	const int order = 6;
+    const int us = 50;
+    const int ulayers = 601;
+	const int order = 4;
 
-    const int r = 28;
+    const int r = 12;
 
     float g = 4.00;
-    float t = 0.75;
+    float t = 1.00;
 
     const intqs n = (intqs)1 << nqubits;
     struct statevector psi0, Upsi, Upsi_ref, diff;
@@ -37,7 +37,7 @@ int main()
     for (int s = 1; s <= us; s++) {
         
         int layers = r*s + 1;
-        sprintf(filename, "../examples/hubbard1d/test_splitting/error_in/hubbard1d_%s%i_q%i_us%i_u%i_t%.2fs_g%.2f_error_in.hdf5", model ,order, nqubits, us, ulayers, t, g);
+        sprintf(filename, "../examples/hubbard1d/test_splitting/error_in/hubbard1d_%s_q%i_us%i_u%i_t%.2fs_g%.2f_error_in.hdf5", model, nqubits, us, ulayers, t, g);
         file = H5Fopen(filename, H5F_ACC_RDONLY, H5P_DEFAULT);
         if (file < 0) {
             fprintf(stderr, "'H5Fopen' for '%s' failed, return value: %" PRId64 "\n", filename, file);
@@ -98,7 +98,7 @@ int main()
 
     assert(layers_arr[us - 1] == ulayers);
 
-    sprintf(filename, "../examples/hubbard1d/test_splitting/error_out/hubbard1d_%s%i_q%i_us%i_u%i_t%.2fs_g%.2f_errors.hdf5", model, order, nqubits, us, ulayers, t, g);
+    sprintf(filename, "../examples/hubbard1d/test_splitting/error_out/hubbard1d_%s_q%i_us%i_u%i_t%.2fs_g%.2f_errors.hdf5", model, nqubits, us, ulayers, t, g);
 	file = H5Fcreate(filename, H5F_ACC_TRUNC, H5P_DEFAULT, H5P_DEFAULT);
 	if (file < 0) {
 		fprintf(stderr, "'H5Fcreate' for '%s' failed, return value: %" PRId64 "\n", filename, file);

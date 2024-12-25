@@ -23,7 +23,7 @@ script_dir = os.path.dirname(__file__)
 
 L_list = [4, 6, 8, 10]
 J = 1
-g = 1.5
+g = 4
 t = 1
 
 rng = np.random.default_rng(182)
