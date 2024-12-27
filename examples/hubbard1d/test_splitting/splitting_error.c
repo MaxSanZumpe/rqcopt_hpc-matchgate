@@ -11,13 +11,12 @@ int main()
 {   
     const int nqubits = 12;
 
-    char model[] = "yoshida4";
+    char model[] = "suzuki6";
 
-    const int us = 50;
-    const int ulayers = 601;
-	const int order = 4;
+    const int us = 8;
+    const int ulayers = 801;
 
-    const int r = 12;
+    const int r = 100;
 
     float g = 4.00;
     float t = 1.00;

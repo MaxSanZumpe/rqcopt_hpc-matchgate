@@ -36,8 +36,8 @@ navr = np.vdot(psi0, sparse_local_single_op(num, 0, L) @ psi0)
 # n_j measurement operators
 meas_ops = [sparse_local_single_op(num - navr*np.identity(2), j, L) for j in range(0, L)]
 
-Δt = 0.02
-nsteps = 200
+Δt = 0.005
+nsteps = 100
 
 # store measurement average values
 corr = np.zeros((L, nsteps+1), dtype=complex)

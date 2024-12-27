@@ -58,16 +58,16 @@ print(corr.shape)
 
 # visualize dynamical correlation functions
 script_dir = os.path.dirname(__file__)
-vel = 2.5
+vel = 2
 plt.imshow(np.roll(corr, shift=(L-1)//2, axis=0).real.T,
             interpolation="nearest", aspect="auto",
             origin="lower", extent=(-L//2+0.5, L//2+0.5, 0, Δt*nsteps))
-plt.xlabel("j")
+plt.xlabel("$\Delta j$")
 plt.ylabel("t")
-plt.title(fr"Spinless Hubbard (1D) $\langle \psi | n_j(t) n_0(0) | \psi \rangle$ for J={J}, U={g}; velocity: {vel}")
+plt.title(fr"$\langle \psi | n_j(t) n_1(0) | \psi \rangle$ for $H_{{splh}}, U = 4;$ vel: {vel} $s^{{-1}}$")
 plt.colorbar()
 plt.plot([ 0.5,  1+L//2], [0, L//2*1/vel], "w")
 plt.plot([-0.5, -L//2], [0, L//2*1/vel], "w")
-plt.savefig(os.path.join(script_dir, "lightcone_py.png"))
+plt.savefig(os.path.join(script_dir, f"splh1d_g{g:.2f}_lightcone_py.png"))
 
 print(L//2)

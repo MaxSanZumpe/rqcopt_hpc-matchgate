@@ -41,9 +41,9 @@ J = 1
 g = 4.0
 t = 1
 
-method = "yoshida"
-us = 50
-order = 4
+method = "auzinger"
+us = 29
+order = 6
 
 H = st.construct_sparse_hubbard1d_hamiltonian(L, J, g)
 
@@ -53,7 +53,7 @@ psi0 /= np.linalg.norm(psi0)
 Upsi = sp.linalg.expm_multiply(-1j*H*t, psi0)
 
 # Change the splitting method here
-splitting = oc.SplittingMethod.yoshida4(3)
+splitting = oc.SplittingMethod.auzinger15_6()
 h_kin = construct_hubbard1d_kinetic_term(J)
 h_int = construct_hubbard1d_interac_term(g)
 

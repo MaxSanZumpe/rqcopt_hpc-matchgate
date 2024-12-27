@@ -1,77 +1,53 @@
 import os
-import sys
+import re
+import h5py
 import numpy as np
-import scipy.sparse as sp
-import matplotlib.pyplot as plt
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-import sparse_targets as st
+from matplotlib import pyplot as plt
 
 
-def sparse_local_single_op(U, j, L):
-    assert U.shape == (2, 2)
-    return sp.kron(sp.eye(2**j), sp.kron(U, sp.eye(2**(L-j-1))))
-
-L = 6
-J = 1
-g = 2
-
+L = 8
 q = 2*L
+g = 4.0
+ulayers = 561
 
-H = st.construct_sparse_hubbard1d_hamiltonian(L, J, g)
-
-psi0 = np.ones(2**q)
-psi0 /= np.linalg.norm(psi0)
-
-num = sp.csr_matrix([[0, 0], [0, 1]], dtype=float)
-
-
-# total spin-up number operator
-N_up = sum(sparse_local_single_op(num, j, 2*L) for j in range(0, L))
-# total spin-down number operator
-N_dn = sum(sparse_local_single_op(num, j, 2*L) for j in range(L, 2*L))
-
-# 〈n_j↑〉
-navr_up = np.vdot(psi0, sparse_local_single_op(num, 0, 2*L) @ psi0)
-# 〈n_j↓〉
-navr_dn = np.vdot(psi0, sparse_local_single_op(num, L, 2*L) @ psi0)
-
-# n_j↑ measurement operators
-meas_up_ops = [sparse_local_single_op(num - navr_up*np.identity(2), j, 2*L) for j in range(0, L)]
-# n_j↓ measurement operators
-meas_dn_ops = [sparse_local_single_op(num - navr_dn*np.identity(2), j, 2*L) for j in range(L, 2*L)]
-
-Δt = 0.02
-nsteps = 200
-
-# store measurement average values
-corr = np.zeros((L, nsteps+1), dtype=complex)
-
-psit = psi0.copy()
-# apply n_j↑ to ψ0
-npsi = sparse_local_single_op(num - navr_up*np.identity(2), 0, 2*L) @ psi0
-print(f"np.vdot(ψ0, nψ): {np.vdot(psi0, npsi)} (should be zero)")
-
-for s in range(nsteps + 1):
-    for j in range(L):
-        corr[j, s] = np.vdot(psit, meas_up_ops[j] @ npsi)
-    # wavefunctions at next time step
-    psit = sp.linalg.expm_multiply(-1j*H*Δt, psit)
-    npsi = sp.linalg.expm_multiply(-1j*H*Δt, npsi)
-
-print(corr.shape)
-
-# visualize dynamical correlation functions
 script_dir = os.path.dirname(__file__)
-vel = 1.25
-plt.imshow(np.roll(corr, shift=(L-1)//2, axis=0).real.T,
-            interpolation="nearest", aspect="auto",
-            origin="lower", extent=(-L//2+0.5, L//2+0.5, 0, Δt*nsteps))
-plt.xlabel("j")
-plt.ylabel("t")
-plt.title(fr"$\langle \psi | n_{{j\uparrow}}(t) n_{{0\uparrow}}(0) | \psi \rangle$ for J={J}, U={g}; velocity: {vel}")
-plt.colorbar()
+file_path = os.path.join(script_dir, f"hubbard1d_q{q}_g{g:.2f}_u{ulayers}_lightcone.hdf5")
 
-plt.plot([ 0.5, 0.5 + 3*vel], [ 0, 3], "w")
-plt.plot([-0.5,-0.5 - 3*vel], [ 0, 3], "w")
-plt.savefig(os.path.join(script_dir, f"plots/hubb1d_g{g:.2f}_lightcone_py.png"))
+with h5py.File(file_path, "r") as f:
+
+    q = f.attrs["nqubits"]
+    delta = f.attrs["delta"]
+    data = []
+    t_step = []
+
+    # Sort by the numerical part
+    keys = sorted(f.keys(), key=lambda x: int(''.join(filter(str.isdigit, x))))
+
+    for key in keys:
+        a = re.findall(r'\d+', key)[0]
+        t_step.append(int(a))
+        data.append(np.array(f[key][:, 0]))
+
+data = np.array(data)
+t_step = np.array(t_step)
+t = t_step*delta
+
+
+script_dir = os.path.dirname(__file__)
+plt.imshow(np.roll(data, shift=(L-1)//2, axis=1)[:,:7], 
+           interpolation="nearest", aspect="auto", origin="lower",
+           extent=(-L//2+0.5, L//2-0.5, 0, delta*len(t_step)))
+
+vel = 1.5
+T = (L//2) / vel
+plt.colorbar()
+plt.plot([+0.5,  0.5 + T*vel], [ 0, T], "w")
+plt.plot([-0.5, -0.5 - T*vel], [ 0, T], "w")
+
+plt.xlabel("$\Delta j$")
+plt.ylabel("t (s)")
+plt.title(fr"$\langle \psi | n_{{j\uparrow}}(t) n_{{1\uparrow}}(0) | \psi \rangle$ for $H_{{hubb}}, U = 4$; velocity: {vel} $s^{{-1}}$")
+plt.savefig(os.path.join(script_dir, f"plots/hubb1d_q{q}_g{g:.2f}_u{ulayers}_lightcone_c.png"))
+
+
+

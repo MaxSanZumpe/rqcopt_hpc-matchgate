@@ -57,7 +57,7 @@ fig, ax = plt.subplots()
 ax.plot(x, errors, "^")
 
 
-ax.set_title("Jordan-Wigner boundary error for Hubbard 1D")
+ax.set_title("Jordan-Wigner boundary term error")
 ax.set_xlabel("Qubits")
 ax.set_ylabel("$|| \psi_{approx.} - \psi_{exact} ||_{\infty}$")
 fig.savefig(os.path.join(script_dir, f"plots/hubb1d_boundary.png"))

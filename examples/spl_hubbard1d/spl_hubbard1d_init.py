@@ -30,19 +30,19 @@ def construct_spl_hubbard_local_term(J, U):
     return -J*hop + U*int
 
 
-nqubits = 14
+nqubits = 12
 J = 1
 
 U = 4.0
 t = 1
 
-s = 5
+s = 1
 us = 6
 
 dt = t/s
 udt = t/us
 
-order = 2
+order = 4
 
 splitting = oc.SplittingMethod.suzuki(2, order/2)
 usplitting = oc.SplittingMethod.suzuki(2, 3)
@@ -81,6 +81,12 @@ vblocks = np.array(vblocks)
 
 file_dir  = os.path.dirname(__file__)
 file_path = os.path.join(file_dir, "opt_in" ,f"spl_hubbard1d_suzuki{order}_n{nlayers}_q{nqubits}_u{ulayers}_t{t:.2f}s_g{U:.2f}_init.hdf5")
+
+print(len(splitting.indices))
+print(len(splitting.coeffs))
+
+print(splitting.indices)
+print(splitting.coeffs)
 
 # save initial data to disk
 with h5py.File(file_path, "w") as file:

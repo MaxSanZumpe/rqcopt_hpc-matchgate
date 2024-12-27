@@ -10,16 +10,15 @@
 int main()
 {   
     const int nqubits = 12;
-    const int nlayers = 33;
+    const int nlayers = 41;
+    const int s_start = 2;
     const int steps = 1;
 
     char model[] = "suzuki4";
 
     const int ulayers = 1009;
 
-    const int r = 4;
-
-    assert(nlayers/r == 8);
+    const int r = 20;
 
     float g = 4.00;
     float t = 1.00;
@@ -39,7 +38,7 @@ int main()
     hid_t file;
     char filename[1024];
 
-    sprintf(filename, "../examples/hubbard1d/test_splitting/error_in/hubbard1d_%s_q%i_us150_u601_t%.2fs_g%.2f_error_in.hdf5", model, nqubits, t, g);
+    sprintf(filename, "../examples/hubbard1d/test_splitting/error_in/hubbard1d_suzuki2_q%i_us200_u801_t%.2fs_g%.2f_error_in.hdf5", nqubits, t, g);
     file = H5Fopen(filename, H5F_ACC_RDONLY, H5P_DEFAULT);
     if (file < 0) {
         fprintf(stderr, "'H5Fopen' for '%s' failed, return value: %" PRId64 "\n", filename, file);
@@ -58,7 +57,7 @@ int main()
 
     H5Fclose(file);
 
-    for (int s = 1; s <= (nlayers-1)/r ; s++) {
+    for (int s = s_start; s <= (nlayers-1)/r ; s++) {
         
         int l = r*s + 1;
         sprintf(filename, "../examples/hubbard1d/opt_out/q%i/hubbard1d_%s_n%i_q%i_u%i_t%.2fs_g%.2f_iter%i_opt.hdf5", nqubits, model, l, nqubits, ulayers, t, g, niter);
@@ -111,8 +110,8 @@ int main()
         double norm_error = uniform_distance(n, Upsi_ref.data, Upsi.data);
 
         printf("layers: %i | %lf\n", l, norm_error);
-        errors[s - 1] = norm_error;
-        layers_arr[s - 1] = l;
+        errors[s - s_start] = norm_error;
+        layers_arr[s - s_start] = l;
     }
 
     sprintf(filename, "../examples/hubbard1d/test_splitting/error_out/hubbard1d_%s_opt_n%i_q%i_t%.2fs_g%.2f_iter%i.hdf5", model, nlayers, nqubits, t, g, niter);
