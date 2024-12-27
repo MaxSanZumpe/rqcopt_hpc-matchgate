@@ -1,13 +1,51 @@
-import h5py
 import os
+import h5py
 import numpy as np
+import glob
+from matplotlib import pyplot as plt
+from matplotlib.ticker import ScalarFormatter, FixedLocator
+
+
+L = 6
+q = 2*L
+g = 1.25
+t = 0.25
+
+opt_arr = []
+ini_arr = []
+layers_arr = []
+
 
 script_dir = os.path.dirname(__file__)
-file_path = os.path.join(script_dir, "opt_out" ,f"spl_hubbard2d_suzuki2_n7_q16_u301_t0.25s_g1.50_opt_iter10.hdf5")
-with h5py.File(file_path, "r") as f:
-    print(f.keys())
-    print(np.array(f["f_iter"]))
 
-    for key in f.attrs.keys():
-        print(f"{key} = {f.attrs[key]}")
+file_list = glob.glob(f"{script_dir}/opt_out/spl_hubbard2d_*u601*.hdf5")
+
+print(file_list)
+
+for file in file_list:
+    with h5py.File(file, "r") as f:
+        tmp = np.array(f["f_iter"])
+        layers_arr.append([f.attrs["nlayers"]])
+        ini_arr.append(2*tmp[0] + 2*2**16)
+        opt_arr.append(2*tmp[-1] + 2*2**16)
+        print(f"layers: {f.attrs['nlayers']}, Initial norm = {2*tmp[0] + 2*2**16} -> Final norm = {2*tmp[-1] + 2*2**16}")
+
+
+fig, ax = plt.subplots()
+ax.scatter(layers_arr, opt_arr, marker = "^", color = "green", label = "Optimized gates")
+ax.scatter(layers_arr, ini_arr, marker = ".", color = "black", label = "Initial gates")
+
+
+ax.set_xscale("log")
+ax.set_yscale("log")
+ax.xaxis.set_major_formatter(ScalarFormatter())
+
+ax.set_xlabel("Layers")
+ax.set_ylabel("$|| U - W(G) ||_F$")
+#ax.xaxis.set_major_locator(FixedLocator([10, 100, 600]))
+
+
+ax.set_title(f"Hubbard (2D): Qubits = 4x4, J = {1}, U = {g}, t = {t}s")
+ax.legend()
+fig.savefig(os.path.join(script_dir, f"opt_out/hubb2d_g{g:.2f}_t{t:.2f}_opt_norms.png"))
     

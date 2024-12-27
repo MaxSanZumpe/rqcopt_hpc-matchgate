@@ -112,6 +112,11 @@ target_include_directories(hubb1d_opt_err PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_IN
 target_link_libraries(     hubb1d_opt_err PRIVATE ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})
 
 
+add_executable(            spl_hubb2d_opt_err ${SOURCES} "examples/spl_hubbard2d/test_splitting/opt_splitting.c" "examples/timing/timing.c")
+target_include_directories(spl_hubb2d_opt_err PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src" "examples/timing")
+target_link_libraries(     spl_hubb2d_opt_err PRIVATE ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})
+
+
 add_executable(            splh1d_errors ${SOURCES} "examples/spl_hubbard1d/test_splitting/splitting_error.c" "examples/timing/timing.c")
 target_include_directories(splh1d_errors PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src" "examples/timing")
 target_link_libraries(     splh1d_errors PRIVATE ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})

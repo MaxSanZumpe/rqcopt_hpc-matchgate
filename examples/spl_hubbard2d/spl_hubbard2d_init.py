@@ -32,14 +32,14 @@ def main():
     g = 1.5
     t = 0.25
 
-    s = 3  #number of splitting steps
+    s = 2  #number of splitting steps
     us = 4
     
 
     dt = t/s
     udt = t/us
 
-    model = "suzuki2"
+    model = "suzuki4"
     
     match model:
         case "suzuki2":

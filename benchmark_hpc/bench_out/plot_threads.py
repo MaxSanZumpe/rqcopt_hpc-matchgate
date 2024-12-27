@@ -50,8 +50,8 @@ wtime2 = np.array(wtime2_sorted)
 threads1 = np.array(threads1_sorted)
 threads2 = np.array(threads2_sorted)
 
-for a, b in zip(threads1, wtime1):
-    print(f"threads = {a} -> wtime: {b}")
+for a, b, c in zip(threads1, wtime1, wtime2):
+    print(f"threads = {a} -> wtime1: {b}s -> wtime2: {c}s")
 
 fig, ax = plt.subplots()
 
@@ -65,6 +65,21 @@ ax.set_title(f"Qubits = {nqubits}, Layers = {nlayers}")
 
 ax.legend()
 fig.savefig(f"{data_dir}/n{nlayers}_q{nqubits}_u{ulayers}_thread_scaling.png")
+
+
+fig, ax = plt.subplots()
+
+ax.scatter(threads1, wtime1, marker=".", label = "Matchgates", color = "black")
+ax.scatter(threads2, wtime2, marker=".", label = "Matchgates + Invariance", color = "green")
+
+
+ax.set_xlabel("Thread number")
+ax.set_ylabel("Walltime (s)")
+
+ax.set_title(f"Qubits = {nqubits}, Layers = {nlayers}")
+
+ax.legend()
+fig.savefig(f"{data_dir}/n{nlayers}_q{nqubits}_u{ulayers}_invariance_scaling.png")
 
 
     
