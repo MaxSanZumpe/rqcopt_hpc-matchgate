@@ -66,7 +66,7 @@ int main()
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
 	const int nqubits = 16;
-	const int nlayers = 3;
+	const int nlayers = 5;
 	const int ulayers = 601;
 
 	int num_threads;
@@ -194,7 +194,7 @@ int main()
 		#endif
 
 		char filename[1024];
-		sprintf(filename, "../benchmark_hpc/bench_out/mpi_bench_n%i_q%i_u%i_tasks%i_th%i_%i%i.hdf5", nlayers, nqubits, ulayers, num_tasks, num_threads, translational_invariance, statevector_parallelization);
+		sprintf(filename, "../benchmark_hpc/bench_out/mpi/mpi_bench_n%i_q%i_u%i_tasks%i_th%i_%i%i.hdf5", nlayers, nqubits, ulayers, num_tasks, num_threads, translational_invariance, statevector_parallelization);
 
 		hid_t file = H5Fcreate(filename, H5F_ACC_TRUNC, H5P_DEFAULT, H5P_DEFAULT);
 		if (file < 0) {
