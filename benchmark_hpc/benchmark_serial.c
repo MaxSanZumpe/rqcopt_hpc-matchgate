@@ -35,8 +35,8 @@ int main()
 
     #else
 
-	const int nqubits = 12;
-	const int nlayers = 11;
+	const int nqubits = 10;
+	const int nlayers = 5;
 	const int ulayers = 601;
 
     int num_threads = 1;
