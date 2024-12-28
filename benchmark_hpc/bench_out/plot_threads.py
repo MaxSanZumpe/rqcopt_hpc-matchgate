@@ -6,18 +6,19 @@ import matplotlib.pyplot as plt
 
 
 nqubits = 12
-nlayers = 3
+nlayers = 11
 ulayers = 601
 
 script_dir = os.path.dirname(__file__)
 data_dir   = os.path.join(script_dir, f"q{nqubits}")
 
 
-file_list1 = glob.glob(f"{data_dir}/n{nlayers}_q{nqubits}_u{ulayers}_th*_0*.hdf5")
-file_list2 = glob.glob(f"{data_dir}/n{nlayers}_q{nqubits}_u{ulayers}_th*_1*.hdf5")
+file_list1 = glob.glob(f"{data_dir}/n{nlayers}_q{nqubits}_u{ulayers}_th*_010*.hdf5")
+file_list2 = glob.glob(f"{data_dir}/n{nlayers}_q{nqubits}_u{ulayers}_th*_110*.hdf5")
 
-file_list1.append(glob.glob(f"{data_dir}/n{nlayers}_q{nqubits}_u{ulayers}_0*serial*.hdf5")[0])
-file_list2.append(glob.glob(f"{data_dir}/n{nlayers}_q{nqubits}_u{ulayers}_1*serial*.hdf5")[0])
+if nqubits != 16:
+    file_list1.append(glob.glob(f"{data_dir}/n{nlayers}_q{nqubits}_u{ulayers}_0*serial*.hdf5")[0])
+    file_list2.append(glob.glob(f"{data_dir}/n{nlayers}_q{nqubits}_u{ulayers}_1*serial*.hdf5")[0])
 
 wtime1 = []
 threads1 = []
@@ -64,13 +65,13 @@ ax.set_ylabel("Walltime speed-up")
 ax.set_title(f"Qubits = {nqubits}, Layers = {nlayers}")
 
 ax.legend()
-fig.savefig(f"{data_dir}/n{nlayers}_q{nqubits}_u{ulayers}_thread_scaling.png")
+fig.savefig(f"{data_dir}/plots/n{nlayers}_q{nqubits}_u{ulayers}_thread_scaling.png")
 
 
 fig, ax = plt.subplots()
 
-ax.scatter(threads1, wtime1, marker=".", label = "Matchgates", color = "black")
-ax.scatter(threads2, wtime2, marker=".", label = "Matchgates + Invariance", color = "green")
+#ax.scatter(threads1, wtime1, marker=".", label = "Matchgates", color = "black")
+ax.scatter(threads2, (wtime1 - wtime2)/wtime1, marker=".", label = "Matchgates + Invariance", color = "green")
 
 
 ax.set_xlabel("Thread number")
@@ -79,7 +80,7 @@ ax.set_ylabel("Walltime (s)")
 ax.set_title(f"Qubits = {nqubits}, Layers = {nlayers}")
 
 ax.legend()
-fig.savefig(f"{data_dir}/n{nlayers}_q{nqubits}_u{ulayers}_invariance_scaling.png")
+fig.savefig(f"{data_dir}/plots/n{nlayers}_q{nqubits}_u{ulayers}_invariance_scaling.png")
 
 
     
