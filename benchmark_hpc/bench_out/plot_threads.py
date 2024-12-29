@@ -5,8 +5,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-nqubits = 16
-nlayers = 5
+nqubits = 12
+nlayers = 7
 ulayers = 601
 
 script_dir = os.path.dirname(__file__)
@@ -58,6 +58,7 @@ fig, ax = plt.subplots()
 
 ax.scatter(threads1, wtime1[0]/wtime1, marker=".", label = "$T_{parallel}/T_{serial}$", color = "black")
 ax.plot(threads1, threads1, label = "Ideal scaling", color = "green")
+ax.plot([56, 56], [1, 4])
 
 ax.set_xlabel("Thread number")
 ax.set_ylabel("Walltime speed-up")

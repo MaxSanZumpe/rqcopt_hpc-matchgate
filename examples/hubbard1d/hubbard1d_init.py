@@ -33,7 +33,7 @@ def construct_hubbard_interac_term(U):
 
     return U*np.kron(n, n)
 
-L = 6
+L = 4
 nqubits = 2*L
 J = 1
 
@@ -42,11 +42,11 @@ full_matrix = False
 if (full_matrix):
     assert(nqubits <= 12)
 
-g = 4.0
-t = 1
+g = 1.5
+t = 0.25
 
 s = 2
-us = 36
+us = 1
 
 
 if (full_matrix):
