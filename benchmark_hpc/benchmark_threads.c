@@ -44,8 +44,8 @@ int main()
 	int num_threads = get_num_threads();
 	printf("max_threads = %i\n", num_threads);
 
-	int start_num_threads = 56;
-	int stop_num_threads  = 56;
+	int start_num_threads = 112;
+	int stop_num_threads  = 112;
 	int num_threads_step  = 8;
 
 	if (start_num_threads < num_threads){
