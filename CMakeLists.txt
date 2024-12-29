@@ -66,7 +66,7 @@ target_link_libraries(     benchmark_usplit PRIVATE ${BLAS_LIBRARIES} ${HDF5_LIB
 add_executable(            benchmark_threads ${SOURCES} "benchmark_hpc/benchmark_threads.c" "examples/timing/timing.c")
 target_include_directories(benchmark_threads PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src" "examples/timing")
 target_link_libraries(     benchmark_threads ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})
-target_compile_definitions(benchmark_threads PRIVATE STATEVECTOR_PARALLELIZATION TRANSLATIONAL_INVARIANCE)
+target_compile_definitions(benchmark_threads PRIVATE STATEVECTOR_PARALLELIZATION)
 
 
 add_executable(		   benchmark_mpi ${SOURCES} "benchmark_hpc/benchmark_mpi.c" "examples/timing/timing.c")
@@ -78,7 +78,7 @@ target_compile_definitions(benchmark_mpi PRIVATE MPI STATEVECTOR_PARALLELIZATION
 add_executable(            benchmark_serial ${SOURCES} "benchmark_hpc/benchmark_serial.c" "examples/timing/timing.c")
 target_include_directories(benchmark_serial PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src" "examples/timing")
 target_link_libraries(     benchmark_serial ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})	
-target_compile_definitions(benchmark_serial PRIVATE TRANSLATIONAL_INVARIANCE)
+#target_compile_definitions(benchmark_serial PRIVATE TRANSLATIONAL_INVARIANCE)
 
 
 add_executable(            bench_grad ${SOURCES} "examples/hubbard1d/benchmark_gradient.c" "examples/timing/timing.c")

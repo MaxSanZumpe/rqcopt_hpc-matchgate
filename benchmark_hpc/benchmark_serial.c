@@ -35,7 +35,7 @@ int main()
 
     #else
 
-	const int nqubits = 10;
+	const int nqubits = 12;
 	const int nlayers = 7;
 	const int ulayers = 601;
 
