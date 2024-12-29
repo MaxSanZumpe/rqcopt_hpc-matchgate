@@ -14,5 +14,9 @@
 #SBATCH --time=03:00:00
 
 module load slurm_setup
+module load intel
+module load intel-mpi
+module load intel-mkl
+module load hdf5
 export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK 
 ./benchmark_threads
