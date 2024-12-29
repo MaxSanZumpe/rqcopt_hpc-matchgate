@@ -5,8 +5,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-nqubits = 12
-nlayers = 11
+nqubits = 16
+nlayers = 5
 ulayers = 601
 
 script_dir = os.path.dirname(__file__)
