@@ -56,7 +56,7 @@ static int ufunc(const struct statevector* restrict psi, void* fdata, struct sta
 int main()
 {
 	const int nqubits = 8;
-	const int nlayers = 21;
+	const int nlayers = 41;
 	
 	const int full_target = 1;
 	const int ulayers = 29;
@@ -68,7 +68,7 @@ int main()
 	float g = 1.50;
     float t = 0.25;
 
-	const int niter = 15;
+	const int niter = 10;
 
 	int num_threads;
 	#if  defined(STATEVECTOR_PARALLELIZATION) || defined(GATE_PARALLELIZATION)
@@ -235,7 +235,7 @@ int main()
 	} else {
 		temp = ulayers;
 	}
-	sprintf(filename, "../examples/hubbard1d/opt_out/q%i/hubbard1d_%s_n%i_q%i_u%i_t%.2fs_g%.2f_iter%i_opt.hdf5", nqubits, splitting, nlayers, nqubits, temp, t, g, niter);
+	sprintf(filename, "../examples/hubbard1d/opt_out/q%i/hubbard1d_%s_n%i_q%i_u%i_t%.2fs_g%.2f_iter%i_inv%i_opt.hdf5", nqubits, splitting, nlayers, nqubits, temp, t, g, niter, translational_invariance);
 	file = H5Fcreate(filename, H5F_ACC_TRUNC, H5P_DEFAULT, H5P_DEFAULT);
 	if (file < 0) {
 		fprintf(stderr, "'H5Fcreate' for '%s' failed, return value: %" PRId64 "\n", filename, file);
