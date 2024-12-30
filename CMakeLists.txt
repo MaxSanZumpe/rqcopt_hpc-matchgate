@@ -13,7 +13,7 @@ find_package(HDF5 REQUIRED COMPONENTS C)
 set(CMAKE_C_FLAGS "-O3 -fopenmp")
 
 # Definitions
-add_compile_definitions(COMPLEX_CIRCUIT LRZ_HPC)
+add_compile_definitions(COMPLEX_CIRCUIT)
 
 # Define source files
 set(SOURCES 
@@ -80,11 +80,6 @@ target_include_directories(benchmark_serial PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_
 target_link_libraries(     benchmark_serial ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})	
 #target_compile_definitions(benchmark_serial PRIVATE TRANSLATIONAL_INVARIANCE)
 
-
-add_executable(            bench_grad ${SOURCES} "examples/hubbard1d/benchmark_gradient.c" "examples/timing/timing.c")
-target_include_directories(bench_grad PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src" "examples/timing")
-target_link_libraries(     bench_grad PRIVATE ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})
-
 # 
 # add_executable(            bench_hess_partial ${SOURCES} "examples/hubbard1d/benchmark_hess.c" "examples/timing/timing.c")
 # target_include_directories(bench_hess_partial PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src" "examples/timing")
@@ -95,6 +90,10 @@ target_link_libraries(     bench_grad PRIVATE ${BLAS_LIBRARIES} ${HDF5_LIBRARIES
 #target_include_directories(bench_hess_partial PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src" "examples/timing")
 #target_link_libraries(     bench_hess_partial PRIVATE ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})
 
+
+add_executable(            hubb1d_costf ${SOURCES} "examples/hubbard1d/hubbard1d_costf.c" "examples/timing/timing.c")
+target_include_directories(hubb1d_costf PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src" "examples/timing")
+target_link_libraries(     hubb1d_costf PRIVATE ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})
 
 
 add_executable(            hubb1d_lightcone ${SOURCES} "examples/hubbard1d/lightcone/lightcone.c" "examples/timing/timing.c")

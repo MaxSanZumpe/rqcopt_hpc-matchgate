@@ -15,10 +15,10 @@ ulayers = 1009
 
 script_dir = os.path.dirname(__file__)
 
-file_list1 = glob.glob(f"{script_dir}/opt_out/q{q}/hubbard1d_suzuki2*u{ulayers}_t{t:.2f}s_g{g:.2f}*_iter15*.hdf5")
+file_list1 = glob.glob(f"{script_dir}/hubbard1d_suzuki2*u{ulayers}_t{t:.2f}s_g{g:.2f}*_iter15*.hdf5")
 #file_list2 = glob.glob(f"{script_dir}/opt_out/q{q}/hubbard1d_suzuki2*u{ulayers}_t{t:.2f}s_g{g:.2f}*_iter15_inv0*.hdf5")
 
-file_list3 = glob.glob(f"{script_dir}/opt_out/q{q}/hubbard1d_suzuki4*u{ulayers}_t{t:.2f}s_g{g:.2f}*_iter15*.hdf5")
+file_list3 = glob.glob(f"{script_dir}/hubbard1d_suzuki4*u{ulayers}_t{t:.2f}s_g{g:.2f}*_iter15*.hdf5")
 #file_list4 = glob.glob(f"{script_dir}/opt_out/q{q}/hubbard1d_suzuki4*u{ulayers}_t{t:.2f}s_g{g:.2f}*_iter15_inv0*.hdf5")
 
 #file_list5 = glob.glob(f"{script_dir}/opt_out/q{q}/hubbard1d_suzuki4*u{ulayers}_t{t:.2f}s_g{g:.2f}*_iter15_inv1*.hdf5")
