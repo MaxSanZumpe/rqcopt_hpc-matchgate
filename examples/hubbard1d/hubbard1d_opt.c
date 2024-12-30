@@ -52,10 +52,11 @@ static int ufunc(const struct statevector* restrict psi, void* fdata, struct sta
 }
 
 
+
 int main()
 {
 	const int nqubits = 8;
-	const int nlayers = 41;
+	const int nlayers = 21;
 	
 	const int full_target = 1;
 	const int ulayers = 29;
@@ -67,7 +68,7 @@ int main()
 	float g = 1.50;
     float t = 0.25;
 
-	const int niter = 29;
+	const int niter = 15;
 
 	int num_threads;
 	#if  defined(STATEVECTOR_PARALLELIZATION) || defined(GATE_PARALLELIZATION)

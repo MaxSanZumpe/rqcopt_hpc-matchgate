@@ -6,10 +6,12 @@ from matplotlib import pyplot as plt
 from matplotlib.ticker import ScalarFormatter, FixedLocator
 
 
-L = 6
+L = 4
 q = 2*L
-g = 4.0
-t = 1.0
+g = 1.5
+t = 0.25
+
+ulayers = 0
 
 opt_arr = []
 ini_arr = []
@@ -18,7 +20,7 @@ layers_arr = []
 
 script_dir = os.path.dirname(__file__)
 
-file_list = glob.glob(f"{script_dir}/opt_out/q{q}/hubbard1d_*u1009*.hdf5")
+file_list = glob.glob(f"{script_dir}/opt_out/q{q}/hubbard1d*_u{ulayers}_t{t:.2f}s_g{g:.2f}*.hdf5")
 
 print(file_list)
 
@@ -45,7 +47,7 @@ ax.set_ylabel("$|| U - W(G) ||_F$")
 #ax.xaxis.set_major_locator(FixedLocator([10, 100, 600]))
 
 
-ax.set_title(f"Hubbard (2D): Qubits = 4x4, J = {1}, U = {g}, t = {t}s")
+ax.set_title(f"Hubbard (1D): Qubits = {q}, J = {1}, U = {g}, t = {t}s")
 ax.legend()
 fig.savefig(os.path.join(script_dir, f"opt_out/q{q}/hubb2d_g{g:.2f}_t{t:.2f}_opt_norms.png"))
     
