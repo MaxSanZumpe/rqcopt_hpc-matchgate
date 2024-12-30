@@ -66,7 +66,7 @@ int main()
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
 	const int nqubits = 16;
-	const int nlayers = 31;
+	const int nlayers = 13;
 	const int ulayers = 601;
 	const int order = 2;
 
@@ -224,7 +224,7 @@ int main()
 		#endif
 
 		char filename[1024];
-        	sprintf(filename, "../examples/spl_hubbard2d/opt_out/spl_hubbard2d_%s%i_n%i_q%i_u%i_t%.2fs_g%.2f_opt_iter%i.hdf5", model, order, nlayers, nqubits, ulayers, t, g, niter);
+        	sprintf(filename, "../examples/spl_hubbard2d/opt_out/spl_hubbard2d_%s%i_n%i_q%i_u%i_t%.2fs_g%.2f_opt_iter%i_ti%i.hdf5", model, order, nlayers, nqubits, ulayers, t, g, niter, translational_invariance);
 
 
 		hid_t file = H5Fcreate(filename, H5F_ACC_TRUNC, H5P_DEFAULT, H5P_DEFAULT);
