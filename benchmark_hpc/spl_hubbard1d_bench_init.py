@@ -36,8 +36,8 @@ J = 1
 g = 1.5
 t = 1
 
-s = 3
-us = 12
+s = 2
+us = 8
 
 dt = t/s
 udt = t/us

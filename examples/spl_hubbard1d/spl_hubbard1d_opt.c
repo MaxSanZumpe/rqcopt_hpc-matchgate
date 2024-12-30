@@ -6,6 +6,12 @@
 #include "timing.h"
 #include "matchgate_brickwall.h"
 
+#ifdef LRZ_HPC
+	#include <mkl_cblas.h>
+#else
+	#include <cblas.h>
+#endif
+
 int get_num_threads(void) {
     int num_threads = 0;
     #pragma omp parallel reduction(+:num_threads)
@@ -32,55 +38,85 @@ static int ufunc_matfree(const struct statevector* restrict psi, void* fdata, st
 	return 0;
 }
 
+static int ufunc(const struct statevector* restrict psi, void* fdata, struct statevector* restrict psi_out)
+{
+	const intqs n = (intqs)1 << psi->nqubits;
+	const numeric* U = (numeric*)fdata;
+
+	// apply U
+	numeric alpha = 1;
+	numeric beta  = 0;
+	cblas_zgemv(CblasRowMajor, CblasNoTrans, n, n, &alpha, U, n, psi->data, 1, &beta, psi_out->data, 1);
+
+	return 0;
+}
+
+
 
 int main()
 {
-	const int nqubits = 8;
-	const int nlayers = 11;
+	const int nqubits = 10;
+	const int nlayers = 3;
+	
+	const int full_target = 1;
+	const int ulayers = 51;
+	
+	if (full_target == 1) { assert(ulayers == 51); }
 
-	const int ulayers = 81;
-	const int order = 2;
+	char splitting[] = "suzuki2";
+
+	float g = 1.50;
+    float t = 1.00;
+
+	const int niter = 30;
 
 	int num_threads;
 	#if  defined(STATEVECTOR_PARALLELIZATION) || defined(GATE_PARALLELIZATION)
 	num_threads = get_num_threads();
 	#else 
 	num_threads = 1;
-	#endif
+	   #endif
 
 	// read initial data from disk
 	char filename[1024];
-	sprintf(filename, "../examples/spl_hubbard1d/input/spl_hubbard1d_suzuki%i_n%i_q%i_u%i_t0.25s_init.hdf5", order, nlayers, nqubits, ulayers);
+	
+	numeric* expiH;
+	if (full_target == 1) {
+		sprintf(filename, "../examples/spl_hubbard1d/opt_in/q%i/spl_hubbard1d_q%i_unitary_t%.2fs_g%.2f_init.hdf5", nqubits, nqubits, t, g);
+		hid_t file = H5Fopen(filename, H5F_ACC_RDONLY, H5P_DEFAULT);
+
+		const intqs n = (intqs)1 << nqubits;
+
+		expiH = aligned_alloc(MEM_DATA_ALIGN, n * n * sizeof(numeric));
+		if (expiH == NULL) {
+			fprintf(stderr, "memory allocation for target unitary failed\n");
+			return -1;
+		}
+		if (read_hdf5_dataset(file, "expiH", H5T_NATIVE_DOUBLE, expiH) < 0) {
+			fprintf(stderr, "reading 'expiH' from disk failed\n");
+			return -1;
+		}
+	
+		H5Fclose(file);
+	}
+
+
+	sprintf(filename, "../examples/spl_hubbard1d/opt_in/q%i/spl_hubbard1d_%s_n%i_q%i_u%i_t%.2fs_g%.2f_init.hdf5", nqubits, splitting, nlayers, nqubits, ulayers, t, g);
 	hid_t file = H5Fopen(filename, H5F_ACC_RDONLY, H5P_DEFAULT);
 	if (file < 0) {
 		fprintf(stderr, "'H5Fopen' for '%s' failed, return value: %" PRId64 "\n", filename, file);
 		return -1;
 	}
 
-	int nlayers_ref;
-	if (read_hdf5_attribute(file, "nlayers", H5T_NATIVE_INT, &nlayers_ref) < 0) {
-		fprintf(stderr, "reading 'nlayers' from disk failed\n");
-		return -1;
-	}
-
-	int nqubits_ref;
-	if (read_hdf5_attribute(file, "nqubits", H5T_NATIVE_INT, &nqubits_ref) < 0) {
-		fprintf(stderr, "reading 'nqubits_ref' from disk failed\n");
-		return -1;
-	}
-
-	assert(nqubits == nqubits_ref);
-	assert(nlayers == nlayers_ref);
-
-	struct matchgate* u_split = aligned_alloc(MEM_DATA_ALIGN, ulayers * sizeof(struct matchgate));
-	if (read_hdf5_dataset(file, "ulist", H5T_NATIVE_DOUBLE, (numeric*)u_split) < 0) {
+	struct matchgate* ulist = aligned_alloc(MEM_DATA_ALIGN, ulayers * sizeof(struct matchgate));
+	if (read_hdf5_dataset(file, "ulist", H5T_NATIVE_DOUBLE, (numeric*)ulist) < 0) {
 		fprintf(stderr, "reading initial two-qubit quantum gates from disk failed\n");
 		return -1;
-	}
+	} 
+
 
 	int uperms[ulayers][nqubits];
-	for (int i = 0; i < ulayers; i++)
-	{
+	for (int i = 0; i < ulayers; i++) {
 		char varname[32];
 		sprintf(varname, "uperm%i", i);
 		if (read_hdf5_dataset(file, varname, H5T_NATIVE_INT, uperms[i]) < 0) {
@@ -88,17 +124,18 @@ int main()
 			return -1;
 		}
 	}
-	const int* upperms[ulayers];
 
+	const int* upperms[ulayers];
 	for (int i = 0; i < ulayers; i++){
 		upperms[i] = uperms[i];
 	}
-	
-	struct u_splitting udata = {
-		.ulist   = u_split,
+
+	struct u_splitting udata_split = {
+		.ulist   = ulist,
 		.ulayers = ulayers,
 		.upperms = upperms,
 	};
+
 
 	// initial to-be optimized quantum gates
 	struct matchgate* vlist_start = aligned_alloc(MEM_DATA_ALIGN, nlayers * sizeof(struct matchgate));
@@ -109,8 +146,7 @@ int main()
 
 	// permutations
 	int perms[nlayers][nqubits];
-	for (int i = 0; i < nlayers; i++)
-	{
+	for (int i = 0; i < nlayers; i++) {
 		char varname[32];
 		sprintf(varname, "perm%i", i);
 		if (read_hdf5_dataset(file, varname, H5T_NATIVE_INT, perms[i]) < 0) {
@@ -118,9 +154,9 @@ int main()
 			return -1;
 		}
 	}
-	const int* pperms[nlayers];
 
-	for (int i = 0; i < nlayers; i++){
+	const int* pperms[nlayers];
+	for (int i = 0; i < nlayers; i++) {
 		pperms[i] = perms[i];
 	}
 	H5Fclose(file);
@@ -130,32 +166,46 @@ int main()
 	struct rtr_params params;
 	set_rtr_default_params(nlayers * 16, &params);
 
-	// number of iterations
-	const int niter = 12;
+	// target function
 	
 	double* f_iter = aligned_alloc(MEM_DATA_ALIGN, (niter + 1) * sizeof(double));
 
 	struct matchgate* vlist_opt = aligned_alloc(MEM_DATA_ALIGN, nlayers * sizeof(struct matchgate));
+
+	void* udata;
+
+	linear_func func;
+	if (full_target == 1) {
+		func = ufunc;
+		udata = expiH;
+
+	} else {
+		func = ufunc_matfree;
+		udata = &udata_split;
+	}	
 	
 	uint64_t start_tick = get_ticks();
 	
 	// perform optimization
-	optimize_matchgate_brickwall_circuit_hmat(ufunc_matfree, &udata, vlist_start, nlayers, nqubits, pperms, &params, niter, f_iter, vlist_opt);
+	optimize_matchgate_brickwall_circuit_hmat(func, udata, vlist_start, nlayers, nqubits, pperms, &params, niter, f_iter, vlist_opt);
 
 	uint64_t total_ticks = get_ticks() - start_tick;
 	// get the tick resolution
 	const double ticks_per_sec = (double)get_tick_resolution();
 	const double wtime = (double) total_ticks / ticks_per_sec;
-	printf("wall time: %g\n", total_ticks / ticks_per_sec);
 
-	for (int i = 0; i < niter + 1; i++)
-	{
-		printf("f_iter[%i] = %.12f\n", i, f_iter[i]);
-	}
+	const intqs m = (intqs)1 << nqubits;
+	double norm_start = sqrt(2*f_iter[0    ] + 2*m);
+	double norm_final = sqrt(2*f_iter[niter] + 2*m);
+	printf("\nStart norm (frobenius) error: %f", norm_start);
+	printf("\nFinal norm (frobenius) error: %f\n", norm_final);
 
 	int translational_invariance = 0;
 	int statevector_parallelization = 0;
 	int gate_parallelization = 0;
+
+	int hpc = 0;
+	int mpi = 0;
 
 	#ifdef TRANSLATIONAL_INVARIANCE
 	translational_invariance = 1;
@@ -169,8 +219,23 @@ int main()
 	gate_parallelization = 1;
 	#endif
 
+	#ifdef LRZ_HPC
+	hpc = 1;
+	#endif
+
+	#ifdef MPI
+	mpi = 1;
+	#endif
+
+
 	// save results to disk
-	sprintf(filename, "../examples/spl_hubbard1d/input/hubbard1d_opt_n%i_q%i_th%i_%i%i%i.hdf5", nlayers, nqubits, num_threads, translational_invariance, statevector_parallelization, gate_parallelization);
+	int temp;
+	if (full_target == 1) {
+		temp = 0;
+	} else {
+		temp = ulayers;
+	}
+	sprintf(filename, "../examples/spl_hubbard1d/opt_out/q%i/spl_hubbard1d_%s_n%i_q%i_u%i_t%.2fs_g%.2f_iter%i_inv%i_opt.hdf5", nqubits, splitting, nlayers, nqubits, temp, t, g, niter, translational_invariance);
 	file = H5Fcreate(filename, H5F_ACC_TRUNC, H5P_DEFAULT, H5P_DEFAULT);
 	if (file < 0) {
 		fprintf(stderr, "'H5Fcreate' for '%s' failed, return value: %" PRId64 "\n", filename, file);
@@ -188,6 +253,7 @@ int main()
 		fprintf(stderr, "writing 'f_iter' to disk failed\n");
 		return -1;
 	}
+
 	// store parameters
 	if (write_hdf5_scalar_attribute(file, "nqubits", H5T_STD_I32LE, H5T_NATIVE_INT, &nqubits)) {
 		fprintf(stderr, "writing 'nqubits' to disk failed\n");
@@ -202,6 +268,11 @@ int main()
 	// store run-time diagnostics
 	if (write_hdf5_scalar_attribute(file, "Walltime", H5T_IEEE_F64LE, H5T_NATIVE_DOUBLE, &wtime)) {
 		fprintf(stderr, "writing 'Walltime' to disk failed\n");
+		return -1;
+	}
+
+	if (write_hdf5_scalar_attribute(file, "FULL_TARGET", H5T_STD_I32LE, H5T_NATIVE_INT, &full_target)) {
+		fprintf(stderr, "writing 'NUM_THREADS_STATEVECTOR_PARALLELIZATION' to disk failed\n");
 		return -1;
 	}
 
@@ -226,12 +297,22 @@ int main()
 		return -1;
 	}
 
+	if (write_hdf5_scalar_attribute(file, "LRZ_HPC", H5T_STD_I32LE, H5T_NATIVE_INT, &hpc)) {
+		fprintf(stderr, "writing 'NUM_THREADS_STATEVECTOR_PARALLELIZATION' to disk failed\n");
+		return -1;
+	}
+
+	if (write_hdf5_scalar_attribute(file, "MPI", H5T_STD_I32LE, H5T_NATIVE_INT, &mpi)) {
+		fprintf(stderr, "writing 'NUM_THREADS_STATEVECTOR_PARALLELIZATION' to disk failed\n");
+		return -1;
+	}
+
 	H5Fclose(file);
 
 	aligned_free(vlist_opt);
 	aligned_free(f_iter);
 	aligned_free(vlist_start);
-	aligned_free(u_split);
+	aligned_free(ulist);
 
 	return 0;
 };

@@ -5,14 +5,8 @@ import io_util as io
 import rqcopt_matfree as oc
 from scipy.linalg import expm
 import permutations
+import sparse_targets as st
 
-def crandn(size, rng: np.random.Generator=None):
-    """
-    Draw random samples from the standard complex normal (Gaussian) distribution.
-    """
-    if rng is None: rng = np.random.default_rng()
-    # 1/sqrt(2) is a normalization factor
-    return (rng.normal(size=size) + 1j*rng.normal(size=size)) / np.sqrt(2)
 
 def extract_matchgate(V):
     V = np.roll(V, (-1, -1), (0, 1))  
@@ -20,6 +14,7 @@ def extract_matchgate(V):
     G2 = np.roll(V[2:, 2:], (-1, -1), (0, 1))
 
     return G1, G2
+
 
 def construct_spl_hubbard_local_term(J, U):
     n = np.array([[0, 0], [0, 1]])
@@ -29,39 +24,68 @@ def construct_spl_hubbard_local_term(J, U):
 
     return -J*hop + U*int
 
-
-nqubits = 12
+nqubits = 10
 J = 1
 
-U = 4.0
+full_matrix = False
+
+if (full_matrix):
+    assert(nqubits <= 12)
+
+g = 1.5
 t = 1
 
-s = 1
-us = 6
+s = 10
+us = 1
+
+if (full_matrix):
+    assert(us == 1)
 
 dt = t/s
 udt = t/us
 
-order = 4
+model = "suzuki2"
 
-splitting = oc.SplittingMethod.suzuki(2, order/2)
+match model:
+    case "suzuki2":
+        order = 2
+        splitting = oc.SplittingMethod.suzuki(2, order/2)
+    case "yoshida4":
+        order = 4
+        splitting = oc.SplittingMethod.yoshida4(2)
+    case "suzuki4":
+        order = 4
+        splitting = oc.SplittingMethod.suzuki(2, order/2)
+    case "blanes4":
+        order = 4
+        splitting =oc.SplittingMethod.blanes_moan()
+    case "suzuki6":
+        order = 6
+        splitting = oc.SplittingMethod.suzuki(2, order/2)
+
+
 usplitting = oc.SplittingMethod.suzuki(2, 3)
 
-hloc = construct_spl_hubbard_local_term(J, U)
+
 vindex, coeffs_vlist = oc.merge_layers(s*splitting.indices, s*splitting.coeffs)
 uindex, coeffs_ulist = oc.merge_layers(us*usplitting.indices, us*usplitting.coeffs)
 
 nlayers = len(coeffs_vlist)
 ulayers = len(coeffs_ulist)
 
-vlist  = [expm(-1j*c*dt*hloc) for c in coeffs_vlist]
-ulist  = [expm(-1j*c*udt*hloc) for c in coeffs_ulist]
+hloc = construct_spl_hubbard_local_term(J, g)
+
+vlist  = [expm(-1j*c*dt*hloc) for c, i in zip(coeffs_vlist, vindex)]
+ulist  = [expm(-1j*c*udt*hloc) for c, i in zip(coeffs_ulist, uindex)]
 
 perms  = permutations.permuations.spl_hubbard1d(vindex, nqubits).perm_list
 uperms = permutations.permuations.spl_hubbard1d(uindex, nqubits).perm_list
 
 assert(len(perms)  == nlayers) 
 assert(len(uperms) == ulayers)
+
+assert(len(list(perms[1])) == nqubits)
+assert(len(list(uperms[1])) == nqubits)
 
 ublocks = []
 for X in ulist:
@@ -79,20 +103,27 @@ for V in vlist:
 
 vblocks = np.array(vblocks)
 
-file_dir  = os.path.dirname(__file__)
-file_path = os.path.join(file_dir, "opt_in" ,f"spl_hubbard1d_suzuki{order}_n{nlayers}_q{nqubits}_u{ulayers}_t{t:.2f}s_g{U:.2f}_init.hdf5")
+script_dir  = os.path.dirname(__file__)
+file_dir  = os.path.join(script_dir, f"opt_in/q{nqubits}")
 
-print(len(splitting.indices))
-print(len(splitting.coeffs))
+if not os.path.exists(file_dir):
+        os.makedirs(file_dir)
 
-print(splitting.indices)
-print(splitting.coeffs)
+if not os.path.exists(os.path.join(script_dir, f"opt_out/q{nqubits}")):
+        os.makedirs(os.path.join(script_dir, f"opt_out/q{nqubits}"))
+
+if (full_matrix == True):
+    file_path = os.path.join(file_dir, f"spl_hubbard1d_q{nqubits}_unitary_t{t:.2f}s_g{g:.2f}_init.hdf5")
+
+    expiH = st.spl_hubbard1d_unitary(nqubits, J, g, t)
+    with h5py.File(file_path, "w") as file:
+        file["expiH"] = io.interleave_complex(expiH, "cplx")
+
+file_path = os.path.join(file_dir, f"spl_hubbard1d_{model}_n{nlayers}_q{nqubits}_u{ulayers}_t{t:.2f}s_g{g:.2f}_init.hdf5")
 
 # save initial data to disk
 with h5py.File(file_path, "w") as file:
 
-    
-    rng = np.random.default_rng(182)
     psi = np.ones(2**nqubits)
     psi /= np.linalg.norm(psi)
     file["psi"] = io.interleave_complex(psi, "cplx")
@@ -112,5 +143,5 @@ with h5py.File(file_path, "w") as file:
     file.attrs["nlayers"] = nlayers
     file.attrs["ulayers"] = ulayers
     file.attrs["J"] = float(J)
-    file.attrs["U"] = float(U)
+    file.attrs["g"] = float(g)
     file.attrs["t"] = float(t)
