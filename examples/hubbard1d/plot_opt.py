@@ -13,29 +13,56 @@ t = 0.25
 
 ulayers = 0
 
+script_dir = os.path.dirname(__file__)
+
+file_list1 = glob.glob(f"{script_dir}/opt_out/q{q}/hubbard1d_suzuki2*u{ulayers}_t{t:.2f}s_g{g:.2f}*_iter10_inv0*.hdf5")
+file_list2 = glob.glob(f"{script_dir}/opt_out/q{q}/hubbard1d_suzuki2*u{ulayers}_t{t:.2f}s_g{g:.2f}*_iter30_inv0*.hdf5")
+
+file_list3 = glob.glob(f"{script_dir}/opt_out/q{q}/hubbard1d_suzuki4*u{ulayers}_t{t:.2f}s_g{g:.2f}*_iter10_inv0*.hdf5")
+file_list4 = glob.glob(f"{script_dir}/opt_out/q{q}/hubbard1d_suzuki4*u{ulayers}_t{t:.2f}s_g{g:.2f}*_iter30_inv0*.hdf5")
+
+file_arr = [file_list1, file_list2, file_list3, file_list4]
+
 opt_arr = []
 ini_arr = []
 layers_arr = []
 
+for file_list in file_arr:
+    tmp_opt = []
+    tmp_ini = []
+    tmp_lay = []
 
-script_dir = os.path.dirname(__file__)
+    for file in file_list:
+        with h5py.File(file, "r") as f:
+            tmp = np.array(f["f_iter"])
+            tmp_lay.append([f.attrs["nlayers"]])
+            tmp_ini.append(np.sqrt((2*2**q+2*tmp[0])/2**q))
+            tmp_opt.append(np.sqrt((2*2**q+2*tmp[-1])/2**q))
+    
+    
+    xy1 = zip(tmp_lay, tmp_ini)
+    xy2 = zip(tmp_lay, tmp_opt)
+    xy1_sorted = sorted(xy1, key = lambda pair: pair[0])
+    xy2_sorted = sorted(xy2, key = lambda pair: pair[0])
+    tmp_lay, tmp_ini = zip(*xy1_sorted)     
+    tmp_lay, tmp_opt = zip(*xy2_sorted) 
 
-file_list = glob.glob(f"{script_dir}/opt_out/q{q}/hubbard1d*_u{ulayers}_t{t:.2f}s_g{g:.2f}*.hdf5")
-
-print(file_list)
-
-for file in file_list:
-    with h5py.File(file, "r") as f:
-        tmp = np.array(f["f_iter"])
-        layers_arr.append([f.attrs["nlayers"]])
-        ini_arr.append(2*tmp[0] + 2*2**q)
-        opt_arr.append(2*tmp[-1] + 2*2**q)
-        print(f"layers: {f.attrs['nlayers']}, Initial norm = {2*tmp[0] + 2*2**q} -> Final norm = {2*tmp[-1] + 2*2**q}")
+    layers_arr.append(np.array(tmp_lay))
+    ini_arr.append(np.array(tmp_ini))
+    opt_arr.append(np.array(tmp_opt))
 
 
 fig, ax = plt.subplots()
-ax.scatter(layers_arr, opt_arr, marker = "^", color = "green", label = "Optimized gates")
-ax.scatter(layers_arr, ini_arr, marker = ".", color = "black", label = "Initial gates")
+ax.plot(layers_arr[0], ini_arr[0], marker = ".", color = "black", label = "Suzuki 2")
+ax.plot(layers_arr[2], ini_arr[2], marker = "*", color = "purple", label = "Suzuki 4")
+
+
+ax.plot(np.append(layers_arr[0][:4], layers_arr[2]), np.append(opt_arr[0][:4],opt_arr[2]), 
+        marker = "^", color = "red", label = "Optimized gates; 10 iter")
+
+ax.plot(np.append(layers_arr[1][:4], layers_arr[2]), np.append(opt_arr[0][:4],opt_arr[3]), 
+        marker = "^", color = "green", label = "Optimized gates; 30 iter")
+
 
 
 ax.set_xscale("log")
@@ -43,7 +70,7 @@ ax.set_yscale("log")
 ax.xaxis.set_major_formatter(ScalarFormatter())
 
 ax.set_xlabel("Layers")
-ax.set_ylabel("$|| U - W(G) ||_F$")
+ax.set_ylabel("$error$")
 #ax.xaxis.set_major_locator(FixedLocator([10, 100, 600]))
 
 
