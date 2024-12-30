@@ -45,7 +45,7 @@ if (full_matrix):
 g = 1.5
 t = 0.25
 
-s = 3
+s = 4
 us = 1
 
 
