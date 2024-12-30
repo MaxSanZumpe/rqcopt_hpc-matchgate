@@ -42,7 +42,7 @@ set(TEST_SOURCES
 add_executable(            hubbard1d ${SOURCES} "examples/hubbard1d/hubbard1d_opt.c" "examples/timing/timing.c")
 target_include_directories(hubbard1d PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src" "examples/timing")
 target_link_libraries(     hubbard1d PRIVATE ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})
-target_compile_definitions(hubbard1d PRIVATE STATEVECTOR_PARALLELIZATION)
+target_compile_definitions(hubbard1d PRIVATE STATEVECTOR_PARALLELIZATION TRANSLATIONAL_INVARIANCE)
 
 
 add_executable(            spl_hubbard1d ${SOURCES} "examples/spl_hubbard1d/spl_hubbard1d_opt.c" "examples/timing/timing.c")
