@@ -24,9 +24,10 @@ file_list4 = glob.glob(f"{script_dir}/hubbard1d_suzuki4*q{q}*u{ulayers}_t{t:.2f}
 file_list5 = glob.glob(f"{script_dir}/hubbard1d_suzuki4*q{q}*u{ulayers}_t{t:.2f}s_g{g:.2f}*_iter30_inv1*.hdf5")
 
 file_list6 = glob.glob(f"{script_dir}/hubbard1d_suzuki2*q{q}*u{ulayers}_t{t:.2f}s_g{g:.2f}*norm*.hdf5")
+file_list7 = glob.glob(f"{script_dir}/hubbard1d_suzuki4*q{q}*u{ulayers}_t{t:.2f}s_g{g:.2f}*norm*.hdf5")
 
 
-file_arr = [file_list1, file_list2, file_list3, file_list4, file_list5, file_list6]
+file_arr = [file_list1, file_list2, file_list3, file_list4, file_list5, file_list6, file_list7]
 
 opt_arr = []
 ini_arr = []
@@ -58,8 +59,11 @@ for file_list in file_arr:
 
 
 fig, ax = plt.subplots()
-ax.plot(layers_arr[0], ini_arr[0], marker = ".", color = "black", label = "Suzuki 2")
-ax.plot(layers_arr[2], ini_arr[2], marker = "*", color = "purple", label = "Suzuki 4")
+ax.plot(np.append(layers_arr[0], layers_arr[5]), np.append(ini_arr[0],ini_arr[5]), 
+        marker = ".", color = "black", label = "Suzuki 2")
+
+ax.plot(np.append(layers_arr[2], layers_arr[6]), np.append(ini_arr[2],ini_arr[6]), 
+        marker = "*", color = "purple", label = "Suzuki 4")
 
 
 ax.plot(np.append(layers_arr[0][:4], layers_arr[2]), np.append(opt_arr[0][:4],opt_arr[2]), 
@@ -71,7 +75,7 @@ ax.plot(np.append(layers_arr[1][:4], layers_arr[3]), np.append(opt_arr[1][:4],op
 ax.plot(layers_arr[4], opt_arr[4], 
        marker = "x", color = "blue", label = "INV 30 iter")
 
-ax.plot(layers_arr[5], ini_arr[5], marker = "s", color = "pink", label = "Suzuki 2")
+
 
 
 

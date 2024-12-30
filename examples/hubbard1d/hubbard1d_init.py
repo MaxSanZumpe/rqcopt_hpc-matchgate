@@ -45,7 +45,7 @@ if (full_matrix):
 g = 1.5
 t = 0.25
 
-s = 6
+s = 1
 us = 1
 
 
@@ -55,7 +55,7 @@ if (full_matrix):
 dt = t/s
 udt = t/us
 
-model = "suzuki4"
+model = "suzuki6"
 
 match model:
     case "suzuki2":
@@ -66,6 +66,12 @@ match model:
         splitting = oc.SplittingMethod.yoshida4(3)
     case "suzuki4":
         order = 4
+        splitting = oc.SplittingMethod.suzuki(3, order/2)
+    case "auzinger6":
+        order = 6
+        splitting = oc.SplittingMethod.auzinger15_6()
+    case "suzuki6":
+        order = 6
         splitting = oc.SplittingMethod.suzuki(3, order/2)
 
 
