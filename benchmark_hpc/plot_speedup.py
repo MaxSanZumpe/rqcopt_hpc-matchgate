@@ -12,9 +12,9 @@ ulayers = 601
 script_dir = os.path.dirname(__file__)
 
 
-file_list1 = glob.glob(f"{script_dir}/bench_out/q{nqubits}/n{nlayers}_q{nqubits}_u{ulayers}_th*_010*.hdf5")
-file_list2 = glob.glob(f"{script_dir}/bench_out/q{nqubits}/n{nlayers}_q{nqubits}_u{ulayers}_th*_110*.hdf5")
-file_list3 = glob.glob(f"{script_dir}/bench_out_mat4x4/q{nqubits}/n{nlayers}_q{nqubits}_u{ulayers}_th*_010*.hdf5")
+file_list1 = glob.glob(f"{script_dir}/bench_out/q{nqubits}/n{nlayers}_q{nqubits}_u{ulayers}_th*_010_*threads*.hdf5")
+file_list2 = glob.glob(f"{script_dir}/bench_out/q{nqubits}/n{nlayers}_q{nqubits}_u{ulayers}_th*_110_*threads*.hdf5")
+file_list3 = glob.glob(f"{script_dir}/bench_out_mat4x4/q{nqubits}/n{nlayers}_q{nqubits}_u{ulayers}_th*_010_matchgate*.hdf5")
 
 
 if nqubits != 16:
