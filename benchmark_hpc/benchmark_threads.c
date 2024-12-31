@@ -156,7 +156,7 @@ int main()
 		#endif
 
 		// save results to disk
-		sprintf(filename, "../benchmark_hpc/bench_out/q%i/n%i_q%i_u%i_th%i_%i%i%i_critical_matchgate.hdf5", nqubits, nlayers, nqubits, ulayers, num_threads, translational_invariance,
+		sprintf(filename, "../benchmark_hpc/bench_out/q%i/n%i_q%i_u%i_th%i_%i%i%i_threads_bench_matchgate.hdf5", nqubits, nlayers, nqubits, ulayers, num_threads, translational_invariance,
 		statevector_parallelization, gate_parallelization);
 
 		file = H5Fcreate(filename, H5F_ACC_TRUNC, H5P_DEFAULT, H5P_DEFAULT);
