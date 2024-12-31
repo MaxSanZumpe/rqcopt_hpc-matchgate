@@ -66,7 +66,7 @@ int main()
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
 	const int nqubits = 16;
-	const int nlayers = 13;
+	const int nlayers = 19;
 	const int ulayers = 601;
 	const int order = 2;
 

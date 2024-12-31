@@ -13,7 +13,7 @@ find_package(HDF5 REQUIRED COMPONENTS C)
 set(CMAKE_C_FLAGS "-O3 -fopenmp")
 
 # Definitions
-add_compile_definitions(COMPLEX_CIRCUIT)
+add_compile_definitions(COMPLEX_CIRCUIT LRZ_HPC)
 
 # Define source files
 set(SOURCES 
@@ -54,7 +54,7 @@ target_compile_definitions(spl_hubbard1d PRIVATE TRANSLATIONAL_INVARIANCE STATEV
 add_executable(            spl_hubbard2d ${SOURCES} "examples/spl_hubbard2d/spl_hubbard2d.c" "examples/timing/timing.c")
 target_include_directories(spl_hubbard2d PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} ${MPI_INCLUDE_PATH} "src" "examples/timing")
 target_link_libraries(     spl_hubbard2d ${BLAS_LIBRARIES} ${HDF5_LIBRARIES} ${MPI_C_LIBRARIES})
-target_compile_definitions(spl_hubbard2d PRIVATE MPI TRANSLATIONAL_INVARIANCE STATEVECTOR_PARALLELIZATION)
+target_compile_definitions(spl_hubbard2d PRIVATE MPI STATEVECTOR_PARALLELIZATION)
 
 
 add_executable(            benchmark_threads ${SOURCES} "benchmark_hpc/benchmark_threads.c" "examples/timing/timing.c")
@@ -72,7 +72,7 @@ target_compile_definitions(benchmark_mpi PRIVATE MPI STATEVECTOR_PARALLELIZATION
 add_executable(            benchmark_serial ${SOURCES} "benchmark_hpc/benchmark_serial.c" "examples/timing/timing.c")
 target_include_directories(benchmark_serial PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src" "examples/timing")
 target_link_libraries(     benchmark_serial ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})	
-#target_compile_definitions(benchmark_serial PRIVATE TRANSLATIONAL_INVARIANCE)
+#target_compile_definitions(benchmark_serial PRIVATE )
 
 add_executable(            hubb1d_costf ${SOURCES} "examples/hubbard1d/hubbard1d_costf.c" "examples/timing/timing.c")
 target_include_directories(hubb1d_costf PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src" "examples/timing")
