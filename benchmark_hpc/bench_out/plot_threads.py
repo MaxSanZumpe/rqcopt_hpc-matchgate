@@ -20,7 +20,7 @@ if nqubits != 16:
     file_list1.append(glob.glob(f"{data_dir}/n{nlayers}_q{nqubits}_u{ulayers}_0*serial*.hdf5")[0])
     file_list2.append(glob.glob(f"{data_dir}/n{nlayers}_q{nqubits}_u{ulayers}_1*serial*.hdf5")[0])
 
-critical = False
+critical = True
 if critical:
     file_list3 = glob.glob(f"{data_dir}/n{nlayers}_q{nqubits}_u{ulayers}_th*_010_critical_matchgate*.hdf5")
     file_list3.append(glob.glob(f"{data_dir}/n{nlayers}_q{nqubits}_u{ulayers}_0*serial*.hdf5")[0])
@@ -80,33 +80,20 @@ for a, b, c in zip(threads1, wtime1, wtime2):
 fig, ax = plt.subplots()
 
 ax.scatter(threads1, wtime1[0]/wtime1, marker=".", label = "$T_{parallel}/T_{serial}$", color = "black")
-#ax.scatter(threads3, wtime3[0]/wtime3, marker=".", label = "$T_{parallel}/T_{serial}$", color = "blue")
+if critical: 
+    ax.scatter(threads3, wtime3[0]/wtime3, marker=".", label = "No critical sections", color = "blue")
 
 ax.plot(threads1, threads1, label = "Ideal scaling", color = "green")
-ax.plot([56, 56], [1, 4])
 
 ax.set_xlabel("Thread number")
 ax.set_ylabel("Walltime speed-up")
 
-ax.set_title(f"Qubits = {nqubits}, Layers = {nlayers}")
+ax.set_title(f"Multithreading benchmark: q = {nqubits}, n = {nlayers}")
 
 ax.legend()
 fig.savefig(f"{data_dir}/plots/n{nlayers}_q{nqubits}_u{ulayers}_thread_scaling.png")
 
 
-# fig, ax = plt.subplots()
-
-# #ax.scatter(threads1, wtime1, marker=".", label = "Matchgates", color = "black")
-# ax.scatter(threads2, (wtime1 - wtime2)/wtime1, marker=".", label = "Matchgates + Invariance", color = "green")
-
-
-# ax.set_xlabel("Thread number")
-# ax.set_ylabel("Walltime (s)")
-
-# ax.set_title(f"Qubits = {nqubits}, Layers = {nlayers}")
-
-# ax.legend()
-# fig.savefig(f"{data_dir}/plots/n{nlayers}_q{nqubits}_u{ulayers}_invariance_scaling.png")
 
 
     

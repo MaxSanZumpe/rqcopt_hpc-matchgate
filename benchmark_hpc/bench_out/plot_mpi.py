@@ -56,7 +56,15 @@ cores = np.array(cores_sorted)
 wtime = np.array(wtime_sorted)
 
 fig, ax = plt.subplots()
-ax.scatter(cores, wtime[0]/wtime)
-ax.plot([cores[0], cores[-1]], [1, cores[-1]/cores[0]])
+
+
+ax.scatter(cores, wtime[0]/wtime, color = "black", label = "mpi")
+ax.plot([cores[0], cores[-1]], [1, cores[-1]/cores[0]], color = "green", label = "Ideal scaling")
+
+ax.set_title(f"MPI benchmark: q= {nqubits}, n = {nlayers}")
+
+ax.set_xlabel("Thread number")
+ax.set_ylabel("Walltime speed-up")
+
 fig.savefig(f"{script_dir}/mpi/plots/mpi_n{nlayers}_u{ulayers}")
 

@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 
 nqubits = 12
-nlayers = 7
+nlayers = 5
 ulayers = 601
 
 script_dir = os.path.dirname(__file__)
@@ -14,7 +14,7 @@ script_dir = os.path.dirname(__file__)
 
 file_list1 = glob.glob(f"{script_dir}/bench_out/q{nqubits}/n{nlayers}_q{nqubits}_u{ulayers}_th*_010_*threads*.hdf5")
 file_list2 = glob.glob(f"{script_dir}/bench_out/q{nqubits}/n{nlayers}_q{nqubits}_u{ulayers}_th*_110_*threads*.hdf5")
-file_list3 = glob.glob(f"{script_dir}/bench_out_mat4x4/q{nqubits}/n{nlayers}_q{nqubits}_u{ulayers}_th*_010_matchgate*.hdf5")
+file_list3 = glob.glob(f"{script_dir}/bench_out_mat4x4/q{nqubits}/n{nlayers}_q{nqubits}_u{ulayers}_th*_010_*threads*.hdf5")
 
 
 if nqubits != 16:
@@ -88,22 +88,21 @@ print(f"Matchgate speed-up      : {mean_mspu}")
 print(f"Matchgate + INV speed-up: {mean_ispu}")
 print(f"Intermediate speed-up   : {mean_tspu}")
 
-temp = np.array([mean_mspu, mean_ispu, mean_tspu])
+temp = np.array([mean_mspu, mean_ispu, mean_tspu, nlayers])
 
 np.savetxt(f"{script_dir}/bench_out/q{nqubits}/plots/n{nlayers}_q{nqubits}_u{ulayers}_invariance_scaling.txt", temp)
 
 fig, ax = plt.subplots()
 
-ax.scatter(threads2, mspu, marker="^", label = "Matchgates", color = "blue")
-ax.scatter(threads3, ispu, marker="v", label = "Matchgates + Invariance", color = "green")
+ax.scatter(threads2, mspu, marker=".", label = "Matchgates", color = "black")
+ax.scatter(threads3, ispu, marker="x", label = "Matchgates + Invariance", color = "green")
 #ax.scatter(threads2, tspu, marker="x", label = "Intermediate", color = "green")
 
 
-
 ax.set_xlabel("Thread number")
-ax.set_ylabel("speed-up")
+ax.set_ylabel("Walltime speed-up")
 
-ax.set_title(f"Benchmark: qubits = {nqubits}; layers = {nlayers}")
+ax.set_title(f"Matchgate Benchmark: q = {nqubits}; n = {nlayers}")
 
 ax.legend()
 fig.savefig(f"{script_dir}/bench_out/q{nqubits}/plots/n{nlayers}_q{nqubits}_u{ulayers}_invariance_scaling.png")
