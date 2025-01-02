@@ -5,8 +5,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-nqubits = 12
-nlayers = 5
+nqubits = 8
+nlayers = 11
 ulayers = 601
 
 script_dir = os.path.dirname(__file__)
@@ -88,7 +88,7 @@ print(f"Matchgate speed-up      : {mean_mspu}")
 print(f"Matchgate + INV speed-up: {mean_ispu}")
 print(f"Intermediate speed-up   : {mean_tspu}")
 
-temp = np.array([mean_mspu, mean_ispu, mean_tspu, nlayers])
+temp = np.array([mean_mspu, mean_ispu, mean_tspu, nlayers, mspu[-1], ispu[-1]])
 
 np.savetxt(f"{script_dir}/bench_out/q{nqubits}/plots/n{nlayers}_q{nqubits}_u{ulayers}_invariance_scaling.txt", temp)
 
