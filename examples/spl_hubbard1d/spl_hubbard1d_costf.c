@@ -56,14 +56,14 @@ static int ufunc(const struct statevector* restrict psi, void* fdata, struct sta
 int main()
 {
 	const int nqubits = 10;
-	const int nlayers = 101;
+	const int nlayers = 21;
 	
 	const int full_target = 1;
 	const int ulayers = 51;
 	
 	if (full_target == 1) { assert(ulayers == 51); }
 
-	char splitting[] = "suzuki6";
+	char splitting[] = "suzuki2";
 
 	float g = 1.50;
     float t = 1.00;

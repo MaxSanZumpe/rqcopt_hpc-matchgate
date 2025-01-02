@@ -16,9 +16,16 @@ script_dir = os.path.dirname(__file__)
 
 file_list1 = glob.glob(f"{script_dir}/spl_hubbard1d_suzuki2*u{ulayers}_t{t:.2f}s_g{g:.2f}*_iter30_inv1*.hdf5")
 file_list2 = glob.glob(f"{script_dir}/spl_hubbard1d_blanes4*u{ulayers}_t{t:.2f}s_g{g:.2f}*_iter30_inv1*.hdf5")
+file_list3 = glob.glob(f"{script_dir}/spl_hubbard1d_suzuki4*u{ulayers}_t{t:.2f}s_g{g:.2f}*_iter30_inv1*.hdf5")
+file_list4 = glob.glob(f"{script_dir}/spl_hubbard1d_suzuki6*u{ulayers}_t{t:.2f}s_g{g:.2f}_norm.hdf5")
 
 
-file_arr = [file_list1, file_list2]
+file_list5 = glob.glob(f"{script_dir}/spl_hubbard1d_suzuki2*u{ulayers}_t{t:.2f}s_g{g:.2f}_norm.hdf5")
+file_list6 = glob.glob(f"{script_dir}/spl_hubbard1d_suzuki4*u{ulayers}_t{t:.2f}s_g{g:.2f}_norm.hdf5")
+file_list7 = glob.glob(f"{script_dir}/spl_hubbard1d_blanes4*u{ulayers}_t{t:.2f}s_g{g:.2f}_norm.hdf5")
+
+
+file_arr = [file_list1, file_list2, file_list3, file_list4, file_list5, file_list6, file_list7]
 
 opt_arr = []
 ini_arr = []
@@ -49,9 +56,11 @@ for file_list in file_arr:
     opt_arr.append(np.array(tmp_opt))
 
 
+ex1 = 4
+ex2 = 3
 
-optt_lay = np.append(layers_arr[0][:5], layers_arr[1])
-optt_err = np.append(   opt_arr[0][:5], opt_arr[1]   )
+optt_lay = np.append(np.append(layers_arr[0][:ex1], layers_arr[1]), layers_arr[2][:ex2])
+optt_err = np.append(np.append(opt_arr[0][:ex1], opt_arr[1]), opt_arr[2][:ex2])
 
 xy1 = zip(optt_lay, optt_err)
 xy1_sorted = sorted(xy1, key = lambda pair: pair[0])
@@ -60,10 +69,18 @@ optt_lay, optt_err = zip(*xy1_sorted)
 
 fig, ax = plt.subplots()
 ax.plot(layers_arr[0], ini_arr[0], marker = ".", color = "black", label = "Suzuki (2)")
-ax.plot(layers_arr[1], ini_arr[1], marker = "*", color = "purple", label = "Blanes (4)")
+ax.plot(np.append(layers_arr[1],layers_arr[6]), np.append(ini_arr[1],ini_arr[6]),
+         marker = "*", color = "purple", label = "Blanes (4)")
+ax.plot(np.append(layers_arr[2],layers_arr[5]), np.append(ini_arr[2],ini_arr[5]),
+        marker = "x", color = "red", label = "Suzuki (4)")
+
+ax.plot(layers_arr[3], ini_arr[3], marker = "s", color = "orange", label = "Suzuki (6)")
+
 
 ax.plot(optt_lay, optt_err, marker = "^", color = "green", label = "Optmized gates")
 
+print(opt_arr[1])
+print(ini_arr[1])
 
 # ax.plot(np.append(layers_arr[0][:], layers_arr[1]), np.append(opt_arr[0][:],opt_arr[1]), 
 #         marker = "^", color = "red", label = "Optimized gates; 15 iter")
@@ -80,7 +97,7 @@ ax.set_yscale("log")
 ax.xaxis.set_major_formatter(ScalarFormatter())
 
 ax.set_xlabel("Layers")
-ax.set_ylabel("$Error$")
+ax.set_ylabel("Error")
 #ax.xaxis.set_major_locator(FixedLocator([10, 100, 600]))
 
 
