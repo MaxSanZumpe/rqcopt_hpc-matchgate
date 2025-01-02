@@ -35,7 +35,7 @@ if (full_matrix):
 g = 1.5
 t = 1
 
-s = 10
+s = 8
 us = 1
 
 if (full_matrix):
@@ -44,7 +44,7 @@ if (full_matrix):
 dt = t/s
 udt = t/us
 
-model = "suzuki2"
+model = "blanes4"
 
 match model:
     case "suzuki2":
