@@ -92,17 +92,18 @@ ax.plot(optt_lay, optt_err, marker = "^", color = "green", label = "Optimized ga
 #        marker = "x", color = "blue", label = "INV 30 iter")
 
 
+print(opt_arr[8], ini_arr[8])
 
 ax.set_xscale("log")
 ax.set_yscale("log")
 ax.xaxis.set_major_formatter(ScalarFormatter())
 
-ax.set_xlabel("Layers")
-ax.set_ylabel("$error$")
+ax.set_xlabel("Circuit layers")
+ax.set_ylabel("$\\rho_{error}$")
 #ax.xaxis.set_major_locator(FixedLocator([10, 100, 600]))
 
 
 ax.set_title(f"Hubbard (1D): Qubits = {q}, J = {1}, U = {g}, t = {t}s")
 ax.legend()
-fig.savefig(os.path.join(script_dir, f"hubb2d_g{g:.2f}_t{t:.2f}_opt_norms.png"))
+fig.savefig(os.path.join(script_dir, f"hubb1d_g{g:.2f}_t{t:.2f}_opt_norms.png"))
     

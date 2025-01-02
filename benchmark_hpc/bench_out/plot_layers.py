@@ -58,10 +58,10 @@ ax.plot(layers1, p1[0]*layers1**2 + p1[1]*layers1 + p1[2])
 ax.plot(layers2, p2[0]*layers2 + p2[1])
 
 
-ax.set_xlabel("Layers")
+ax.set_xlabel("Circuit Layers")
 ax.set_ylabel("Walltime (s)")
 
-ax.set_title(f"Circuit Layers Benchmark (Q = {nqubits})")
+ax.set_title(f"Circuit Layers benchmark for q = {nqubits})")
 
 ax.legend()
 fig.savefig(f"{data_dir}/plots/q{nqubits}_u{ulayers}_layers_scaling.png")

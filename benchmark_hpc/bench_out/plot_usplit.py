@@ -37,11 +37,11 @@ fig, ax = plt.subplots()
 ax.scatter(usplit, wtime, marker="^", color = "red", label = "Benchmarks")
 ax.plot(usplit, p[0]*usplit + p[1], color = "black", label = f"Fit")
 
-ax.set_xlabel("Layers")
+ax.set_xlabel("Splitting layers")
 ax.set_ylabel("Walltime (s)")
 
-ax.set_title(f"Target unitary splitting banchmark (Q = 12)")
-ax.legend()
+ax.set_title(f"Target unitary splitting scaling for: q = 12; n = 5")
+ax.legend(loc= "lower right")
 
 fig.savefig(f"{data_dir}/plots/n{nlayers}_q{nqubits}_usplit_scaling.png")
 

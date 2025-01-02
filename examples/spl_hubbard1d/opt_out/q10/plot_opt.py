@@ -68,14 +68,14 @@ optt_lay, optt_err = zip(*xy1_sorted)
 
 
 fig, ax = plt.subplots()
-ax.plot(layers_arr[0], ini_arr[0], marker = ".", color = "black", label = "Suzuki (2)")
-ax.plot(np.append(layers_arr[1],layers_arr[6]), np.append(ini_arr[1],ini_arr[6]),
+ax.plot(np.append(layers_arr[0],layers_arr[4][:5]), np.append(ini_arr[0],ini_arr[4][:5]),
+         marker = ".", color = "black", label = "Strang (2)")
+ax.plot(np.append(layers_arr[1],layers_arr[6][:5]), np.append(ini_arr[1],ini_arr[6][:5]),
          marker = "*", color = "purple", label = "Blanes (4)")
 ax.plot(np.append(layers_arr[2],layers_arr[5]), np.append(ini_arr[2],ini_arr[5]),
         marker = "x", color = "red", label = "Suzuki (4)")
 
 ax.plot(layers_arr[3], ini_arr[3], marker = "s", color = "orange", label = "Suzuki (6)")
-
 
 ax.plot(optt_lay, optt_err, marker = "^", color = "green", label = "Optmized gates")
 
@@ -96,12 +96,11 @@ ax.set_xscale("log")
 ax.set_yscale("log")
 ax.xaxis.set_major_formatter(ScalarFormatter())
 
-ax.set_xlabel("Layers")
-ax.set_ylabel("Error")
+ax.set_xlabel("Circuit layers")
+ax.set_ylabel("$\\rho_{error}$")
 #ax.xaxis.set_major_locator(FixedLocator([10, 100, 600]))
 
 
 ax.set_title(f"Spinless Hubbard (1D): Qubits = {q}, J = {1}, U = {g}, t = {t}s")
 ax.legend()
 fig.savefig(os.path.join(script_dir, f"spl_hubbard_g{g:.2f}_t{t:.2f}_opt_norms.png"))
-    
