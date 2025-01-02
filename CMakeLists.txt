@@ -79,6 +79,11 @@ target_include_directories(hubb1d_costf PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCL
 target_link_libraries(     hubb1d_costf PRIVATE ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})
 
 
+add_executable(            splh1d_costf ${SOURCES} "examples/spl_hubbard1d/spl_hubbard1d_costf.c" "examples/timing/timing.c")
+target_include_directories(splh1d_costf PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src" "examples/timing")
+target_link_libraries(     splh1d_costf PRIVATE ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})
+
+
 add_executable(            hubb1d_lightcone ${SOURCES} "examples/hubbard1d/lightcone/lightcone.c" "examples/timing/timing.c")
 target_include_directories(hubb1d_lightcone PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src" "examples/timing")
 target_link_libraries(     hubb1d_lightcone PRIVATE ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})
