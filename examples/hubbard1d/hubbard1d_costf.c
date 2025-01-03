@@ -63,7 +63,7 @@ int main()
 	
 	if (full_target == 1) { assert(ulayers == 29); }
 
-	char splitting[] = "suzuki4";
+	char splitting[] = "yoshida4";
 
 	float g = 1.50;
     float t = 0.25;

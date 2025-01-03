@@ -65,10 +65,10 @@ int main()
 
 	char splitting[] = "suzuki4";
 
-	float g = 1.50;
+	float g = 1.5;
     float t = 0.25;
 
-	const int niter = 30;
+	const int niter = 12;
 
 	int num_threads;
 	#if  defined(STATEVECTOR_PARALLELIZATION) || defined(GATE_PARALLELIZATION)
