@@ -32,7 +32,7 @@ def main():
     g = 1.5
     t = 0.25
 
-    s = 6  #number of splitting steps
+    s = 10  #number of splitting steps
     us = 4
     
 

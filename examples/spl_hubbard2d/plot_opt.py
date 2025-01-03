@@ -6,9 +6,9 @@ from matplotlib import pyplot as plt
 from matplotlib.ticker import ScalarFormatter, FixedLocator
 
 
-L = 6
+L = 8
 q = 2*L
-g = 1.25
+g = 1.5
 t = 0.25
 
 opt_arr = []

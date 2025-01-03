@@ -18,10 +18,10 @@ qubits1 = []
 wtime2 = []
 qubits2 = []
 
-for q in range(q1,14,2):
+for q in range(8,14,2):
     data_dir   = os.path.join(script_dir, f"q{q}")
-    file_list1 = glob.glob(f"{data_dir}/n{nlayers}*_q*_u{ulayers}_*0_serial*.hdf5")
-    file_list2 = glob.glob(f"{data_dir}/n{nlayers}*_q*_u{ulayers}_*1_serial*.hdf5")
+    file_list1 = glob.glob(f"{data_dir}/n{nlayers}_q*_u{ulayers}_th112_110*.hdf5")
+    file_list2 = glob.glob(f"{data_dir}/n{nlayers}_q*_u{ulayers}_th112_010*.hdf5")
 
     with h5py.File(file_list1[0], "r") as f:
         wtime1.append(f.attrs["Walltime"])
@@ -30,6 +30,14 @@ for q in range(q1,14,2):
     with h5py.File(file_list2[0], "r") as f:
         wtime2.append(f.attrs["Walltime"])
         qubits2.append(f.attrs["nqubits"])
+
+
+
+data_dir   = os.path.join(script_dir, f"q{16}")
+file_list1 = glob.glob(f"{data_dir}/n{nlayers}_q*_u{ulayers}_th112_110*.hdf5")
+with h5py.File(file_list1[0], "r") as f:
+    wtime1.append(f.attrs["Walltime"])
+    qubits1.append(f.attrs["nqubits"])
 
 print(qubits1)
 print(wtime1)
@@ -53,19 +61,19 @@ fig, ax = plt.subplots()
 p = np.polyfit(qubits1, np.log(wtime1), 1)
 print(f"Fit slope: {p[0]}")
 
-x_fit = np.linspace(q1,12, 50)
+x_fit = np.linspace(q1,17, 50)
 fit = np.exp(np.polyval(p, x_fit))
 
 ax.scatter(qubits1, wtime1, marker=".", color="black")
-ax.scatter(qubits2, wtime2, marker=".", color="black")
+#ax.scatter(qubits2, wtime2, marker=".", color="black")
 
-ax.plot(x_fit, fit)
+#ax.plot(x_fit, fit)
 
 
 ax.set_xlabel("Qubits")
 ax.set_ylabel("Walltime (s)")
 
-ax.set_title(f"Qubit Walltime scaling (N = {nlayers})")
+ax.set_title(f"Qubit Walltime scaling (n = {nlayers})")
 
 #ax.legend()
 fig.savefig(f"{data_dir}/plots/n{nlayers}_u{ulayers}_qubit_scaling.png")
