@@ -1,0 +1,6 @@
+
+
+
+nqubits = 
+
+for (i)
