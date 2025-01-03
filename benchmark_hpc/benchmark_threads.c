@@ -37,8 +37,8 @@ int main()
 {
 	#ifdef STATEVECTOR_PARALLELIZATION 
 
-	const int nqubits = 12;
-	const int nlayers = 21;
+	const int nqubits = 14;
+	const int nlayers = 3;
 	const int ulayers = 601;
 
 	int num_threads = get_num_threads();
