@@ -68,7 +68,7 @@ int main()
 	float g = 1.5;
     float t = 0.25;
 
-	const int niter = 7;
+	const int niter = 8;
 
 	int num_threads;
 	#if  defined(STATEVECTOR_PARALLELIZATION) || defined(GATE_PARALLELIZATION)
