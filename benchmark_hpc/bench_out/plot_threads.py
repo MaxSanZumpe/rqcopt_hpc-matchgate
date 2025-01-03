@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 
 nqubits = 12
-nlayers = 3
+nlayers = 5
 ulayers = 601
 
 script_dir = os.path.dirname(__file__)
@@ -20,7 +20,7 @@ if nqubits != 16:
     file_list1.append(glob.glob(f"{data_dir}/n{nlayers}_q{nqubits}_u{ulayers}_0*serial*.hdf5")[0])
     file_list2.append(glob.glob(f"{data_dir}/n{nlayers}_q{nqubits}_u{ulayers}_1*serial*.hdf5")[0])
 
-critical = True
+critical = False
 if critical:
     file_list3 = glob.glob(f"{data_dir}/n{nlayers}_q{nqubits}_u{ulayers}_th*_010_critical_matchgate*.hdf5")
     file_list3.append(glob.glob(f"{data_dir}/n{nlayers}_q{nqubits}_u{ulayers}_0*serial*.hdf5")[0])
@@ -85,14 +85,17 @@ if critical:
 
 ax.plot(threads1, threads1, label = "Ideal scaling", color = "green")
 
-ax.set_xlabel("Thread number")
-ax.set_ylabel("Walltime speed-up")
+ax.tick_params(axis="x", labelsize = 12)
+ax.tick_params(axis="y", labelsize = 12)
 
-ax.set_title(f"Multithreading benchmark: q = {nqubits}, n = {nlayers}")
 
-ax.legend()
-fig.savefig(f"{data_dir}/plots/n{nlayers}_q{nqubits}_u{ulayers}_thread_scaling.png")
+ax.set_xlabel("Threads", fontsize = 20)
+ax.set_ylabel("Wall time speed-up", fontsize = 20)
 
+#ax.set_title(f"Multithreading benchmark: q = {nqubits}, n = {nlayers}")
+
+ax.legend(fontsize=16)
+fig.savefig(f"{data_dir}/plots/n{nlayers}_q{nqubits}_u{ulayers}_thread_scaling.png", dpi=400)
 
 
 
