@@ -67,7 +67,7 @@ int main()
 
 	const int nqubits = 16;
 	const int nlayers = 5;
-	const int ulayers = 601;
+	const int ulayers = 253;
 
 	int num_threads;
 	#if  defined(STATEVECTOR_PARALLELIZATION) || defined(GATE_PARALLELIZATION)
@@ -98,7 +98,7 @@ int main()
 	if(rank == 0)
 	{ 	
 		char filename[1024];
-		sprintf(filename, "../benchmark_hpc/bench_in/n%i_q%i_u%i_bench_in.hdf5", nlayers, nqubits, ulayers);
+		sprintf(filename, "../benchmark_hpc/bench_in/q%i/n%i_q%i_u%i_bench_in.hdf5", nqubits, nlayers, nqubits, ulayers);
 		hid_t file = H5Fopen(filename, H5F_ACC_RDONLY, H5P_DEFAULT);
 		if (file < 0) {
 			fprintf(stderr, "'H5Fopen' for '%s' failed, return value: %" PRId64 "\n", filename, file);

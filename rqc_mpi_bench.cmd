@@ -16,5 +16,7 @@
 
 module load slurm_setup
 module load intel-mpi
+module load intel-mkl
+module load hdf5
 export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
 mpiexec -n $SLURM_NTASKS ./benchmark_mpi

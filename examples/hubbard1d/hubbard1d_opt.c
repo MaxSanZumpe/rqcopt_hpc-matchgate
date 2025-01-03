@@ -55,20 +55,20 @@ static int ufunc(const struct statevector* restrict psi, void* fdata, struct sta
 
 int main()
 {
-	const int nqubits = 8;
-	const int nlayers = 81;
+	const int nqubits = 12;
+	const int nlayers = 41;
 	
-	const int full_target = 1;
-	const int ulayers = 29;
+	const int full_target = 0;
+	const int ulayers = 589;
 	
 	if (full_target == 1) { assert(ulayers == 29); }
 
 	char splitting[] = "suzuki4";
 
-	float g = 1.5;
-    float t = 0.25;
+	float g = 4.00;
+    float t = 1.00;
 
-	const int niter = 8;
+	const int niter = 15;
 
 	int num_threads;
 	#if  defined(STATEVECTOR_PARALLELIZATION) || defined(GATE_PARALLELIZATION)
