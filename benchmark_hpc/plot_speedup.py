@@ -15,11 +15,15 @@ file_list1 = glob.glob(f"{script_dir}/bench_out/q{nqubits}/n{nlayers}_q{nqubits}
 file_list2 = glob.glob(f"{script_dir}/bench_out/q{nqubits}/n{nlayers}_q{nqubits}_u{ulayers}_th*_110_*threads*.hdf5")
 file_list3 = glob.glob(f"{script_dir}/bench_out_mat4x4/q{nqubits}/n{nlayers}_q{nqubits}_u{ulayers}_th*_010_*threads*.hdf5")
 
+
 if nqubits < 12:
     file_list1.append(glob.glob(f"{script_dir}/bench_out/q{nqubits}/n{nlayers}_q{nqubits}_u{ulayers}_0*serial*.hdf5")[0])
     file_list2.append(glob.glob(f"{script_dir}/bench_out/q{nqubits}/n{nlayers}_q{nqubits}_u{ulayers}_1*serial*.hdf5")[0])
     file_list3.append(glob.glob(f"{script_dir}/bench_out_mat4x4/q{nqubits}/n{nlayers}_q{nqubits}_u{ulayers}_0*serial*.hdf5")[0])
 
+print(file_list1)
+print(file_list2)
+print(file_list3)
 
 wtime1 = []
 threads1 = []

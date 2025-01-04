@@ -3,7 +3,7 @@ import h5py
 import os
 import numpy as np
 import matplotlib.pyplot as plt
-
+from matplotlib.ticker import ScalarFormatter
 
 nqubits = 12
 ulayers = 601
@@ -56,10 +56,10 @@ print(p1)
 print(p2)
 
 s = f"{p2[0]:.2f}$n$+{np.abs(p2[1]):.1f}"
-z = f"{p1[0]:.2f}$n^2$+{np.abs(p1[1]):.2f}$n$ + {np.abs(p1[2]):.0f}"
+z = f"{p1[0]:.2f}$n^2$-{np.abs(p1[1]):.2f}$n$ + {np.abs(p1[2]):.1f}"
 
-ax.scatter(layers1, wtime1, marker=".", color="blue", label = f"Without invariance: {z}")
-ax.scatter(layers2, wtime2, marker="x", color="red", label = f"With invarinace: {s}")
+ax.scatter(layers1, wtime1, marker=".", color="blue", label = f"Without invariance : {z}")
+ax.scatter(layers2, wtime2, marker="x", color="red", label = f"With invarinace      : {s}")
 
 ax.plot(layers1, p1[0]*layers1**2 + p1[1]*layers1 + p1[2])
 ax.plot(layers2, p2[0]*layers2 + p2[1])
@@ -67,6 +67,9 @@ ax.plot(layers2, p2[0]*layers2 + p2[1])
 
 ax.set_xlabel("Circuit Layers", fontsize = 12)
 ax.set_ylabel("Wall time (s)", fontsize = 12)
+
+ax.set_xticks([3, 5, 7, 9,  11, 13, 15, 17, 19, 21])
+ax.xaxis.set_major_formatter(ScalarFormatter())
 
 ax.set_title(f"Circuit layer scaling becnhmark (q = {nqubits})")
 

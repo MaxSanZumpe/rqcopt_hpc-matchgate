@@ -96,11 +96,11 @@ ax.set_xscale("log")
 ax.set_yscale("log")
 ax.xaxis.set_major_formatter(ScalarFormatter())
 
-ax.set_xlabel("Circuit layers")
-ax.set_ylabel("$\\rho_{error}$")
+ax.set_xlabel("Circuit layers", fontsize = 12)
+ax.set_ylabel("$\\rho_{error}$", fontsize = 12)
 #ax.xaxis.set_major_locator(FixedLocator([10, 100, 600]))
 
 
 ax.set_title(f"Spinless Hubbard (1D): Qubits = {q}, J = {1}, U = {g}, t = {t}s")
-ax.legend()
-fig.savefig(os.path.join(script_dir, f"spl_hubbard_g{g:.2f}_t{t:.2f}_opt_norms.png"))
+ax.legend(fontsize = 9)
+fig.savefig(os.path.join(script_dir, f"spl_hubbard_g{g:.2f}_t{t:.2f}_opt_norms.png"), dpi = 300)

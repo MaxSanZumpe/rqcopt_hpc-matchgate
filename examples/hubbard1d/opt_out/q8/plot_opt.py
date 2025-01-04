@@ -85,6 +85,9 @@ ax.plot(layers_arr[9], ini_arr[9],
 ax.plot(layers_arr[7], ini_arr[7], 
         marker = "x", color = "red", label = "Auzinger (6)")
 
+ax.plot(layers_arr[0], opt_arr[0], 
+        marker = "^", linestyle= "--", color = "lightgreen", label = "Opt. Strang (2)")
+
 # ax.plot(np.append(layers_arr[0][:4], layers_arr[2]), np.append(opt_arr[0][:4],opt_arr[2]), 
 #         marker = "^", color = "red", label = "Optimized gates; 15 iter")
 
@@ -104,12 +107,12 @@ ax.set_xscale("log")
 ax.set_yscale("log")
 ax.xaxis.set_major_formatter(ScalarFormatter())
 
-ax.set_xlabel("Circuit layers")
-ax.set_ylabel("$\\rho_{error}$")
+ax.set_xlabel("Circuit layers", fontsize = 12)
+ax.set_ylabel("$\\rho_{error}$", fontsize = 12)
 #ax.xaxis.set_major_locator(FixedLocator([10, 100, 600]))
 
 
 ax.set_title(f"Hubbard (1D): Qubits = {q}, J = {1}, U = {g}, t = {t}s")
-ax.legend()
-fig.savefig(os.path.join(script_dir, f"hubb1d_g{g:.2f}_t{t:.2f}_opt_norms.png"))
+ax.legend(fontsize = 9)
+fig.savefig(os.path.join(script_dir, f"hubb1d_g{g:.2f}_t{t:.2f}_opt_norms.png"), dpi = 300)
     

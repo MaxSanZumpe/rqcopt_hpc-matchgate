@@ -18,8 +18,12 @@ file_list1 = glob.glob(f"{script_dir}/hubbard1d_suzuki2*u{ulayers}*t{t:.2f}s_g{g
 file_list2 = glob.glob(f"{script_dir}/hubbard1d_suzuki4*u{ulayers}*t{t:.2f}s_g{g:.2f}_iter15_inv0*.hdf5")
 file_list3 = glob.glob(f"{script_dir}/hubbard1d_auzinger6*u{ulayers}*t{t:.2f}s_g{g:.2f}_iter15_inv0*.hdf5")
 
+file_list4 = glob.glob(f"{script_dir}/hubbard1d_suzuki2*q{q}*u{ulayers}_t{t:.2f}s_g{g:.2f}*norm*.hdf5")
+file_list5 = glob.glob(f"{script_dir}/hubbard1d_suzuki4*q{q}*u{ulayers}_t{t:.2f}s_g{g:.2f}*norm*.hdf5")
+file_list6 = glob.glob(f"{script_dir}/hubbard1d_auzinger6*q{q}*u{ulayers}_t{t:.2f}s_g{g:.2f}*norm*.hdf5")
 
-file_arr = [file_list1, file_list2, file_list3]
+
+file_arr = [file_list1, file_list2, file_list3, file_list4, file_list5, file_list6]
 
 opt_arr = []
 ini_arr = []
@@ -60,9 +64,12 @@ optt_lay, optt_err = zip(*xy1_sorted)
 
 
 fig, ax = plt.subplots()
-ax.plot(layers_arr[0], ini_arr[0], marker = ".", color = "black", label = "Strang (2)")
-ax.plot(layers_arr[1], ini_arr[1], marker = "*", color = "purple", label = "Suzuki (4)")
-ax.plot(layers_arr[2], ini_arr[2], marker = "x", color = "red", label = "Auzinger (6)")
+ax.plot(np.append(layers_arr[0], layers_arr[3]), np.append(ini_arr[0], ini_arr[3]), 
+        marker = ".", color = "black", label = "Strang (2)")
+ax.plot(np.append(layers_arr[1], layers_arr[4]), np.append(ini_arr[1], ini_arr[4]), 
+        marker = "*", color = "purple", label = "Suzuki (4)")
+ax.plot(np.append(layers_arr[2], layers_arr[5]), np.append(ini_arr[2], ini_arr[5]), 
+        marker = "x", color = "red", label = "Auzinger (6)")
 
 ax.plot(optt_lay, optt_err, marker = "^", color = "green", label = "Optimized gates")
 
@@ -71,8 +78,8 @@ ax.set_xscale("log")
 ax.set_yscale("log")
 ax.xaxis.set_major_formatter(ScalarFormatter())
 
-ax.set_xlabel("Layers")
-ax.set_ylabel("$error$")
+ax.set_xlabel("Circuit layers")
+ax.set_ylabel("$\\rho_{error}$")
 #ax.xaxis.set_major_locator(FixedLocator([10, 100, 600]))
 
 
