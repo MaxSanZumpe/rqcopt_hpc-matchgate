@@ -65,7 +65,7 @@ int main()
     MPI_Comm_size(MPI_COMM_WORLD, &num_tasks);
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
-	const int nqubits = 16;
+	const int nqubits = 12;
 	const int nlayers = 5;
 	const int ulayers = 253;
 
