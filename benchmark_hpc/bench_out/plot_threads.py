@@ -5,7 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-nqubits = 12
+nqubits = 14
 nlayers = 5
 ulayers = 601
 
@@ -13,10 +13,10 @@ script_dir = os.path.dirname(__file__)
 data_dir   = os.path.join(script_dir, f"q{nqubits}")
 
 
-file_list1 = glob.glob(f"{data_dir}/n{nlayers}_q{nqubits}_u{ulayers}_th*_010_*threads*.hdf5")
+file_list1 = glob.glob(f"{data_dir}/n{nlayers}_q{nqubits}_u{ulayers}_th*_110_*threads*.hdf5")
 file_list2 = glob.glob(f"{data_dir}/n{nlayers}_q{nqubits}_u{ulayers}_th*_110_*threads*.hdf5")
 
-if nqubits != 16:
+if nqubits != 16 and nqubits != 14:
     file_list1.append(glob.glob(f"{data_dir}/n{nlayers}_q{nqubits}_u{ulayers}_0*serial*.hdf5")[0])
     file_list2.append(glob.glob(f"{data_dir}/n{nlayers}_q{nqubits}_u{ulayers}_1*serial*.hdf5")[0])
 
@@ -79,7 +79,7 @@ for a, b, c in zip(threads1, wtime1, wtime2):
 
 fig, ax = plt.subplots()
 
-ax.scatter(threads1, wtime1[0]/wtime1, marker=".", label = "$T_{parallel}/T_{serial}$", color = "black")
+ax.scatter(threads1, 8*wtime1[0]/wtime1, marker=".", label = "$T_{parallel}/T_{serial}$", color = "black")
 if critical: 
     ax.scatter(threads3, wtime3[0]/wtime3, marker=".", label = "No critical sections", color = "blue")
 
