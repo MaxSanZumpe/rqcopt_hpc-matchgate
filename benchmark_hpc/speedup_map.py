@@ -9,7 +9,7 @@ ulayers = 601
 
 script_dir = os.path.dirname(__file__)
 
-spu_arr = []
+arr = []
 
 for q in qlist:
     file_list = glob.glob(f"{script_dir}/bench_out/q{q}/plots/n*_q{q}_u{ulayers}_invariance_scaling.txt")
@@ -20,27 +20,24 @@ for q in qlist:
 
     for file in file_list:
         content = np.loadtxt(file)
-        tn.append(content[3])
-        a.append(content[0])
-        b.append(content[1])
+        tn.append(content[0])
+        a.append(content[1])
+        b.append(content[2])
 
-    
     
     temp = zip(tn, a, b)
     temp_sorted = sorted(temp, key = lambda pair: pair[0])
-    tn, a, b  = zip(*temp_sorted) 
+    tn, a, b = zip(*temp_sorted) 
 
-    spu_arr.append(np.array([tn, a, b]))
+    arr.append([np.array(tn), np.array(a), np.array(b)])
 
-        
-cmap = ["green", "blue", "red"]
-mmap = [".", "x", "v"]
+cmap = ["green", "blue", "red", "purple"]
+mmap = [".", "x", "v", "*"]
 
 fig, ax = plt.subplots()
 
 for i in range(len(qlist)):
-    ax.plot(spu_arr[i][0], spu_arr[i][1], color = cmap[i], marker= mmap[i], label = f"q = {qlist[i]}")
-
+    ax.plot(arr[i][0], arr[i][1], color = cmap[i], marker= mmap[i], label = f"q = {qlist[i]}")
 
 ax.set_title("Matchgate speed-up map")
 ax.set_xlabel("Circuit Layers")
@@ -53,7 +50,8 @@ fig.savefig(f"{script_dir}/spu_match_map_u{ulayers}_.png")
 fig, ax = plt.subplots()
 
 for i in range(len(qlist)):
-    ax.plot(spu_arr[i][0], spu_arr[i][2], color = cmap[i], marker= mmap[i], label = f"q = {qlist[i]}")
+    ax.plot(arr[i][0], arr[i][2], color = cmap[i], marker= mmap[i], label = f"q = {qlist[i]}")
+
 
 ax.set_title("Matchgate + Invariance speed-up map")
 ax.set_xlabel("Circuit Layers")
