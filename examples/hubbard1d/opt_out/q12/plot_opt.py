@@ -21,9 +21,11 @@ file_list3 = glob.glob(f"{script_dir}/hubbard1d_auzinger6*u{ulayers}*t{t:.2f}s_g
 file_list4 = glob.glob(f"{script_dir}/hubbard1d_suzuki2*q{q}*u{ulayers}_t{t:.2f}s_g{g:.2f}*norm*.hdf5")
 file_list5 = glob.glob(f"{script_dir}/hubbard1d_suzuki4*q{q}*u{ulayers}_t{t:.2f}s_g{g:.2f}*norm*.hdf5")
 file_list6 = glob.glob(f"{script_dir}/hubbard1d_auzinger6*q{q}*u{ulayers}_t{t:.2f}s_g{g:.2f}*norm*.hdf5")
+file_list7 = glob.glob(f"{script_dir}/hubbard1d_yoshida4*q{q}*u{ulayers}_t{t:.2f}s_g{g:.2f}*norm*.hdf5")
 
 
-file_arr = [file_list1, file_list2, file_list3, file_list4, file_list5, file_list6]
+
+file_arr = [file_list1, file_list2, file_list3, file_list4, file_list5, file_list6, file_list7]
 
 opt_arr = []
 ini_arr = []
@@ -54,8 +56,8 @@ for file_list in file_arr:
     opt_arr.append(np.array(tmp_opt))
 
 
-optt_lay = np.append(np.append(layers_arr[0], layers_arr[1]), layers_arr[2])
-optt_err = np.append(np.append(opt_arr[0], opt_arr[1]), opt_arr[2])
+optt_lay = np.append(layers_arr[0], layers_arr[1][1:])
+optt_err = np.append(opt_arr[0], opt_arr[1][1:])
 
 
 xy1 = zip(optt_lay, optt_err)
@@ -71,6 +73,8 @@ ax.plot(np.append(layers_arr[1], layers_arr[4]), np.append(ini_arr[1], ini_arr[4
 ax.plot(np.append(layers_arr[2], layers_arr[5]), np.append(ini_arr[2], ini_arr[5]), 
         marker = "x", color = "red", label = "Auzinger (6)")
 
+ax.plot(layers_arr[6], ini_arr[6], marker="1", color="blue", label="Yoshida (4)")
+
 ax.plot(optt_lay, optt_err, marker = "^", color = "green", label = "Optimized gates")
 
 
@@ -78,12 +82,12 @@ ax.set_xscale("log")
 ax.set_yscale("log")
 ax.xaxis.set_major_formatter(ScalarFormatter())
 
-ax.set_xlabel("Circuit layers")
-ax.set_ylabel("$\\rho_{error}$")
+ax.set_xlabel("Circuit layers", fontsize=12)
+ax.set_ylabel("$\\rho_{error}$", fontsize=12)
 #ax.xaxis.set_major_locator(FixedLocator([10, 100, 600]))
 
 
 ax.set_title(f"Hubbard (1D): Qubits = {q}, J = {1}, U = {g}, t = {t}s")
-ax.legend()
+ax.legend(fontsize=9)
 fig.savefig(os.path.join(script_dir, f"hubb1d_q{q}_g{g:.2f}_t{t:.2f}_opt_norms.png"))
     

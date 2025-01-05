@@ -66,6 +66,7 @@ xy1 = zip(optt_lay, optt_err)
 xy1_sorted = sorted(xy1, key = lambda pair: pair[0])
 optt_lay, optt_err = zip(*xy1_sorted)  
 
+print(optt_lay[-1], layers_arr[6][4], layers_arr[3][-1])
 
 fig, ax = plt.subplots()
 ax.plot(np.append(layers_arr[0],layers_arr[4][:5]), np.append(ini_arr[0],ini_arr[4][:5]),
