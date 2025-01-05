@@ -56,7 +56,7 @@ static int ufunc(const struct statevector* restrict psi, void* fdata, struct sta
 int main()
 {
 	const int nqubits = 12;
-	const int nlayers = 57;
+	const int nlayers = 85;
 	
 	const int full_target = 0;
 	const int ulayers = 589;
