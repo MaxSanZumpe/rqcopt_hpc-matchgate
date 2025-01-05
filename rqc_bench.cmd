@@ -8,7 +8,7 @@
 #SBATCH --clusters=cm4
 #SBATCH --partition=cm4_tiny
 #SBATCH --nodes=1-1
-#SBATCH --cpus-per-task=112
+#SBATCH --cpus-per-task=56
 # 224 is the maximum reasonable value for CoolMUC-4
 #SBATCH --export=NONE
 #SBATCH --time=05:00:00
