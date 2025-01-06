@@ -6,11 +6,11 @@
 #SBATCH --mail-type=ALL
 #SBATCH --get-user-env
 #SBATCH --clusters=cm4
-#SBATCH --partition=cm4_std
-#SBATCH --qos=cm4_std
-#SBATCH --nodes=4
-#SBATCH --ntasks-per-node=56
-#SBATCH --cpus-per-task=2
+#SBATCH --partition=cm4_tiny
+#SBATCH --qos=cm4_tiny
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=4
+#SBATCH --cpus-per-task=28
 #SBATCH --export=NONE
 #SBATCH --time=06:00:00
 

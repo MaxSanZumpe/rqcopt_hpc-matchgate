@@ -9,8 +9,8 @@
 #SBATCH --partition=cm4_std
 #SBATCH --qos=cm4_std
 #SBATCH --nodes=4
-#SBATCH --ntasks-per-node=2
-#SBATCH --cpus-per-task=112
+#SBATCH --ntasks-per-node=4
+#SBATCH --cpus-per-task=28
 #SBATCH --export=NONE
 #SBATCH --time=24:00:00
 
