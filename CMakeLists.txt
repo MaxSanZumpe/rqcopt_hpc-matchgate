@@ -60,7 +60,7 @@ target_compile_definitions(spl_hubbard2d PRIVATE MPI STATEVECTOR_PARALLELIZATION
 add_executable(            benchmark_threads ${SOURCES} "benchmark_hpc/benchmark_threads.c" "examples/timing/timing.c")
 target_include_directories(benchmark_threads PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src" "examples/timing")
 target_link_libraries(     benchmark_threads ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})
-target_compile_definitions(benchmark_threads PRIVATE STATEVECTOR_PARALLELIZATION)
+target_compile_definitions(benchmark_threads PRIVATE STATEVECTOR_PARALLELIZATION TRANSLATIONAL_INVARIANCE)
 
 
 add_executable(		       benchmark_mpi ${SOURCES} "benchmark_hpc/benchmark_mpi.c" "examples/timing/timing.c")
