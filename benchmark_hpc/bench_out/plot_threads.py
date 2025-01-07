@@ -6,28 +6,28 @@ import matplotlib.pyplot as plt
 
 
 nqubits = 12
-nlayers = 3
+nlayers = 5
 ulayers = 601
 
 script_dir = os.path.dirname(__file__)
 data_dir   = os.path.join(script_dir, f"q{nqubits}")
 
 
-file_list1 = glob.glob(f"{data_dir}/n{nlayers}_q{nqubits}_u{ulayers}_th*_010_*threads*.hdf5")
-file_list2 = glob.glob(f"{data_dir}/n{nlayers}_q{nqubits}_u{ulayers}_th*_110_*threads*.hdf5")
+file_list1 = glob.glob(f"{data_dir}/n{nlayers}_q{nqubits}_u{ulayers}_th*_110_*threads*.hdf5")
+file_list2 = glob.glob(f"{data_dir}/n{nlayers}_q{nqubits}_u{ulayers}_th*_010_*threads*.hdf5")
 
 if nqubits != 16 and nqubits != 14:
-    file_list1.append(glob.glob(f"{data_dir}/n{nlayers}_q{nqubits}_u{ulayers}_0*serial*.hdf5")[0])
-    file_list2.append(glob.glob(f"{data_dir}/n{nlayers}_q{nqubits}_u{ulayers}_1*serial*.hdf5")[0])
+    file_list1.append(glob.glob(f"{data_dir}/n{nlayers}_q{nqubits}_u{ulayers}_1*serial*.hdf5")[0])
+    file_list2.append(glob.glob(f"{data_dir}/n{nlayers}_q{nqubits}_u{ulayers}_0*serial*.hdf5")[0])
 
-critical = True
+critical = False
 if critical:
     file_list3 = glob.glob(f"{data_dir}/n{nlayers}_q{nqubits}_u{ulayers}_th*_010_critical_matchgate*.hdf5")
     file_list3.append(glob.glob(f"{data_dir}/n{nlayers}_q{nqubits}_u{ulayers}_0*serial*.hdf5")[0])
 
-mpi = False
+mpi = True
 if mpi:
-    file4 = glob.glob(f"{script_dir}/mpi/mpi*n5*q12*tasks2*.hdf5")[0]
+    file4 = glob.glob(f"{script_dir}/mpi/mpi*n5*q12*tasks4*.hdf5")[0]
     with h5py.File(file4, "r") as f:
         wtime_mpi = f.attrs["Walltime"]
         threads_mpi=f.attrs["NUM_THREADS"]
@@ -98,6 +98,8 @@ if critical:
 
 if mpi:
     ax.scatter(cores, wtime1[0]/wtime_mpi)
+
+print(file4)
 
 ax.plot(threads1, threads1, label = "Ideal scaling", color = "green")
 

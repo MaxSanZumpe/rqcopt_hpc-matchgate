@@ -11,9 +11,9 @@ ulayers = 601
 
 script_dir = os.path.dirname(__file__)
 
-file_list1 = glob.glob(f"{script_dir}/bench_out/q{nqubits}/n{nlayers}_q{nqubits}_u{ulayers}_th*_010_*threads*.hdf5")
-file_list2 = glob.glob(f"{script_dir}/bench_out/q{nqubits}/n{nlayers}_q{nqubits}_u{ulayers}_th*_110_*threads*.hdf5")
-file_list3 = glob.glob(f"{script_dir}/bench_out_mat4x4/q{nqubits}/n{nlayers}_q{nqubits}_u{ulayers}_th*_010_*threads*.hdf5")
+file_list1 = glob.glob(f"{script_dir}/bench_out/q{nqubits}/n{nlayers}_q{nqubits}_u{ulayers}_th112_010_*threads*.hdf5")
+file_list2 = glob.glob(f"{script_dir}/bench_out/q{nqubits}/n{nlayers}_q{nqubits}_u{ulayers}_th112_110_*threads*.hdf5")
+file_list3 = glob.glob(f"{script_dir}/bench_out_mat4x4/q{nqubits}/n{nlayers}_q{nqubits}_u{ulayers}_th112_010_*threads*.hdf5")
 
 
 if nqubits < 12:
@@ -48,7 +48,7 @@ for file1, file2, file3 in zip(file_list1, file_list2, file_list3):
         wtime3.append(f.attrs["Walltime"])
         threads3.append(f.attrs["NUM_THREADS"])
 
-
+print(wtime2, threads2)
 xy1 = zip(threads1, wtime1)
 xy2 = zip(threads2, wtime2)
 xy3 = zip(threads3, wtime3)

@@ -17,7 +17,7 @@ def sparse_local_single_op(U, j, L):
 
 L = 13
 J = 1
-g = 4
+g = 1.5
 
 H = st.construct_sparse_spl_hubbard1d_hamiltonian(L, J, g)
 
@@ -62,12 +62,13 @@ vel = 2
 plt.imshow(np.roll(corr, shift=(L-1)//2, axis=0).real.T,
             interpolation="nearest", aspect="auto",
             origin="lower", extent=(-L//2+0.5, L//2+0.5, 0, Δt*nsteps))
-plt.xlabel("$\Delta j$")
-plt.ylabel("t")
-plt.title(fr"$\langle \psi | n_j(t) n_1(0) | \psi \rangle$ for $H_{{splh}}, U = 4;$ vel: {vel} $s^{{-1}}$")
-plt.colorbar()
+plt.xlabel("$\Delta j$", fontsize=12)
+plt.ylabel("t (s)", fontsize=12)
+
+plt.title(fr"$\langle \psi | n_j(t) n_1(0) | \psi \rangle$ for $H_{{splh}}; U={g}; $vel: {vel} $s^{{-1}}$")
+cbar = plt.colorbar()
 plt.plot([ 0.5,  1+L//2], [0, L//2*1/vel], "w")
 plt.plot([-0.5, -L//2], [0, L//2*1/vel], "w")
-plt.savefig(os.path.join(script_dir, f"splh1d_g{g:.2f}_lightcone_py.png"))
+plt.savefig(os.path.join(script_dir, f"splh1d_g{g:.2f}_v{vel}_lightcone_py.png"), dpi = 300)
 
 print(L//2)

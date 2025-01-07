@@ -5,8 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 nqubits = 16
-nlayers = 5
-ulayers = 253
+ulayers = 601
 
 script_dir = os.path.dirname(__file__)
 file_list = glob.glob(f"{script_dir}/opt_out/spl_hubbard2d_suzuki2_n*_q16_u601_t0.25s_g1.50_opt_iter10.hdf5")
@@ -34,26 +33,28 @@ for i in range(len(lay)):
 
 threads = np.array(threads)
 wtime = np.array(wtime)
-cores = threads*tasks
-xy = zip(cores, wtime)
+
+
+xy = zip(lay, wtime)
 xy1_sorted = sorted(xy, key = lambda pair: pair[0])
-cores_sorted, wtime_sorted = zip(*xy1_sorted) 
-cores = np.array(cores_sorted)
+lay_sorted, wtime_sorted = zip(*xy1_sorted) 
+lay = np.array(lay_sorted)
 wtime = np.array(wtime_sorted)
 
 
-# fig, ax = plt.subplots()
+print(lay)
+print(wtime/60/60)
 
-# ax.scatter(c
-# ax.scatter(cores , wtime2[0]/wtime, marker=".", color = "black", label = "MPI;  56 threads/task")
-# ax.scatter(cores3, wtime2[0]/wtime3, marker=".", color = "blue", label = "MPI; 112 threads/task")
-# ax.plot([56, 448], [1, 8], color = "green", label = "Ideal scaling")
+fig, ax = plt.subplots()
 
-# ax.set_title(f"MPI benchmark (q = {nqubits}; n = {nlayers})", fontsize= 12)
+ax.scatter(lay[1:], wtime[1:]/60, marker=".", color = "black")
 
-# ax.set_xlabel("Total threads", fontsize = 12)
-# ax.set_ylabel("Wall time speed-up", fontsize = 12)
 
-# ax.legend(fontsize = 12)
-# fig.savefig(f"{script_dir}/mpi/plots/mpi_n{nlayers}_u{ulayers}", dpi=300)
+ax.set_title(f"Lay bech", fontsize= 12)
+
+ax.set_xlabel("Circuit layers", fontsize = 12)
+ax.set_ylabel("Wall time (min)", fontsize = 12)
+
+#ax.legend(fontsize = 12)
+fig.savefig(f"{script_dir}/mpi_u{ulayers}_layers_scaling", dpi=300)
 

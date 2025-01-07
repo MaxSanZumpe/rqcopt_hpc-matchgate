@@ -13,7 +13,7 @@ find_package(HDF5 REQUIRED COMPONENTS C)
 set(CMAKE_C_FLAGS "-O3 -fopenmp -pg")
 
 # Definitions
-add_compile_definitions(COMPLEX_CIRCUIT LRZ_HPC)
+add_compile_definitions(COMPLEX_CIRCUIT)
 
 # Define source files
 set(SOURCES 
@@ -77,6 +77,11 @@ target_link_libraries(     benchmark_serial ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})
 add_executable(            hubb1d_costf ${SOURCES} "examples/hubbard1d/hubbard1d_costf.c" "examples/timing/timing.c")
 target_include_directories(hubb1d_costf PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src" "examples/timing")
 target_link_libraries(     hubb1d_costf PRIVATE ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})
+
+
+add_executable(            spl2d_costf ${SOURCES} "examples/spl_hubbard2d/spl_hubbard2d_costf.c" "examples/timing/timing.c")
+target_include_directories(spl2d_costf PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src" "examples/timing")
+target_link_libraries(     spl2d_costf PRIVATE ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})
 
 
 add_executable(            splh1d_costf ${SOURCES} "examples/spl_hubbard1d/spl_hubbard1d_costf.c" "examples/timing/timing.c")

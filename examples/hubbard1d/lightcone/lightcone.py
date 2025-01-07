@@ -46,8 +46,8 @@ plt.plot([-0.5, -0.5 - T*vel], [ 0, T], "w")
 
 plt.xlabel("$\Delta j$")
 plt.ylabel("t (s)")
-plt.title(fr"$\langle \psi | n_{{j\uparrow}}(t) n_{{1\uparrow}}(0) | \psi \rangle$ for $H_{{hubb}}, U = 4$; velocity: {vel} $s^{{-1}}$")
-plt.savefig(os.path.join(script_dir, f"plots/hubb1d_q{q}_g{g:.2f}_u{ulayers}_lightcone_c.png"))
+plt.title(fr"$\langle \psi | n_{{j\uparrow}}(t) n_{{1\uparrow}}(0) | \psi \rangle$ for $H_{{hubb}}$; velocity: {vel} $s^{{-1}}$")
+plt.savefig(os.path.join(script_dir, f"plots/hubb1d_q{q}_g{g:.2f}_u{ulayers}_lightcone_c.png"), dpi=300)
 
 
 

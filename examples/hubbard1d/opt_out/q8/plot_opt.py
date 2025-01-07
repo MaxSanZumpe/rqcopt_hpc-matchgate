@@ -32,8 +32,10 @@ file_list9 = glob.glob(f"{script_dir}/hubbard1d_auzinger6*q{q}*u{ulayers}_t{t:.2
 file_list10 = glob.glob(f"{script_dir}/hubbard1d_yoshida4*q{q}*u{ulayers}_t{t:.2f}s_g{g:.2f}*norm*.hdf5")
 
 
+file_list11 = glob.glob(f"{script_dir}/hubbard1d_suzuki4*q{q}*u{ulayers}_t{t:.2f}s_g{g:.2f}*_iter30_inv0_general*.hdf5")
 
-file_arr = [file_list1, file_list2, file_list3, file_list4, file_list5, file_list6, file_list7, file_list8, file_list9, file_list10]
+
+file_arr = [file_list1, file_list2, file_list3, file_list4, file_list5, file_list6, file_list7, file_list8, file_list9, file_list10, file_list11]
 
 opt_arr = []
 ini_arr = []
@@ -93,6 +95,8 @@ ax.plot(layers_arr[0], opt_arr[0],
 
 ax.plot(optt_lay, optt_err, marker = "^", color = "green", label = "Optimized gates")
 
+# ax.plot(layers_arr[10], opt_arr[10], 
+#         marker = "o", color = "yellow", label = "Opt. general")
 
 # ax.plot(layers_arr[8], opt_arr[8], 
 #         marker = "^", color = "green", label = "Optimized gates; 30 iter")

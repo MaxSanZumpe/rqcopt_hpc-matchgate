@@ -89,5 +89,5 @@ ax.set_ylabel("$\\rho_{error}$", fontsize=12)
 
 ax.set_title(f"Hubbard (1D): Qubits = {q}, J = {1}, U = {g}, t = {t}s")
 ax.legend(fontsize=9)
-fig.savefig(os.path.join(script_dir, f"hubb1d_q{q}_g{g:.2f}_t{t:.2f}_opt_norms.png"))
+fig.savefig(os.path.join(script_dir, f"hubb1d_q{q}_g{g:.2f}_t{t:.2f}_opt_norms.png"), dpi = 300)
     

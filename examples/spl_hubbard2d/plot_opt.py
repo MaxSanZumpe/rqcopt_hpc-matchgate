@@ -20,16 +20,16 @@ script_dir = os.path.dirname(__file__)
 
 file_list = glob.glob(f"{script_dir}/opt_out/spl_hubbard2d_*u601*.hdf5")
 
-print(file_list)
-
 for file in file_list:
     with h5py.File(file, "r") as f:
         tmp = np.array(f["f_iter"])
         layers_arr.append([f.attrs["nlayers"]])
-        ini_arr.append(2*tmp[0] + 2*2**16)
-        opt_arr.append(2*tmp[-1] + 2*2**16)
-        print(f"layers: {f.attrs['nlayers']}, Initial norm = {2*tmp[0] + 2*2**16} -> Final norm = {2*tmp[-1] + 2*2**16}")
+        ini_arr.append((2*tmp[0] + 2*2**16)/2**q)
+        opt_arr.append((2*tmp[-1] + 2*2**16)/2**q)
 
+
+print(ini_arr)
+print(opt_arr)
 
 fig, ax = plt.subplots()
 ax.scatter(layers_arr, opt_arr, marker = "^", color = "green", label = "Optimized gates")
@@ -41,7 +41,7 @@ ax.set_yscale("log")
 ax.xaxis.set_major_formatter(ScalarFormatter())
 
 ax.set_xlabel("Layers")
-ax.set_ylabel("$|| U - W(G) ||_F$")
+ax.set_ylabel("$\\rho_{error}$")
 #ax.xaxis.set_major_locator(FixedLocator([10, 100, 600]))
 
 
