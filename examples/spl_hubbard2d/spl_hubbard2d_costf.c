@@ -174,7 +174,7 @@ int main()
 	}	
 	
     numeric fval = 0;
-    parallel_matchgate_circuit_unitary_target(func, udata, vlist_start, nlayers, nqubits, pperms, &fval);
+    matchgate_brickwall_unitary_target(func, udata, vlist_start, nlayers, nqubits, pperms, &fval);
 	double f = creal(fval);
 
 	const intqs m = (intqs)1 << nqubits;
