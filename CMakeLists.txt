@@ -10,10 +10,10 @@ find_package(OpenMP REQUIRED)
 find_package(HDF5 REQUIRED COMPONENTS C)
 
 # Compiler flags
-set(CMAKE_C_FLAGS "-O3 -fopenmp -pg")
+set(CMAKE_C_FLAGS "-O3 -fopenmp")
 
 # Definitions
-add_compile_definitions(COMPLEX_CIRCUIT)
+add_compile_definitions(COMPLEX_CIRCUIT LRZ_HPC)
 
 # Define source files
 set(SOURCES 
