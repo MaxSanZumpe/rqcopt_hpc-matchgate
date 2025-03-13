@@ -33,20 +33,20 @@ def construct_hubbard_interac_term(U):
 
     return U*np.kron(n, n)
 
-L = 6
+L = 4
 nqubits = 2*L
 J = 1
 
-full_matrix = False
+full_matrix = True
 
 if (full_matrix):
     assert(nqubits <= 12)
 
 g = 4.0
-t = 1.00
+t = 0.2
 
-s = 11
-us = 21
+s = 1
+us = 1
 
 
 if (full_matrix):
@@ -55,7 +55,7 @@ if (full_matrix):
 dt = t/s
 udt = t/us
 
-model = "suzuki2"
+model = "suzuki4"
 
 match model:
     case "suzuki2":

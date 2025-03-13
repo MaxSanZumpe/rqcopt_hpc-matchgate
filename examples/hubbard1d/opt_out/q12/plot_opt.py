@@ -56,8 +56,8 @@ for file_list in file_arr:
     opt_arr.append(np.array(tmp_opt))
 
 
-optt_lay = np.append(layers_arr[0], layers_arr[1][1:])
-optt_err = np.append(opt_arr[0], opt_arr[1][1:])
+optt_lay = np.append(layers_arr[0][:8], layers_arr[1][1:])
+optt_err = np.append(opt_arr[0][:8], opt_arr[1][1:])
 
 
 xy1 = zip(optt_lay, optt_err)

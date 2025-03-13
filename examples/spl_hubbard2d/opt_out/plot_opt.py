@@ -89,6 +89,6 @@ ax.set_ylabel("$\\rho_{error}$", fontsize = 12)
 ax.xaxis.set_major_locator(FixedLocator([10, 20, 30]))
 
 
-ax.set_title(f"Spinless Hubbard (1D): Qubits = {q}, J = {1}, U = {g}, t = {t}s")
+ax.set_title(f"Spinless Hubbard (2D): Qubits = {q}, J = {1}, U = {g}, t = {t}s")
 ax.legend(fontsize = 12)
 fig.savefig(os.path.join(script_dir, f"spl_hubbard2d_g{g:.2f}_t{t:.2f}_opt_norms.png"), dpi = 300)

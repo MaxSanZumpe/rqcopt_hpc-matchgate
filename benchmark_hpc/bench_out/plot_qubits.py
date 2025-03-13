@@ -3,6 +3,7 @@ import h5py
 import os
 import numpy as np
 import matplotlib.pyplot as plt
+from scipy.optimize import curve_fit
 
 
 nlayers = 5
@@ -50,24 +51,37 @@ qubits2_sorted, wtime2_sorted = zip(*xy2_sorted)
 qubits2 = np.array(qubits2_sorted)
 wtime2 = np.array(wtime2_sorted)
 
-
-
-sft = 2
+sft = 0
 p = np.polyfit(qubits1[sft:], np.log2(wtime1[sft:]/60), 1)
 print(f"Fit slope: {p[0]}; offset: {p[1]}")
 
+def f(q, a, b, p0, p1, p2):
+    return (p0*q**2 + p1*q + p2)*2**(a*q + b)
+
+
+def f2(q, a, b):
+    return 2**(a*q + b)
+
+p0 = [p[0], p[1]]
+
+popt, pcov = curve_fit(f2, qubits1[sft:], wtime1[sft:]/60, p0)
+print(popt)
+
 x_fit = np.linspace(8,16.2, 50)
 fit1 = 2**(np.polyval(p, x_fit))
-
+fit2 = f2(x_fit, popt[0], popt[1])
 
 fig, ax = plt.subplots()
 
 ax.scatter(qubits1[0:], wtime1[0:]/60, marker="^", color="red", label = "Benchmarks (n = 5)")
+ax.set_yscale("log")
 
 s = f"{p[0]:.2f}q-{np.abs(p[1]):.1f}"
 print(s)
 
 ax.plot(x_fit, fit1, color="black", label=f"Fit: $2^{{{s}}}$")
+ax.plot(x_fit, fit2, color="blue")
+
 
 
 ax.set_xlabel("Qubits", fontsize = 12)

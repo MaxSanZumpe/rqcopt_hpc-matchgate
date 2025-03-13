@@ -233,7 +233,7 @@ bool truncated_cg_hvp(const double* restrict x, const double* restrict grad, con
 ///     Princeton University Press (2008)
 ///
 void riemannian_trust_region_optimize_hmat(target_func f, target_gradient_hessian_func f_deriv_hess, void* fdata, retract_func retract, void* rdata,
-	const int n, const double* x_init, const int m, const struct rtr_params* params, const int niter, double* f_iter, double* x_final)
+	const int n, const double* x_init, const int m, const struct rtr_params* params, const int niter, double* f_iter, numeric* f_citer, double* x_final)
 {
 	assert(0 <= params->rho_trust && params->rho_trust < 0.25);
 	double* x = aligned_alloc(MEM_DATA_ALIGN, m * sizeof(double));
@@ -243,7 +243,8 @@ void riemannian_trust_region_optimize_hmat(target_func f, target_gradient_hessia
 
 	double radius = params->radius_init;
 	if (params->g_func != NULL) {
-		params->g_iter[0] = params->g_func(x, params->g_data);
+		numeric g_complex;
+		params->g_iter[0] = params->g_func(x, params->g_data, &g_complex);
 	}
 	
 	double* grad = aligned_alloc(MEM_DATA_ALIGN, n * sizeof(double));
@@ -253,17 +254,20 @@ void riemannian_trust_region_optimize_hmat(target_func f, target_gradient_hessia
 	
 	for (int k = 0; k < niter; k++)
 	{	
-		double fx = f_deriv_hess(x, fdata, grad, hess);
+		numeric f_complex;
+		double fx = f_deriv_hess(x, fdata, &f_complex, grad, hess);
 
 		bool on_boundary = truncated_cg_hmat(grad, hess, n, radius, &params->tcg_params, eta);
 	
 		retract(x, eta, rdata, x_next);
 		f_iter[k] = fx;
+		f_citer[k] = f_complex;
+
 
 		// Eq. (7.7)
 		// Heta = hess @ eta
 		cblas_dgemv(CblasRowMajor, CblasNoTrans, n, n, 1.0, hess, n, eta, 1, 0, Heta, 1);
-		double rho = (f(x_next, fdata) - fx) / (cblas_ddot(n, grad, 1, eta, 1) + 0.5 * cblas_ddot(n, eta, 1, Heta, 1));
+		double rho = (f(x_next, fdata, &f_complex) - fx) / (cblas_ddot(n, grad, 1, eta, 1) + 0.5 * cblas_ddot(n, eta, 1, Heta, 1));
 		if (rho < 0.25) {
 			// reduce radius
 			radius *= 0.25;
@@ -281,13 +285,17 @@ void riemannian_trust_region_optimize_hmat(target_func f, target_gradient_hessia
 		}
 
 		if (params->g_func != NULL) {
-			params->g_iter[k + 1] = params->g_func(x, params->g_data);
+			numeric g_complex;
+			params->g_iter[k + 1] = params->g_func(x, params->g_data, &g_complex);
 		}
 	}
 
 	memcpy(x_final, x, m * sizeof(double));
 	// target function value at final iteration
-	f_iter[niter] = f(x_final, fdata);
+	numeric f_complex;
+	f_iter[niter] = f(x_final, fdata, &f_complex);
+	f_citer[niter] = f_complex;
+
 
 	aligned_free(Heta);
 	aligned_free(eta);
@@ -308,69 +316,69 @@ void riemannian_trust_region_optimize_hmat(target_func f, target_gradient_hessia
 ///     Optimization Algorithms on Matrix Manifolds
 ///     Princeton University Press (2008)
 ///
-void riemannian_trust_region_optimize_hvp(const target_func f, const target_gradient_func f_deriv, const hessian_vector_product_func f_hvp, void* fdata,
-	retract_func retract, void* rdata,
-	const int n, const double* x_init, const int m, const struct rtr_params* params, const int niter, double* f_iter, double* x_final)
-{
-	assert(0 <= params->rho_trust && params->rho_trust < 0.25);
+// void riemannian_trust_region_optimize_hvp(const target_func f, const target_gradient_func f_deriv, const hessian_vector_product_func f_hvp, void* fdata,
+// 	retract_func retract, void* rdata,
+// 	const int n, const double* x_init, const int m, const struct rtr_params* params, const int niter, double* f_iter, double* x_final)
+// {
+// 	assert(0 <= params->rho_trust && params->rho_trust < 0.25);
 
-	double* x = aligned_alloc(MEM_DATA_ALIGN, m * sizeof(double));
-	memcpy(x, x_init, m * sizeof(double));
+// 	double* x = aligned_alloc(MEM_DATA_ALIGN, m * sizeof(double));
+// 	memcpy(x, x_init, m * sizeof(double));
 
-	double* x_next = aligned_alloc(MEM_DATA_ALIGN, m * sizeof(double));
+// 	double* x_next = aligned_alloc(MEM_DATA_ALIGN, m * sizeof(double));
 
-	double radius = params->radius_init;
-	if (params->g_func != NULL) {
-		params->g_iter[0] = params->g_func(x, params->g_data);
-	}
+// 	double radius = params->radius_init;
+// 	if (params->g_func != NULL) {
+// 		params->g_iter[0] = params->g_func(x, params->g_data);
+// 	}
 
-	double* grad = aligned_alloc(MEM_DATA_ALIGN, n * sizeof(double));
-	double* eta  = aligned_alloc(MEM_DATA_ALIGN, n * sizeof(double));
-	double* Heta = aligned_alloc(MEM_DATA_ALIGN, n * sizeof(double));
+// 	double* grad = aligned_alloc(MEM_DATA_ALIGN, n * sizeof(double));
+// 	double* eta  = aligned_alloc(MEM_DATA_ALIGN, n * sizeof(double));
+// 	double* Heta = aligned_alloc(MEM_DATA_ALIGN, n * sizeof(double));
 
-	for (int k = 0; k < niter; k++)
-	{
-		double fx = f_deriv(x, fdata, grad);
-		bool on_boundary = truncated_cg_hvp(x, grad, f_hvp, fdata, n, radius, &params->tcg_params, eta);
-		retract(x, eta, rdata, x_next);
+// 	for (int k = 0; k < niter; k++)
+// 	{
+// 		double fx = f_deriv(x, fdata, grad);
+// 		bool on_boundary = truncated_cg_hvp(x, grad, f_hvp, fdata, n, radius, &params->tcg_params, eta);
+// 		retract(x, eta, rdata, x_next);
 
-		f_iter[k] = fx;
+// 		f_iter[k] = fx;
 
-		// Eq. (7.7)
-		// Heta = H @ eta
-		f_hvp(x, fdata, eta, Heta);
-		double rho = (f(x_next, fdata) - fx) / (cblas_ddot(n, grad, 1, eta, 1) + 0.5 * cblas_ddot(n, eta, 1, Heta, 1));
-		if (rho < 0.25) {
-			// reduce radius
-			radius *= 0.25;
-		}
-		else if (rho > 0.75 && on_boundary) {
-			// enlarge radius
-			radius = fmin(2 * radius, params->maxradius);
-		}
+// 		// Eq. (7.7)
+// 		// Heta = H @ eta
+// 		f_hvp(x, fdata, eta, Heta);
+// 		double rho = (f(x_next, fdata) - fx) / (cblas_ddot(n, grad, 1, eta, 1) + 0.5 * cblas_ddot(n, eta, 1, Heta, 1));
+// 		if (rho < 0.25) {
+// 			// reduce radius
+// 			radius *= 0.25;
+// 		}
+// 		else if (rho > 0.75 && on_boundary) {
+// 			// enlarge radius
+// 			radius = fmin(2 * radius, params->maxradius);
+// 		}
 
-		if (rho > params->rho_trust) {
-			// swap pointers (instead of copying data from x_next to x)
-			double* y = x;
-			x = x_next;
-			x_next = y;
-		}
+// 		if (rho > params->rho_trust) {
+// 			// swap pointers (instead of copying data from x_next to x)
+// 			double* y = x;
+// 			x = x_next;
+// 			x_next = y;
+// 		}
 
-		if (params->g_func != NULL) {
-			params->g_iter[k + 1] = params->g_func(x, params->g_data);
-		}
-	}
+// 		if (params->g_func != NULL) {
+// 			params->g_iter[k + 1] = params->g_func(x, params->g_data);
+// 		}
+// 	}
 
-	memcpy(x_final, x, m * sizeof(double));
-	// target function value at final iteration
-	f_iter[niter] = f(x_final, fdata);
+// 	memcpy(x_final, x, m * sizeof(double));
+// 	// target function value at final iteration
+// 	f_iter[niter] = f(x_final, fdata);
 
-	aligned_free(Heta);
-	aligned_free(eta);
-	aligned_free(grad);
-	aligned_free(x_next);
-	aligned_free(x);
-}
+// 	aligned_free(Heta);
+// 	aligned_free(eta);
+// 	aligned_free(grad);
+// 	aligned_free(x_next);
+// 	aligned_free(x);
+// }
 
 
 #ifdef MPI

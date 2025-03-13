@@ -19,7 +19,7 @@ struct f_target_data
 ///
 /// \brief Wrapper of target function evaluation.
 ///
-static double f(const double* x, void* fdata)
+static double f(const double* x, void* fdata, numeric* f_complex)
 {
 	struct f_target_data* data = fdata;
 
@@ -28,6 +28,8 @@ static double f(const double* x, void* fdata)
 		fprintf(stderr, "target function evaluation failed internally\n");
 		return -1;
 	}
+
+	*f_complex = f;
 
 	return creal(f);
 }
@@ -55,7 +57,7 @@ static double f(const double* x, void* fdata)
 ///
 /// \brief Wrapper of brickwall circuit target function, gradient and Hessian evaluation.
 ///
-static double f_deriv_hess(const double* restrict x, void* fdata, double* restrict grad, double* restrict hess)
+static double f_deriv_hess(const double* restrict x, void* fdata, numeric* complex_f, double* restrict grad, double* restrict hess)
 {
 	struct f_target_data* data = fdata;
 	numeric f;
@@ -63,6 +65,8 @@ static double f_deriv_hess(const double* restrict x, void* fdata, double* restri
 		fprintf(stderr, "target function and derivative evaluation failed internally\n");
 		return -1;
 	}
+
+	*complex_f = f;
 
 	return creal(f);
 }
@@ -94,7 +98,7 @@ static void retract_matchgate_unitary_list(const double* restrict x, const doubl
 ///
 void optimize_matchgate_brickwall_circuit_hmat(linear_func ufunc, void* udata,
 	const struct matchgate vlist_start[], const int nlayers, const int nqubits, const int* perms[],
-	struct rtr_params* params, const int niter, double* f_iter, struct matchgate vlist_opt[])
+	struct rtr_params* params, const int niter, double* f_iter, numeric* f_citer, struct matchgate vlist_opt[])
 {
 	// target function data
 	struct f_target_data fdata = {
@@ -113,8 +117,8 @@ void optimize_matchgate_brickwall_circuit_hmat(linear_func ufunc, void* udata,
 	// perform optimization
 	int rdata = nlayers;
 	
-	riemannian_trust_region_optimize_hmat(f, f_deriv_hess, &fdata, retract_matchgate_unitary_list, &rdata,
-		nlayers * 8, (const double*)vlist_start, nlayers * 8 * 2, params, niter, f_iter, (double*)vlist_opt);
+	riemannian_trust_region_optimize_hmat(f, f_deriv_hess, &fdata,retract_matchgate_unitary_list, &rdata,
+		nlayers * 8, (const double*)vlist_start, nlayers * 8 * 2, params, niter, f_iter, f_citer, (double*)vlist_opt);
 }
 
 

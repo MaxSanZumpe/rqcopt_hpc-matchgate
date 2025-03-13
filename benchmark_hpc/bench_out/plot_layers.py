@@ -51,18 +51,24 @@ print(layers1, layers2)
 
 p1 = np.polyfit(layers1, wtime1, 2)
 p2 = np.polyfit(layers2, wtime2, 1)
+p3 = np.polyfit(layers2, wtime2, 2)
+
 
 print(p1)
 print(p2)
+print(p3)
 
-s = f"{p2[0]:.2f}$n$+{np.abs(p2[1]):.1f}"
-z = f"{p1[0]:.2f}$n^2$-{np.abs(p1[1]):.2f}$n$ + {np.abs(p1[2]):.1f}"
+z = f"{p1[0]:.2f}$n^2$- {np.abs(p1[1]):.2f}$n$ + {np.abs(p1[2]):.1f}"
+s = f"{p3[0]:.2f}$n^2$+{np.abs(p3[1]):.2f}$n$ + {np.abs(p3[2]):.1f}"
+
 
 ax.scatter(layers1, wtime1, marker=".", color="blue", label = f"Without invariance : {z}")
 ax.scatter(layers2, wtime2, marker="x", color="red", label = f"With invarinace      : {s}")
 
 ax.plot(layers1, p1[0]*layers1**2 + p1[1]*layers1 + p1[2])
-ax.plot(layers2, p2[0]*layers2 + p2[1])
+#ax.plot(layers2, p2[0]*layers2 + p2[1])
+ax.plot(layers2, np.polyval(p3, layers2))
+
 
 
 ax.set_xlabel("Circuit Layers", fontsize = 12)
