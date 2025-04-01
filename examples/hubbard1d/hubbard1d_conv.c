@@ -165,7 +165,7 @@ int main()
 	set_rtr_default_params(nlayers * 16, &params);
 
 	// target function
-	const int niter = 2;
+	const int niter = 200;
 
 	double* f_iter = aligned_alloc(MEM_DATA_ALIGN, (niter + 1) * sizeof(double));
 	numeric* f_citer = aligned_alloc(MEM_DATA_ALIGN, (niter + 1) * sizeof(numeric));
@@ -236,7 +236,7 @@ int main()
 	} else {
 		temp = ulayers;
 	}
-	sprintf(filename, "../examples/hubbard1d/opt_out/q%i/hubbard1d_%s_n%i_q%i_u%i_t%.2fs_g%.2f_conv%i_inv%i_opt.hdf5", nqubits, splitting, nlayers, nqubits, temp, t, g, niter, translational_invariance);
+	sprintf(filename, "../examples/hubbard1d/opt_out/q%i/hubbard1d_%s_n%i_q%i_u%i_t%.2fs_g%.2f_conv%i_inv%i_conv.hdf5", nqubits, splitting, nlayers, nqubits, temp, t, g, niter, translational_invariance);
 	file = H5Fcreate(filename, H5F_ACC_TRUNC, H5P_DEFAULT, H5P_DEFAULT);
 	if (file < 0) {
 		fprintf(stderr, "'H5Fcreate' for '%s' failed, return value: %" PRId64 "\n", filename, file);
