@@ -1,2 +1,2 @@
-#Classical Quantum Circuit Optmization with matchgates#
+#Classical Quantum Circuit Optimisation with matchgates
 
