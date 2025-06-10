@@ -5,7 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-nqubits = 14
+nqubits = 10
 nlayers = 5
 ulayers = 601
 
@@ -91,16 +91,16 @@ if mpi:
 
 fig, ax = plt.subplots()
 
-ax.scatter(threads1, wtime1[0]/wtime1, marker=".", label = "$T_{serial}/T_{parallel}$", color = "black")
+ax.scatter(threads1[:-1], wtime1[0]/wtime1[:-1], marker=".", label = "$T_{serial}/T_{parallel}$", color = "black")
 
 if critical: 
-    ax.scatter(threads3, wtime3[0]/wtime3, marker=".", label = "No critical sections", color = "blue")
+    ax.scatter(threads3, wtime3[0]/wtime3[-1:], marker=".", label = "No critical sections", color = "blue")
 
 if mpi:
     ax.scatter(cores, wtime1[0]/wtime_mpi)
 
 
-ax.plot([8,112], [1, 14], label = "Ideal scaling", color = "green")
+ax.plot([1,112], [1, 112], label = "Ideal scaling", color = "green")
 
 ax.tick_params(axis="x", labelsize = 12)
 ax.tick_params(axis="y", labelsize = 12)
@@ -112,7 +112,7 @@ ax.set_ylabel("Wall time speed-up", fontsize = 20)
 #ax.set_title(f"Multithreading benchmark: q = {nqubits}, n = {nlayers}")
 
 ax.legend(fontsize=16)
-fig.savefig(f"{data_dir}/plots/n{nlayers}_q{nqubits}_u{ulayers}_thread_scaling.png", dpi=400)
+fig.savefig(f"{data_dir}/plots/n{nlayers}_q{nqubits}_u{ulayers}_thread_scaling.pdf", dpi=400)
 
 
 

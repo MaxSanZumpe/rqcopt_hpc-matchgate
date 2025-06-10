@@ -13,7 +13,7 @@ find_package(HDF5 REQUIRED COMPONENTS C)
 set(CMAKE_C_FLAGS "-O3 -fopenmp")
 
 # Definitions
-add_compile_definitions(COMPLEX_CIRCUIT LRZ_HPC)
+add_compile_definitions(COMPLEX_CIRCUIT)
 
 # Define source files
 set(SOURCES 
@@ -39,10 +39,10 @@ set(TEST_SOURCES
 )
 
 
-add_executable(            hubb1d_conv ${SOURCES} "examples/hubbard1d/hubbard1d_conv.c" "examples/timing/timing.c")
-target_include_directories(hubb1d_conv PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src" "examples/timing")
-target_link_libraries(     hubb1d_conv PRIVATE ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})
-target_compile_definitions(hubb1d_conv PRIVATE STATEVECTOR_PARALLELIZATION)
+# add_executable(            hubb1d_conv ${SOURCES} "examples/hubbard1d/hubbard1d_conv.c" "examples/timing/timing.c")
+# target_include_directories(hubb1d_conv PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src" "examples/timing")
+# target_link_libraries(     hubb1d_conv PRIVATE ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})
+# target_compile_definitions(hubb1d_conv PRIVATE STATEVECTOR_PARALLELIZATION)
 
 
 #add_executable(            hubbard1d ${SOURCES} "examples/hubbard1d/hubbard1d_opt.c" "examples/timing/timing.c")
@@ -131,3 +131,7 @@ target_compile_definitions(hubb1d_conv PRIVATE STATEVECTOR_PARALLELIZATION)
 #add_executable(run_tests ${SOURCES} ${TEST_SOURCES})
 #target_include_directories(run_tests PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src")
 #target_link_libraries(run_tests PRIVATE ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})
+
+add_executable(            bench_grad ${SOURCES} "examples/hubbard1d/benchmark_grad.c" "examples/timing/timing.c")
+target_include_directories(bench_grad PRIVATE ${BLAS_INCLUDE_DIRS} ${HDF5_INCLUDE_DIRS} "src" "examples/timing")
+target_link_libraries(     bench_grad PRIVATE ${BLAS_LIBRARIES} ${HDF5_LIBRARIES})

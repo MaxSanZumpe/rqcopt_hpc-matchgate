@@ -107,4 +107,4 @@ ax.set_ylabel("Walltime speed-up")
 ax.set_title(f"Matchgate Benchmark: q = {nqubits}; n = {nlayers}")
 
 ax.legend()
-fig.savefig(f"{script_dir}/bench_out/q{nqubits}/plots/n{nlayers}_q{nqubits}_u{ulayers}_invariance_scaling.png")
+fig.savefig(f"{script_dir}/bench_out/q{nqubits}/plots/n{nlayers}_q{nqubits}_u{ulayers}_invariance_scaling.pdf")

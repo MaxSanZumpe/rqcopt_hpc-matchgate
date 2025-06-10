@@ -87,7 +87,7 @@ ax.set_ylabel("Wall time speed-up", fontsize = 12)
 ax.xaxis.set_major_locator(FixedLocator([1, 2, 3, 4]))
 
 ax.legend(fontsize = 12)
-fig.savefig(f"{script_dir}/mpi/plots/mpi_n{nlayers}_u{ulayers}_tasks.png", dpi=300)
+fig.savefig(f"{script_dir}/mpi/plots/mpi_n{nlayers}_u{ulayers}_tasks.pdf", dpi=300)
 
 
 
@@ -128,5 +128,5 @@ ax.set_xlabel("Total threads", fontsize = 12)
 ax.set_ylabel("Wall time speed-up", fontsize = 12)
 
 ax.legend(fontsize = 12)
-fig.savefig(f"{script_dir}/mpi/plots/openmp16_n{nlayers}_u{ulayers}", dpi=300)
+fig.savefig(f"{script_dir}/mpi/plots/openmp16_n{nlayers}_u{ulayers}.pdf", dpi=300)
 

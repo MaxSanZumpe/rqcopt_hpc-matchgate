@@ -47,7 +47,7 @@ ax.set_xlabel("Circuit Layers", fontsize = 20)
 ax.set_ylabel("Walltime speed-up", fontsize = 20)
 
 ax.legend(fontsize = 16)
-fig.savefig(f"{script_dir}/spu_match_map_u{ulayers}_.png", dpi = 400)
+fig.savefig(f"{script_dir}/spu_match_map_u{ulayers}_.pdf", dpi = 400)
 
 
 fig, ax = plt.subplots()
@@ -63,7 +63,7 @@ ax.set_xlabel("Circuit Layers", fontsize = 20)
 ax.set_ylabel("Walltime speed-up", fontsize = 20)
 ax.legend(fontsize = 16)
 
-fig.savefig(f"{script_dir}/spu_inv_map_u{ulayers}_.png", dpi=400)
+fig.savefig(f"{script_dir}/spu_inv_map_u{ulayers}_.pdf", dpi=400)
 
 
     
