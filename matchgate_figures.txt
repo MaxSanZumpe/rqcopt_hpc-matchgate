@@ -1,0 +1,33 @@
+Repository: https://github.com/MaxSanZumpe/rqcopt_hpc-matchgate.git
+
+Note: @ represents the project root folder
+      q = qubit number
+      n = layer number
+
+FIGURE: 'fig:res:thread_scaling' currently fig.12 (a) - (c)
+    -data: @benchmark_hpc/bench_out/
+           @benchmark_hpc/bench_out/mpi/
+    -scripts: @benchmark_hpc/bench_out/plot_threads.py (adjust q and n as needed)
+              @benchmark_hpc/bench_out/plot_mpi.py [subfig. (c)] (adjust q and n as needed)
+
+
+FIGURE: 'fig:matchgate_speedups' currently fig.13
+    -data: @benchmark_hpc/bench_out/q{q}/plots/" (adjust q as needed)
+    -script: @benchmark_hpc/speedup_map.py
+
+
+FIGURE: 'fig:matchgate_invariance_speedups' currently fig.14
+    -data: @benchmark_hpc/bench_out/q{q}/plots/" (adjust q as needed)
+    -script: @benchmark_hpc/speedup_map.py
+    -note: The text file containing the data used by the previous 2 figured is constructed by:
+    -@benchmark_hpc/plot_speedup.py
+
+
+FIGURE: 'fig:matchgate_gradient' currently fig.16
+    -data: @examples/hubbard1d/bench_data/
+    -script: @examples/hubbard1d/bench_data/bench_grad.py
+
+
+FIGURE: 'fig:convergence-benchmark' currently fig.17
+    -data: @xexamples/hubbard1d/opt_out/q8/
+    -script: @/examples/hubbard1d/opt_out/q8/plot_conv.py
