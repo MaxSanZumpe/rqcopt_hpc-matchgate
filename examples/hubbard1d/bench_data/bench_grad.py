@@ -30,7 +30,7 @@ p = np.polyfit(layers, wtime, 1)
 fig, ax = plt.subplots()
 ax.scatter(layers, wtime, marker=".", s=300, color="black")
 ax.set_xlabel("Number of layers", fontsize=20)
-ax.plot((5, 21), (p[0]*5 + p[1], p[0]*21 + p[1]),
+ax.plot((5, 37), (p[0]*5 + p[1], p[0]*37 + p[1]),
         color="blue", linewidth=3, alpha = 0.4,
         label=f"{p[0]:.4f}$n_{{layers}}$ - {np.abs(p[1]):.4f}")
 ax.set_ylabel("Evaluation time (s)", fontsize=20)
