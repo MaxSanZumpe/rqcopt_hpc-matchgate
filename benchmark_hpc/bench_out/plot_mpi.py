@@ -7,7 +7,7 @@ from matplotlib.ticker import FixedLocator
 
 nqubits = 16
 nlayers = 5
-ulayers = 601
+ulayers = 253
 
 
 script_dir = os.path.dirname(__file__)
@@ -22,6 +22,7 @@ file_list6 = glob.glob(f"mpi/mpi*n5*q16_u253*th2*.hdf5", root_dir=script_dir)
 
 #mapping = ["omp", 56, 112, 28, 14, 2]
 file_arr = [file_list1, file_list2, file_list3, file_list4, file_list5, file_list6, file_list7]
+
 
 wtime_arr = []
 threads_arr = []
@@ -89,14 +90,13 @@ ax.legend(fontsize = 12)
 fig.savefig(f"{script_dir}/mpi/plots/mpi_n{nlayers}_u{ulayers}_tasks.pdf", dpi=300)
 
 
-
 fig, ax = plt.subplots()
 
 c0 = 14
-ax.scatter(c0, 1, color = "black")
+ax.scatter(c0, 1, color = "black", label = "14 core reference point"),
 #ax.plot(cores_arr[1], wtime_arr[6][0]/wtime_arr[1], marker="o", color = "orange", label = "14 threads/task")
 ax.plot(cores_arr[2], wtime_arr[6][0]/wtime_arr[2], marker="o", color = "purple", label = "28 threads/task")
-ax.plot(cores_arr[3], wtime_arr[6][0]/wtime_arr[3], marker="o", color = "black", label = "56 threads/task")
+ax.plot(cores_arr[3], wtime_arr[6][0]/wtime_arr[3], marker="o", color = "blue", label = "56 threads/task")
 ax.plot(cores_arr[4], wtime_arr[6][0]/wtime_arr[4], marker="o", color = "red", label = "112 threads/task")
 #ax.scatter(cores_arr[5][2], wtime_arr[6][0]/wtime_arr[5][2], marker="o", color = "blue", label = "  2 threads/task")
 

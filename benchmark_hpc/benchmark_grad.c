@@ -32,7 +32,7 @@ int main()
 {
 	const int nqubits = 16;
 
-    const int nlayers = 5;
+    const int nlayers = 6;
     const int ulayers = 81;
 
     const int order = 2;

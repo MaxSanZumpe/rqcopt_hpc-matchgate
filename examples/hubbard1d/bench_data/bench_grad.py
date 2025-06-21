@@ -15,7 +15,7 @@ wtime = []
 layers = []
 
 for file in file_list:
-    # print(file)
+    print(file)
     with h5py.File(os.path.join(script_dir, file), "r") as f:
         
         wtime.append(f.attrs["Walltime"])
@@ -32,7 +32,7 @@ ax.scatter(layers, wtime, marker=".", s=300, color="black")
 ax.set_xlabel("Number of layers", fontsize=20)
 ax.plot((5, 21), (p[0]*5 + p[1], p[0]*21 + p[1]),
         color="blue", linewidth=3, alpha = 0.4,
-        label=f"{p[0]:.4f}$n_{{layers}}$ + {p[1]:.4f}")
+        label=f"{p[0]:.4f}$n_{{layers}}$ - {np.abs(p[1]):.4f}")
 ax.set_ylabel("Evaluation time (s)", fontsize=20)
 ax.legend(fontsize=14, loc="lower right")
 ax.tick_params(labelsize=16)
@@ -58,7 +58,7 @@ p = np.polyfit(qubits, np.log2(wtime2), 1)
 
 fig, ax = plt.subplots()
 ax.scatter(qubits, wtime2, marker=".", s=300, color="black")
-ax.set_xlabel("Number of layers", fontsize=20)
+ax.set_xlabel("Number of qubits", fontsize=20)
 ax.plot((8, 14), (2**(p[0]*8 + p[1]), 2**(p[0]*14 + p[1])),
         color="blue", linewidth=3, alpha = 0.4,
         label=f"{p[0]:.2f}*$2^{{q}}$ - {np.abs(p[1]):.2f}")
